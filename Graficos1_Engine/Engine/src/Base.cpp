@@ -1,20 +1,22 @@
 #include <Base.h>
 #include <GLFW/glfw3.h>
 
-int Base::DoFunnyStuff()
+void Base::DoFunnyStuff()
 {
     GLFWwindow* window;
 
     /* Initialize the library */
     if (!glfwInit())
-        return -1;
+        //return -1;
+        return;
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
-        return -1;
+        //return -1;
+        return;
     }
 
     /* Make the window's context current */
@@ -34,7 +36,7 @@ int Base::DoFunnyStuff()
     }
 
     glfwTerminate();
-    return 0;
+    //return 0;
 }
 
 Base::Base()

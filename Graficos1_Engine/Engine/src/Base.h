@@ -5,7 +5,7 @@ class Base
 public:
 	Base();
 	~Base();
-	int DoFunnyStuff();
+	void DoFunnyStuff();
 private:
 
 };

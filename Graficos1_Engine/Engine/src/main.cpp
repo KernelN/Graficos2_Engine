@@ -3,5 +3,7 @@
 int main()
 {
 	Base* base = new Base();
-	return base->DoFunnyStuff();
+	base->DoFunnyStuff();
+	delete base;
+	return 0;
 }
