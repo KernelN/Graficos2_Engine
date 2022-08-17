@@ -26,5 +26,8 @@
     <ClInclude Include="src\Base.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="src\DLLManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
