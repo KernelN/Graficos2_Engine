@@ -8,6 +8,13 @@ Window::~Window()
     delete window;
 }
 
+void Window::ProcessWindowEvents()
+{
+    //Asks the glfw window for events and processes them
+    /* Poll for and process events */
+    glfwPollEvents();
+}
+
 void Window::CreateWindow()
 {
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
