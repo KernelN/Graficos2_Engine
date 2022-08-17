@@ -3,10 +3,7 @@
 
 Window::Window() { CreateWindow(); }
 
-Window::~Window()
-{
-    delete window;
-}
+Window::~Window(){}
 
 void* Window::GetGLFWPointer()
 {
