@@ -1,60 +1,57 @@
 #include "Base.h"
-#include "GLFW/glfw3.h"
-
-void Base::DoFunnyStuff()
-{
-    //--WINDOW ?
-    GLFWwindow* window;
-
-    //--BASE
-    /* Initialize the library */
-    if (!glfwInit())
-        //return -1;
-        return;
-
-    //--WINDOW ?
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    //--WINDOW ?
-    if (!window)
-    {
-        //--BASE
-        glfwTerminate();
-        //return -1;
-        return;
-    }
-
-    //--WINDOW ?
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    //--WINDOW ?
-    //--BASE
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
-        //--RENDER
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        //--RENDER?
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        //--BASE
-        /* Poll for and process events */
-        glfwPollEvents();
-    }
-
-    //--BASE
-    glfwTerminate();
-    //return 0;
-}
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 Base::Base()
 {
+    //Initialize glfw
+    if (!glfwInit())
+    {
+        std::cout << "ENGINE ERROR: GLFW Init failed" << std::endl;
+        isRunning = false;
+        return;
+    }
+
+    window = new Window();
+
+    if (!window->WindowExists())
+    {
+        std::cout << "ENGINE ERROR: Window Init failed" << std::endl;
+        isRunning = false;
+        glfwTerminate();
+        return;
+    }
+
+    renderer = new Renderer(window);
 }
 
 Base::~Base()
 {
+    glfwTerminate();
+    delete renderer;
+    delete window;
+}
+
+bool Base::IsRunning()
+{
+    return isRunning;
+}
+
+void Base::Loop()
+{
+    /* Loop until the user closes the window */
+    while (!window->WindowShouldClose())
+    {
+        Draw();
+        renderer->ClearScreen();
+
+        renderer->SwapBuffers();
+
+        window->ProcessWindowEvents();
+    }
+
+    //Close glfw
+    glfwTerminate();
+
+    isRunning = false;
 }
