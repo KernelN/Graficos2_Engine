@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Window.h"
+
 class Base
 {
 public:
@@ -7,5 +9,6 @@ public:
 	~Base();
 	void DoFunnyStuff();
 private:
+	Window* window;
 
 };
