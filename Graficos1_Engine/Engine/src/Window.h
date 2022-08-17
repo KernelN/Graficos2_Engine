@@ -5,7 +5,8 @@ class Window
 public:
 	Window();
 	~Window();
-	void PollEvents();
+	void* GetGLFWPointer();
+	void ProcessWindowEvents();
 	bool WindowExists();
 	bool WindowShouldClose();
 private:

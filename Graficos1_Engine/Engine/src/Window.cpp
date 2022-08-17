@@ -8,6 +8,11 @@ Window::~Window()
     delete window;
 }
 
+void* Window::GetGLFWPointer()
+{
+    return window;
+}
+
 void Window::ProcessWindowEvents()
 {
     //Asks the glfw window for events and processes them
