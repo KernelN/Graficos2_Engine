@@ -1,5 +1,7 @@
 #include "Window.h"
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
+#include <iostream>
 
 Window::Window() { CreateWindow(); }
 
@@ -24,6 +26,9 @@ void Window::CreateWindow()
     if (!WindowExists()) return;
 
     glfwMakeContextCurrent((GLFWwindow*)window);
+
+    if (glewInit() != GLEW_OK)
+        std::cout << "ENGINE ERROR: GLEW Init failed" << std::endl;
 }
 
 bool Window::WindowExists()
