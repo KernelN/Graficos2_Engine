@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{b8baec95-af34-4cbb-8354-f63d2368d89b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity">
+      <UniqueIdentifier>{c9ea653c-e6e6-46b7-84f1-350dd56e0cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D">
+      <UniqueIdentifier>{aa677363-458d-49ef-b4f3-f5584f040bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D">
+      <UniqueIdentifier>{b0fba83e-868b-48aa-a36f-e823da52b7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Shape">
+      <UniqueIdentifier>{44459782-195f-44ca-ae3f-b64794affb0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Shape">
+      <UniqueIdentifier>{4cf785e6-555e-455e-87e9-40a0028025c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Shape\Shapes">
+      <UniqueIdentifier>{4afebfe1-9eb4-4a82-b38b-13d6b31f62d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Shape\Shapes">
+      <UniqueIdentifier>{b44e4c93-6a6e-4674-99f3-c62acc284846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -27,6 +51,18 @@
     <ClCompile Include="src\Renderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Entity.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp">
+      <Filter>Source\Entity\Entity2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp">
+      <Filter>Source\Entity\Entity2D\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Triangle.cpp">
+      <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h">
@@ -40,6 +76,18 @@
     </ClInclude>
     <ClInclude Include="src\Renderer.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity.h">
+      <Filter>Headers\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Entity2D.h">
+      <Filter>Headers\Entity\Entity2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h">
+      <Filter>Headers\Entity\Entity2D\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h">
+      <Filter>Headers\Entity\Entity2D\Shape\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

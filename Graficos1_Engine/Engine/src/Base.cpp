@@ -14,6 +14,9 @@ Base::Base()
 
     window = new Window();
 
+    /*if (glewInit() != GLEW_OK)
+        std::cout << "ENGINE ERROR: GLEW Init failed" << std::endl;*/
+
     if (!window->WindowExists())
     {
         std::cout << "ENGINE ERROR: Window Init failed" << std::endl;
