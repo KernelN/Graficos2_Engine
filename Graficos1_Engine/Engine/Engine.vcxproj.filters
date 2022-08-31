@@ -37,6 +37,12 @@
     <Filter Include="Headers\Entity\Entity2D\Shape\Shapes">
       <UniqueIdentifier>{b44e4c93-6a6e-4674-99f3-c62acc284846}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Data Organizers">
+      <UniqueIdentifier>{64ff67fb-337e-4a2c-9b94-d6a0cd0fe12d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers">
+      <UniqueIdentifier>{91bde17a-3ba9-465b-97e4-80fe94d15bfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Triangle.cpp">
       <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Data Organizers\Vertex.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h">
@@ -88,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h">
       <Filter>Headers\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vertex.h">
+      <Filter>Headers\Data Organizers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
