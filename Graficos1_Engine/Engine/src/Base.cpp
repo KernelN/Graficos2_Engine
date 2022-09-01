@@ -48,7 +48,7 @@ void Base::Loop()
         Draw();
         renderer->ClearScreen();
 
-        renderer->SwapBuffers();
+        renderer->SwapWindowBuffers();
 
         window->ProcessWindowEvents();
     }

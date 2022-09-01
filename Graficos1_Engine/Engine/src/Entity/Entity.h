@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Renderer.h"
+#include "Data Organizers/Vertex.h"
+
 
 class Entity
 {
@@ -9,7 +11,7 @@ public:
 	Entity(Renderer* renderer);
 	~Entity();
 protected:
+	Vertex* vertexes;
 	Renderer* renderer;
 	unsigned int* buffer;
-	void SetBuffer(unsigned int dataSize, void* data, bool dataIsStatic);
 };

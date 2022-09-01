@@ -1,10 +1,8 @@
 #include "Entity.h"
-#include <GL/glew.h>
-//#include <GLFW/glfw3.h>
 
 Entity::Entity()
 {
-	renderer = nullptr;
+	renderer = nullptr; //get renderer from Base
 	buffer = nullptr;
 }
 
@@ -17,23 +15,9 @@ Entity::Entity(Renderer* renderer)
 Entity::~Entity() 
 {
 	if (buffer != nullptr)
-	{
-		glDeleteBuffers(1, buffer);
+	{ 
+		//Delete buffer from renderer
+		renderer->DeleteBuffer(buffer);
 	}
-}
-
-void Entity::SetBuffer(unsigned int dataSize, void* data, bool dataIsStatic)
-{
-	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
-	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, buffer);
-	
-	//Select buffer and set it as array buffer (ideal to work with vertexes)
-	//https://docs.gl/gl4/glBindBuffer
-	glBindBuffer(GL_ARRAY_BUFFER, *buffer);
-	
-	//Send data to buffer
-	//https://docs.gl/gl4/glBufferData
-	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-	glBufferData(GL_ARRAY_BUFFER, dataSize, data, dataUsage);
+	delete[] vertexes;
 }

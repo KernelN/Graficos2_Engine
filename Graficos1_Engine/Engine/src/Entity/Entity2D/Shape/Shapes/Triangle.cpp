@@ -4,15 +4,16 @@
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 {
+	vertexes = new Vertex[6];
 	UpdateVertex(vertexPos);
-	SetBuffer(6 * sizeof(float), this->vertexPos, triangleIsStatic);
+	renderer->GetNewBuffer(6 * sizeof(float), vertexPos, triangleIsStatic, buffer);
 }
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic, Renderer* renderer)
 	: Shape(renderer)
 {
 	UpdateVertex(vertexPos);
-	SetBuffer(6 * sizeof(float), this->vertexPos, triangleIsStatic);
+	renderer->GetNewBuffer(6 * sizeof(float), vertexPos, triangleIsStatic, buffer);
 }
 
 Triangle::~Triangle()
@@ -29,6 +30,6 @@ void Triangle::UpdateVertex(float vertexPos[6])
 {
 	for (int i = 0; i < 6; i++)
 	{
-		this->vertexPos[i] = vertexPos[i];
+		*vertexes[i].position = vertexPos[i];
 	}
 }

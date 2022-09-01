@@ -10,6 +10,5 @@ public:
 	~Triangle();
 	void Draw();
 private:
-	float vertexPos[6];
 	void UpdateVertex(float vertexPos[6]);
 };
