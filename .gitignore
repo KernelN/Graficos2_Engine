@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#INCLUDE EXTERNAL LIBRARIES
+![Ll]ibs/
+![Ll]ibs\glew\lib\Release\Win32 #INCLUDE GLEW SPECIFICALY
+
+
 # User-specific files
 *.rsuser
 *.suo
