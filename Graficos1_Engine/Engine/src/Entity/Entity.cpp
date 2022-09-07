@@ -3,13 +3,13 @@
 Entity::Entity()
 {
 	renderer = nullptr; //get renderer from Base
-	buffer = nullptr;
+	buffer = new unsigned int;
 }
 
 Entity::Entity(Renderer* renderer)
 {
 	this->renderer = renderer;
-	buffer = nullptr;
+	buffer = new unsigned int;
 }
 
 Entity::~Entity() 
@@ -19,5 +19,4 @@ Entity::~Entity()
 		//Delete buffer from renderer
 		renderer->DeleteBuffer(buffer);
 	}
-	delete[] vertexes;
 }

@@ -8,7 +8,6 @@ public:
 	Shape();
 	Shape(Renderer* renderer);
 	~Shape();
-
-private:
-
+protected:
+	Vertex* vertices;
 };

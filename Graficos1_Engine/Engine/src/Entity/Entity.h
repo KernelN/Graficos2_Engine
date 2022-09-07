@@ -11,7 +11,6 @@ public:
 	Entity(Renderer* renderer);
 	~Entity();
 protected:
-	Vertex* vertexes;
 	Renderer* renderer;
 	unsigned int* buffer;
 };
