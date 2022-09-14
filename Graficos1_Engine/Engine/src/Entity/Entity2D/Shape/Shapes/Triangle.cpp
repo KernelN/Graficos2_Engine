@@ -6,7 +6,7 @@ Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 {
 	vertices = new Vertex[6];
 	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer(vertices->_count, 3 * vertices->GetStride(), vertices, triangleIsStatic, buffer);
+	renderer->GetNewVertexBuffer(vertices->_count, 3, vertices->GetStride(), vertices, triangleIsStatic, buffer, 0);
 }
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic, Renderer* renderer)
@@ -14,7 +14,7 @@ Triangle::Triangle(float vertexPos[6], bool triangleIsStatic, Renderer* renderer
 {
 	vertices = new Vertex[6];
 	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer(vertices->_count, 3 * vertices->GetStride(), vertices, triangleIsStatic, buffer);
+	renderer->GetNewVertexBuffer(vertices->GetComponentAmount(), 3, vertices->GetStride(), vertices, triangleIsStatic, buffer, 0);
 }
 
 Triangle::~Triangle()
@@ -36,10 +36,10 @@ void Triangle::UpdateVertex(float vertexPos[6])
 		{
 			vertices[i / 2].position[0] = vertexPos[i];
 
-			vertices[i / 2].color[0] = 1.0;
+			/*vertices[i / 2].color[0] = 1.0;
 			vertices[i / 2].color[1] = 0.0;
 			vertices[i / 2].color[2] = 0.0;
-			vertices[i / 2].color[3] = 1.0;
+			vertices[i / 2].color[3] = 1.0;*/
 		}
 		else
 		{

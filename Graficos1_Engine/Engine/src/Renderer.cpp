@@ -42,8 +42,9 @@ void Renderer::SetWindow(Window* window)
 }
 
 void Renderer::GetNewVertexBuffer
-						(unsigned int componentsPerVertex, unsigned int dataSize, void* data, 
-								bool dataIsStatic, unsigned int* buffer)
+						(unsigned int componentsPerVertex, unsigned int vertexAmount,
+							unsigned int stride, void* data, bool dataIsStatic,
+								unsigned int* buffer, unsigned int attribID)
 {
 	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
 	//https://docs.gl/gl4/glGenBuffers
@@ -51,18 +52,21 @@ void Renderer::GetNewVertexBuffer
 
 	//Select buffer and set it as array buffer (ideal to work with vertexes)
 	//https://docs.gl/gl4/glBindBuffer
-	glBindBuffer(GL_ARRAY_BUFFER, *buffer);
+	unsigned int bufferData = *buffer;
+	glBindBuffer(GL_ARRAY_BUFFER, bufferData); //maybe problems?
 
 	//Send data to buffer
 	//https://docs.gl/gl4/glBufferData
 	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-	glBufferData(GL_ARRAY_BUFFER, dataSize, data, dataUsage);
+	unsigned int dataSize = vertexAmount * stride;
+	glBufferData(GL_ARRAY_BUFFER, dataSize, data, dataUsage); //may be a problem
 
 	//https://docs.gl/gl4/glEnableVertexAttribArray
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(attribID);
 
 	//https://docs.gl/gl4/glVertexAttribPointer
-	glVertexAttribPointer(0, componentsPerVertex, GL_FLOAT, GL_FALSE, dataSize, 0);
+	unsigned int vertexSize = componentsPerVertex * stride;
+	glVertexAttribPointer(attribID, componentsPerVertex, GL_FLOAT, GL_FALSE, vertexSize, 0);
 }
 
 void Renderer::DeleteBuffer(unsigned int* buffer)
@@ -203,6 +207,12 @@ void Renderer::DrawFunnyChernoStuff()
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+}
+
+void Renderer::Draw(unsigned int indexCount)
+{
+	glDrawArrays(GL_TRIANGLES, 0, indexCount);
+	//glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::ClearShaders()
