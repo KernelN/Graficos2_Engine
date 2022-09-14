@@ -31,8 +31,8 @@ Base::Base()
 
     renderer = new Renderer(window);
 
-    float tVertices[6] = { 0.5, 0.0, 0.0, 0.5, 0.0, -0.5 };
-    triangle = new Triangle(tVertices, true, renderer);
+    //float tVertices[6] = { 0.5, 0.0, 0.0, 0.5, 0.0, -0.5 };
+    //triangle = new Triangle(tVertices, true, renderer);
 
     /*renderer->CreateProgram();
     renderer->CreateAllShaders();
@@ -75,5 +75,6 @@ void Base::Loop()
 
 void Base::Draw()
 {
-    triangle->Draw();
+    //triangle->Draw();
+    renderer->DrawFunnyChernoStuff();
 }
