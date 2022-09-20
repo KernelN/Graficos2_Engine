@@ -49,9 +49,7 @@ Triangle::~Triangle()
 
 void Triangle::Draw()
 {
-	//https://docs.gl/gl4/glDrawArrays
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-	//glDrawArrays(GL_TRIANGLES, 0, 3); //SEND TO RENDERER, SHOULDN'T BE IN TRIANGLE
+	renderer->Draw(3);
 }
 
 void Triangle::UpdateVertex(float vertexPos[6])
