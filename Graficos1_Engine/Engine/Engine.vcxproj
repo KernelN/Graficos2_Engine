@@ -24,6 +24,7 @@
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp" />
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Square.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Triangle.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Square.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Window.h" />
