@@ -1,6 +1,9 @@
 #include "Base.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Entity/Entity2D/Shape/Shapes/Triangle.h"
+
+Triangle* triangle;
 
 Base::Base()
 {
@@ -14,6 +17,9 @@ Base::Base()
 
     window = new Window();
 
+    /*if (glewInit() != GLEW_OK)
+        std::cout << "ENGINE ERROR: GLEW Init failed" << std::endl;*/
+
     if (!window->WindowExists())
     {
         std::cout << "ENGINE ERROR: Window Init failed" << std::endl;
@@ -22,7 +28,20 @@ Base::Base()
         return;
     }
 
+
     renderer = new Renderer(window);
+
+    float tVertices[6] = 
+    { 
+        -0.5, -0.5,
+        0.5, -0.5,
+        0.5, 0.5 
+    };
+    triangle = new Triangle(tVertices, true, renderer);
+
+    renderer->CreateProgram();
+    renderer->CreateAllShaders();
+    renderer->UseProgram();
 }
 
 Base::~Base()
@@ -42,10 +61,11 @@ void Base::Loop()
     /* Loop until the user closes the window */
     while (!window->WindowShouldClose())
     {
-        Draw();
         renderer->ClearScreen();
+        
+        Draw();
 
-        renderer->SwapBuffers();
+        renderer->SwapWindowBuffers();
 
         window->ProcessWindowEvents();
     }
@@ -54,4 +74,10 @@ void Base::Loop()
     glfwTerminate();
 
     isRunning = false;
+}
+
+void Base::Draw()
+{
+    triangle->Draw();
+    //renderer->DrawFunnyChernoStuff();
 }

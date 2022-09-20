@@ -10,8 +10,3 @@ int main()
 	delete base;
 	return 0;
 }
-
-void Base::Draw()
-{
- //do funny stuff
-}
