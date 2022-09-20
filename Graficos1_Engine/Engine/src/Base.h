@@ -2,8 +2,9 @@
 
 #include "Window.h"
 #include "Renderer.h"
+#include "DLLManager.h"
 
-class Base
+class DLLEXPORT Base
 {
 public:
 	Base();
