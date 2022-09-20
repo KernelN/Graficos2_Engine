@@ -42,31 +42,57 @@ void Renderer::SetWindow(Window* window)
 }
 
 void Renderer::GetNewVertexBuffer
-						(unsigned int componentsPerVertex, unsigned int vertexAmount,
-							unsigned int stride, void* data, bool dataIsStatic,
-								unsigned int* buffer, unsigned int attribID)
+(
+#pragma region vars
+	unsigned int vComponents, 
+	unsigned int stride,
+	bool dataIsStatic,
+	unsigned int attribID,
+	void* vData,
+	unsigned int* indices,
+	unsigned int vAmount,
+	unsigned int iAmount,
+	unsigned int* vBuffer, 
+	unsigned int* iBuffer
+#pragma endregion
+)
 {
+#pragma region SET VERTEX BUFFER
 	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
 	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, buffer);
+	glGenBuffers(1, vBuffer);
 
 	//Select buffer and set it as array buffer (ideal to work with vertexes)
 	//https://docs.gl/gl4/glBindBuffer
-	unsigned int bufferData = *buffer;
-	glBindBuffer(GL_ARRAY_BUFFER, bufferData); //maybe problems?
+	unsigned int vBufferData = *vBuffer;
+	glBindBuffer(GL_ARRAY_BUFFER, vBufferData); //maybe problems?
 
 	//Send data to buffer
 	//https://docs.gl/gl4/glBufferData
 	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-	unsigned int dataSize = vertexAmount * stride;
-	glBufferData(GL_ARRAY_BUFFER, dataSize, data, dataUsage); //may be a problem
+	unsigned int vDataSize = vAmount * stride;
+	glBufferData(GL_ARRAY_BUFFER, vDataSize, vData, dataUsage); //may be a problem
+#pragma endregion
 
+#pragma region SET VERTEX ATTRIB POINTER
 	//https://docs.gl/gl4/glEnableVertexAttribArray
 	glEnableVertexAttribArray(attribID);
 
 	//https://docs.gl/gl4/glVertexAttribPointer
-	unsigned int vertexSize = componentsPerVertex * stride;
-	glVertexAttribPointer(attribID, componentsPerVertex, GL_FLOAT, GL_FALSE, vertexSize, 0);
+	glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
+#pragma endregion
+
+#pragma region SET INDEX BUFFER
+	//glGenBuffers(1, iBuffer);
+
+	//unsigned int iBufferData = *iBuffer;
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
+
+	//// index will always be an unsigned int
+	////because it's just an index, it doesn't have components
+	//unsigned int iDataSize = iAmount * sizeof(unsigned int);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
+#pragma endregion
 }
 
 void Renderer::DeleteBuffer(unsigned int* buffer)
@@ -178,8 +204,6 @@ void Renderer::SetFunnyChernoStuff()
 		0, 1, 3,*/
 		0, 1, 2,
 		2, 3, 0
-
-		
 	};
 
 	unsigned int buffer;

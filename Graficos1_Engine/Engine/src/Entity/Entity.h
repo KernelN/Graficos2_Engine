@@ -12,5 +12,6 @@ public:
 	~Entity();
 protected:
 	Renderer* renderer;
-	unsigned int* buffer;
+	unsigned int* vBuffer;
+	unsigned int* iBuffer;
 };

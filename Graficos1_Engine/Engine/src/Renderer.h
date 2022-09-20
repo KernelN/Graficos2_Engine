@@ -13,7 +13,19 @@ public:
 	void ClearScreen();
 	void SwapWindowBuffers();
 	void SetWindow(Window* window);
-	void GetNewVertexBuffer(unsigned int componentsPerVertex, unsigned int vertexAmount, unsigned int stride, void* data, bool dataIsStatic, unsigned int* buffer, unsigned int attribID);
+	void GetNewVertexBuffer
+	(
+		unsigned int vComponents,
+		unsigned int stride,
+		bool dataIsStatic,
+		unsigned int attribID,
+		void* vData,
+		unsigned int* indices,
+		unsigned int vAmount,
+		unsigned int iAmount,
+		unsigned int* vBuffer,
+		unsigned int* iBuffer
+	);
 	void DeleteBuffer(unsigned int* buffer);
 	void CreateAllShaders();
 	void CreateProgram();

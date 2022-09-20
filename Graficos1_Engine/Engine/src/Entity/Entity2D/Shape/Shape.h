@@ -10,4 +10,5 @@ public:
 	~Shape();
 protected:
 	Vertex* vertices;
+	unsigned int* indices;
 };
