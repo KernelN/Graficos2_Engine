@@ -235,8 +235,8 @@ void Renderer::DrawFunnyChernoStuff()
 
 void Renderer::Draw(unsigned int indexCount)
 {
-	glDrawArrays(GL_TRIANGLES, 0, indexCount);
-	//glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
+	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::ClearShaders()
