@@ -83,15 +83,15 @@ void Renderer::GetNewVertexBuffer
 #pragma endregion
 
 #pragma region SET INDEX BUFFER
-	//glGenBuffers(1, iBuffer);
+	glGenBuffers(1, iBuffer);
 
-	//unsigned int iBufferData = *iBuffer;
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
+	unsigned int iBufferData = *iBuffer;
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
 
-	//// index will always be an unsigned int
-	////because it's just an index, it doesn't have components
-	//unsigned int iDataSize = iAmount * sizeof(unsigned int);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
+	// index will always be an unsigned int
+	//because it's just an index, it doesn't have components
+	unsigned int iDataSize = iAmount * sizeof(unsigned int);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
 #pragma endregion
 }
 
