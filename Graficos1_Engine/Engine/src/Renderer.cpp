@@ -85,11 +85,17 @@ void Renderer::GetNewVertexBuffer
 #pragma endregion
 
 #pragma region SET INDEX BUFFER
+	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
+	//https://docs.gl/gl4/glGenBuffers
 	glGenBuffers(1, iBuffer);
 
+	//Select buffer and set it as element array buffer (ideal to work with indices)
+	//https://docs.gl/gl4/glBindBuffer
 	unsigned int iBufferData = *iBuffer;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
 
+	//Send data to buffer
+	//https://docs.gl/gl4/glBufferData
 	// index will always be an unsigned int
 	//because it's just an index, it doesn't have components
 	unsigned int iDataSize = iAmount * sizeof(unsigned int);
