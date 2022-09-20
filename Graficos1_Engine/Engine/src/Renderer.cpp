@@ -44,16 +44,18 @@ void Renderer::SetWindow(Window* window)
 void Renderer::GetNewVertexBuffer
 (
 #pragma region vars
-	unsigned int vComponents, 
+	unsigned int vComponents,
 	unsigned int stride,
 	bool dataIsStatic,
 	unsigned int attribID,
+	//could change to BufferData struct
 	void* vData,
 	unsigned int* indices,
 	unsigned int vAmount,
 	unsigned int iAmount,
-	unsigned int* vBuffer, 
+	unsigned int* vBuffer,
 	unsigned int* iBuffer
+	//could change to BufferData struct
 #pragma endregion
 )
 {
