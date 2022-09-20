@@ -2,8 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Entity/Entity2D/Shape/Shapes/Triangle.h"
+#include "Entity/Entity2D/Shape/Shapes/Square.h"
 
 Triangle* triangle;
+Square* square;
 
 Base::Base()
 {
@@ -31,13 +33,15 @@ Base::Base()
 
     renderer = new Renderer(window);
 
-    float tVertices[6] = 
+    float tVertices[8] = 
     { 
         -0.5, -0.5,
         0.5, -0.5,
-        0.5, 0.5 
+        0.5, 0.5,
+        -0.5, 0.5
     };
     triangle = new Triangle(tVertices, true, renderer);
+    square = new Square(tVertices, true, renderer);
 
     renderer->CreateProgram();
     renderer->CreateAllShaders();
@@ -78,6 +82,7 @@ void Base::Loop()
 
 void Base::Draw()
 {
-    triangle->Draw();
+    //triangle->Draw();
+    square->Draw();
     //renderer->DrawFunnyChernoStuff();
 }

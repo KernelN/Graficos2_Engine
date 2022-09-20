@@ -4,8 +4,8 @@
 
 Square::Square(float vertexPos[8], bool triangleIsStatic)
 {
-	vertices = new Vertex[3];
-	indices = new unsigned int[3];
+	vertices = new Vertex[4];
+	indices = new unsigned int[6];
 	UpdateVertex(vertexPos);
 	renderer->GetNewVertexBuffer
 	(
@@ -15,8 +15,8 @@ Square::Square(float vertexPos[8], bool triangleIsStatic)
 		0, //attribute id
 		vertices, //vertices data
 		indices, //indices
-		3, //vertices amount
-		3, //indices amount
+		4, //vertices amount
+		6, //indices amount
 		vBuffer, //vertex buffer
 		iBuffer //index buffer
 	);
@@ -25,8 +25,8 @@ Square::Square(float vertexPos[8], bool triangleIsStatic)
 Square::Square(float vertexPos[8], bool triangleIsStatic, Renderer* renderer)
 	: Shape(renderer)
 {
-	vertices = new Vertex[3];
-	indices = new unsigned int[3];
+	vertices = new Vertex[4];
+	indices = new unsigned int[6];
 	UpdateVertex(vertexPos);
 	renderer->GetNewVertexBuffer
 	(
@@ -36,8 +36,8 @@ Square::Square(float vertexPos[8], bool triangleIsStatic, Renderer* renderer)
 		0, //attribute id
 		vertices, //vertices data
 		indices, //indices
-		3, //vertices amount
-		3, //indices amount
+		4, //vertices amount
+		6, //indices amount
 		vBuffer, //vertex buffer
 		iBuffer //index buffer
 	);
@@ -49,17 +49,17 @@ Square::~Square()
 
 void Square::Draw()
 {
-	renderer->Draw(3);
+	renderer->Draw(6);
 }
 
-void Square::UpdateVertex(float vertexPos[6])
+void Square::UpdateVertex(float vertexPos[8])
 {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		//set 2 positions per vertex, if i is even set X, else set Y
 		if (i % 2 == 0)
 		{
-			indices[i / 2] = i / 2;
+			
 			vertices[i / 2].position[0] = vertexPos[i];
 
 			/*vertices[i / 2].color[0] = 1.0;
@@ -72,4 +72,13 @@ void Square::UpdateVertex(float vertexPos[6])
 			vertices[i / 2].position[1] = vertexPos[i];
 		}
 	}
+
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 2;
+	indices[4] = 3;
+	indices[5] = 0;
+
+
 }
