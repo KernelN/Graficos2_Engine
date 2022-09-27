@@ -6,7 +6,6 @@ class Triangle : protected Shape
 {
 public:
 	Triangle(float vertexPos[6], bool triangleIsStatic);
-	Triangle(float vertexPos[6], bool triangleIsStatic, Renderer* renderer);
 	~Triangle();
 	void Draw();
 private:

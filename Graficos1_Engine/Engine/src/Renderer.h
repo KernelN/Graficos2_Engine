@@ -44,3 +44,5 @@ private:
 	unsigned int CompileShader(unsigned int type, std::string source);
 	void ClearShaders();
 };
+
+static Renderer* globalRenderer;

@@ -22,27 +22,6 @@ Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 	);
 }
 
-Triangle::Triangle(float vertexPos[6], bool triangleIsStatic, Renderer* renderer)
-	: Shape(renderer)
-{
-	vertices = new Vertex[3];
-	indices = new unsigned int[3];
-	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer
-	(
-		vertices->GetComponentAmount(), //components per vertex
-		vertices->GetStride(), //stride
-		triangleIsStatic, //data is static
-		0, //attribute id
-		vertices, //vertices data
-		indices, //indices
-		3, //vertices amount
-		3, //indices amount
-		vBuffer, //vertex buffer
-		iBuffer //index buffer
-	); 
-}
-
 Triangle::~Triangle()
 {
 }

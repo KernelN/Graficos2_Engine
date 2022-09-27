@@ -4,11 +4,11 @@
 #include "Renderer.h"
 #include "DLLManager.h"
 
-class DLLEXPORT Base
+class DLLEXPORT BaseEngine
 {
 public:
-	Base();
-	~Base();
+	BaseEngine();
+	~BaseEngine();
 	bool IsRunning();
 	void Loop();
 	virtual void Draw();

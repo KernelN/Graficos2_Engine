@@ -2,16 +2,10 @@
 
 Entity::Entity()
 {
-	renderer = nullptr; //get renderer from Base
+	renderer = globalRenderer; //get renderer from Base
 	vBuffer = new unsigned int;
 	iBuffer = new unsigned int;
-}
-
-Entity::Entity(Renderer* renderer)
-{
-	this->renderer = renderer;
-	vBuffer = new unsigned int;
-	iBuffer = new unsigned int;
+	
 }
 
 Entity::~Entity() 

@@ -7,7 +7,7 @@
 Triangle* triangle;
 Square* square;
 
-Base::Base()
+BaseEngine::BaseEngine()
 {
     //Initialize glfw
     if (!glfwInit())
@@ -31,36 +31,38 @@ Base::Base()
     }
 
 
-    renderer = new Renderer(window);
+    this->renderer = new Renderer(window);
+    globalRenderer = this->renderer;
 
-    float tVertices[8] = 
+
+    /*float tVertices[8] = 
     { 
         -0.5, -0.5,
         0.5, -0.5,
         0.5, 0.5,
         -0.5, 0.5
-    };
-    triangle = new Triangle(tVertices, true, renderer);
-    square = new Square(tVertices, true, renderer);
+    };*/
+    /*triangle = new Triangle(tVertices, true);
+    square = new Square(tVertices, true);*/
 
     renderer->CreateProgram();
     renderer->CreateAllShaders();
     renderer->UseProgram();
 }
 
-Base::~Base()
+BaseEngine::~BaseEngine()
 {
     glfwTerminate();
     delete renderer;
     delete window;
 }
 
-bool Base::IsRunning()
+bool BaseEngine::IsRunning()
 {
     return isRunning;
 }
 
-void Base::Loop()
+void BaseEngine::Loop()
 {
     /* Loop until the user closes the window */
     while (!window->WindowShouldClose())
@@ -80,9 +82,9 @@ void Base::Loop()
     isRunning = false;
 }
 
-void Base::Draw()
+void BaseEngine::Draw()
 {
     //triangle->Draw();
-    square->Draw();
+    //square->Draw();
     //renderer->DrawFunnyChernoStuff();
 }

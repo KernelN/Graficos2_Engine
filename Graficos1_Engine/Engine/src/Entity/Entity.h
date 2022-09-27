@@ -2,13 +2,13 @@
 
 #include "Renderer.h"
 #include "Data Organizers/Vertex.h"
+#include "DLLManager.h"
 
 
-class Entity
+class DLLEXPORT Entity
 {
 public:
 	Entity();
-	Entity(Renderer* renderer);
 	~Entity();
 protected:
 	Renderer* renderer;

@@ -1,10 +1,10 @@
 #include "../Engine/src/Base.h"
-
+#include "src/Game.h"
 
 
 int main()
 {
-	Base* base = new Base();
+	Game* base = new Game();
 
 	while (base->IsRunning())
 	{
@@ -12,5 +12,4 @@ int main()
 	}
 
 	delete base;
-
 }

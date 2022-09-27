@@ -22,27 +22,6 @@ Square::Square(float vertexPos[8], bool triangleIsStatic)
 	);
 }
 
-Square::Square(float vertexPos[8], bool triangleIsStatic, Renderer* renderer)
-	: Shape(renderer)
-{
-	vertices = new Vertex[4];
-	indices = new unsigned int[6];
-	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer
-	(
-		vertices->GetComponentAmount(), //components per vertex
-		vertices->GetStride(), //stride
-		triangleIsStatic, //data is static
-		0, //attribute id
-		vertices, //vertices data
-		indices, //indices
-		4, //vertices amount
-		6, //indices amount
-		vBuffer, //vertex buffer
-		iBuffer //index buffer
-	);
-}
-
 Square::~Square()
 {
 }

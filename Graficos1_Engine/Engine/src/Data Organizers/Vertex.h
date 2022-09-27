@@ -1,5 +1,7 @@
 #pragma once
-struct Vertex
+#include "DLLManager.h"
+ 
+struct DLLEXPORT Vertex
 {
 public:
 	enum Attributes { pos, /*col,*/ _count };
