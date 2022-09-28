@@ -6,6 +6,8 @@ int main()
 {
 	Game* base = new Game();
 
+	base->Init();
+
 	while (base->IsRunning())
 	{
 		base->Loop();

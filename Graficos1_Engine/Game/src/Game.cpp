@@ -1,8 +1,17 @@
 #include "Game.h"
 
 
-Game::Game()
+Game::Game() { }
+
+Game::~Game()
 {
+    delete square;
+    delete triangle;
+}
+
+void Game::Init()
+{
+
     float tVertices[6] =
     {
         0.5, 0.5,
@@ -17,16 +26,9 @@ Game::Game()
         0.5, 0.5,
         -0.5, 0.5
     };
-    
+
     square = new Square(sVertices, true);
-
-    //triangle = new Triangle(tVertices, true);
-}
-
-Game::~Game()
-{
-    delete square;
-    //delete triangle;
+    triangle = new Triangle(tVertices, true);
 }
 
 bool Game::IsRunning()
@@ -42,5 +44,5 @@ void Game::Loop()
 void Game::Draw()
 {
 	square->Draw();
-    //triangle->Draw();
+    triangle->Draw();
 }

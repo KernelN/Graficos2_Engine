@@ -5,11 +5,18 @@
 #include <iostream>
 #include <fstream>
 
-Renderer::Renderer(){}
+Renderer::Renderer()
+{
+	window = nullptr;
+	bufferCount = 0;
+	program = 0;
+}
 
 Renderer::Renderer(Window* window) 
 {
 	SetWindow(window);
+	bufferCount = 0;
+	program = 0;
 }
 
 Renderer::~Renderer(){}
@@ -48,7 +55,7 @@ void Renderer::GetNewVertexBuffer
 	unsigned int vComponents,
 	unsigned int stride,
 	bool dataIsStatic,
-	unsigned int attribID,
+	unsigned int* attribID,
 	//could change to BufferData struct
 	void* vData,
 	unsigned int* indices,
@@ -60,10 +67,14 @@ void Renderer::GetNewVertexBuffer
 #pragma endregion
 )
 {
+	//Check current buffers and return current id
+	*attribID = bufferCount;
+	bufferCount++;
+
 #pragma region SET VERTEX BUFFER
 	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
 	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, vBuffer);
+	glGenBuffers(*attribID + 1, vBuffer);
 
 	//Select buffer and set it as array buffer (ideal to work with vertexes)
 	//https://docs.gl/gl4/glBindBuffer
@@ -79,16 +90,16 @@ void Renderer::GetNewVertexBuffer
 
 #pragma region SET VERTEX ATTRIB POINTER
 	//https://docs.gl/gl4/glEnableVertexAttribArray
-	glEnableVertexAttribArray(attribID);
+	glEnableVertexAttribArray(*attribID);
 
 	//https://docs.gl/gl4/glVertexAttribPointer
-	glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
+	glVertexAttribPointer(*attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
 #pragma endregion
 
 #pragma region SET INDEX BUFFER
 	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
 	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, iBuffer);
+	glGenBuffers(*attribID + 1, iBuffer);
 
 	//Select buffer and set it as element array buffer (ideal to work with indices)
 	//https://docs.gl/gl4/glBindBuffer

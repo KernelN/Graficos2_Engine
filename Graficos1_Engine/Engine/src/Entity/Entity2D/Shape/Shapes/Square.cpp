@@ -12,7 +12,7 @@ Square::Square(float vertexPos[8], bool triangleIsStatic)
 		vertices->GetComponentAmount(), //vertex components
 		vertices->GetStride(), //stride
 		triangleIsStatic, //data is static
-		0, //attribute id
+		&id, //attribute id
 		vertices, //vertices data
 		indices, //indices
 		4, //vertices amount

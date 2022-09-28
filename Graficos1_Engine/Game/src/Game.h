@@ -9,6 +9,7 @@ class Game : public BaseEngine
 public:
 	Game();
 	~Game();
+	void Init();
 	bool IsRunning();
 	void Loop();
 	void Draw() override;

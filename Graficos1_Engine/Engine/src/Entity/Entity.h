@@ -14,4 +14,5 @@ protected:
 	Renderer* renderer;
 	unsigned int* vBuffer;
 	unsigned int* iBuffer;
+	unsigned int id;
 };

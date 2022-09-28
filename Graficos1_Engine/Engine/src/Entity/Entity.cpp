@@ -5,7 +5,7 @@ Entity::Entity()
 	renderer = globalRenderer; //get renderer from Base
 	vBuffer = new unsigned int;
 	iBuffer = new unsigned int;
-	
+	id = 0;
 }
 
 Entity::~Entity() 

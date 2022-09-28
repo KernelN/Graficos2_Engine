@@ -12,7 +12,7 @@ Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 		vertices->GetComponentAmount(), //vertex components
 		vertices->GetStride(), //stride
 		triangleIsStatic, //data is static
-		0, //attribute id
+		&id, //attribute id
 		vertices, //vertices data
 		indices, //indices
 		3, //vertices amount

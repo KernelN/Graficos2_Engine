@@ -18,7 +18,7 @@ public:
 		unsigned int vComponents,
 		unsigned int stride,
 		bool dataIsStatic,
-		unsigned int attribID,
+		unsigned int* attribID,
 		void* vData,
 		unsigned int* indices,
 		unsigned int vAmount,
@@ -38,6 +38,7 @@ public:
 private:
 	Window* window;
 	std::stack<unsigned int> shadersCompiling;
+	unsigned int bufferCount;
 
 	void CreateVertexShader();
 	void CreateFragmentShader();
