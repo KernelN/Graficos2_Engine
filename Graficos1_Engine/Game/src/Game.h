@@ -2,6 +2,7 @@
 
 #include "..\..\Engine\src\Base.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Square.h"
+#include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
 
 class Game : public BaseEngine
 {
@@ -14,7 +15,7 @@ public:
 
 private:
 	Square* square;
-
+	Triangle* triangle;
 
 
 };

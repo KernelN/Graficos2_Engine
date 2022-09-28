@@ -3,7 +3,14 @@
 
 Game::Game()
 {
-    float tVertices[8] =
+    float tVertices[6] =
+    {
+        0.5, 0.5,
+        -0.5, 0.5,
+        0, 1
+    };
+
+    float sVertices[8] =
     {
         -0.5, -0.5,
         0.5, -0.5,
@@ -11,12 +18,15 @@ Game::Game()
         -0.5, 0.5
     };
     
-    square = new Square(tVertices, true);
+    square = new Square(sVertices, true);
+
+    //triangle = new Triangle(tVertices, true);
 }
 
 Game::~Game()
 {
     delete square;
+    //delete triangle;
 }
 
 bool Game::IsRunning()
@@ -32,4 +42,5 @@ void Game::Loop()
 void Game::Draw()
 {
 	square->Draw();
+    //triangle->Draw();
 }
