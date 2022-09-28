@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
 
 Renderer::Renderer(){}
 
@@ -117,21 +118,18 @@ void Renderer::CreateAllShaders()
 
 void Renderer::CreateVertexShader()
 {
-	// TEMP CLEAN LATER
-	std::string tempVertexShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) in vec4 position;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"gl_Position = position;\n"
-		"}\n";
-
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, tempVertexShader);
+	unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("libs/MatialeEngine/vertexShader.shader"));
 
 	AttachShaderToProgram(vs);
 	shadersCompiling.push(vs);
+}
+
+void Renderer::CreateFragmentShader()
+{
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, ReadShader("libs/MatialeEngine/fragmentShader.shader"));
+
+	AttachShaderToProgram(fs);
+	shadersCompiling.push(fs);
 }
 
 unsigned int Renderer::CompileShader(unsigned int type, std::string source)
@@ -156,25 +154,6 @@ unsigned int Renderer::CompileShader(unsigned int type, std::string source)
 	}
 
 	return id;
-}
-
-void Renderer::CreateFragmentShader()
-{
-	// TEMP CLEAN LATER
-	std::string tempFragmentShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-		"}\n";
-
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, tempFragmentShader);
-
-	AttachShaderToProgram(fs);
-	shadersCompiling.push(fs);
 }
 
 void Renderer::CreateProgram()
@@ -254,6 +233,24 @@ void Renderer::ClearShaders()
 		glDeleteShader(shadersCompiling.top());
 		shadersCompiling.pop();
 	}
+}
+
+std::string Renderer::ReadShader(std::string fileDir)
+{
+	std::string shaderLine;
+	std::string tempShader = "";
+		
+	std::ifstream inputStream;
+	inputStream.open(fileDir);
+
+	while (getline(inputStream, shaderLine))
+	{
+		tempShader += shaderLine + '\n';
+	}
+	
+	inputStream.close();
+
+	return tempShader;
 }
 
 void Renderer::AttachShaderToProgram(unsigned int shader)

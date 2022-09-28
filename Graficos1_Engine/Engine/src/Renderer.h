@@ -43,6 +43,7 @@ private:
 	void CreateFragmentShader();
 	unsigned int CompileShader(unsigned int type, std::string source);
 	void ClearShaders();
+	std::string ReadShader(std::string fileDir);
 };
 
 static Renderer* globalRenderer;
