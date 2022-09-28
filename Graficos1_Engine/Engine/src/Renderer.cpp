@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
 
 Renderer::Renderer(){}
 
@@ -117,18 +118,8 @@ void Renderer::CreateAllShaders()
 
 void Renderer::CreateVertexShader()
 {
-	// TEMP CLEAN LATER
-	std::string tempVertexShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) in vec4 position;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"gl_Position = position;\n"
-		"}\n";
-
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, tempVertexShader);
+	//unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("$(SolutionDir)Engine/res/vertexShader.txt"));
+	unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("vertexShader.txt"));
 
 	AttachShaderToProgram(vs);
 	shadersCompiling.push(vs);
@@ -254,6 +245,40 @@ void Renderer::ClearShaders()
 		glDeleteShader(shadersCompiling.top());
 		shadersCompiling.pop();
 	}
+}
+
+std::string Renderer::ReadShader(std::string fileDir)
+{
+	char shaderLine[80];
+
+	std::string tempShader = "";
+		
+	std::ifstream inputStream;
+	inputStream.open(fileDir);
+
+	while (!inputStream.eof())
+	{
+		inputStream.getline(shaderLine, 80);
+
+		//int charIndex = 0;
+		//while (shaderLine[charIndex] != 'º')
+		//{
+		//	tempShader += shaderLine[charIndex];
+		//	charIndex++;
+		//}
+
+		for (int i = 0; i < 80; i++)
+		{
+			tempShader += shaderLine[i];
+		}
+		tempShader += "\n";
+
+		//tempShader << shaderLine << "\n";
+	}
+	
+	inputStream.close();
+
+	return tempShader;
 }
 
 void Renderer::AttachShaderToProgram(unsigned int shader)
