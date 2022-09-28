@@ -118,11 +118,29 @@ void Renderer::CreateAllShaders()
 
 void Renderer::CreateVertexShader()
 {
-	//unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("$(SolutionDir)Engine/res/vertexShader.txt"));
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("vertexShader.txt"));
+	unsigned int vs = CompileShader(GL_VERTEX_SHADER, ReadShader("libs/MatialeEngine/vertexShader.shader"));
 
 	AttachShaderToProgram(vs);
 	shadersCompiling.push(vs);
+}
+
+void Renderer::CreateFragmentShader()
+{
+	// TEMP CLEAN LATER
+	std::string tempFragmentShader =
+		"#version 330 core\n "
+		"\n"
+		"layout(location = 0) out vec4 color;\n"
+		"\n"
+		"void main()\n"
+		"{\n"
+		"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+		"}\n";
+
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, tempFragmentShader);
+
+	AttachShaderToProgram(fs);
+	shadersCompiling.push(fs);
 }
 
 unsigned int Renderer::CompileShader(unsigned int type, std::string source)
@@ -249,31 +267,15 @@ void Renderer::ClearShaders()
 
 std::string Renderer::ReadShader(std::string fileDir)
 {
-	char shaderLine[80];
-
+	std::string shaderLine;
 	std::string tempShader = "";
 		
 	std::ifstream inputStream;
 	inputStream.open(fileDir);
 
-	while (!inputStream.eof())
+	while (getline(inputStream, shaderLine))
 	{
-		inputStream.getline(shaderLine, 80);
-
-		//int charIndex = 0;
-		//while (shaderLine[charIndex] != 'º')
-		//{
-		//	tempShader += shaderLine[charIndex];
-		//	charIndex++;
-		//}
-
-		for (int i = 0; i < 80; i++)
-		{
-			tempShader += shaderLine[i];
-		}
-		tempShader += "\n";
-
-		//tempShader << shaderLine << "\n";
+		tempShader += shaderLine + '\n';
 	}
 	
 	inputStream.close();
