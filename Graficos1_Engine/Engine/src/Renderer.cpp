@@ -126,18 +126,7 @@ void Renderer::CreateVertexShader()
 
 void Renderer::CreateFragmentShader()
 {
-	// TEMP CLEAN LATER
-	std::string tempFragmentShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-		"}\n";
-
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, tempFragmentShader);
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, ReadShader("libs/MatialeEngine/fragmentShader.shader"));
 
 	AttachShaderToProgram(fs);
 	shadersCompiling.push(fs);
@@ -165,25 +154,6 @@ unsigned int Renderer::CompileShader(unsigned int type, std::string source)
 	}
 
 	return id;
-}
-
-void Renderer::CreateFragmentShader()
-{
-	// TEMP CLEAN LATER
-	std::string tempFragmentShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-		"}\n";
-
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, tempFragmentShader);
-
-	AttachShaderToProgram(fs);
-	shadersCompiling.push(fs);
 }
 
 void Renderer::CreateProgram()
