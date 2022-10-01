@@ -1,5 +1,5 @@
 #include "Base.h"
-#include <GLFW/glfw3.h>
+#include <glfw/include/GLFW/glfw3.h>
 #include <iostream>
 #include "Entity/Entity2D/Shape/Shapes/Triangle.h"
 #include "Entity/Entity2D/Shape/Shapes/Square.h"
