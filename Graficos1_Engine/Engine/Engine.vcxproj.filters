@@ -72,6 +72,9 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Square.cpp">
       <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Data Organizers\Program.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Square.h">
       <Filter>Headers\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Program.h">
+      <Filter>Headers\Data Organizers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

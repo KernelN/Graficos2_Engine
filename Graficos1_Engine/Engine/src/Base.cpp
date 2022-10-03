@@ -44,10 +44,6 @@ BaseEngine::BaseEngine()
     };*/
     /*triangle = new Triangle(tVertices, true);
     square = new Square(tVertices, true);*/
-
-    renderer->CreateProgram();
-    renderer->CreateAllShaders();
-    renderer->UseProgram();
 }
 
 BaseEngine::~BaseEngine()
@@ -67,6 +63,8 @@ void BaseEngine::Loop()
     /* Loop until the user closes the window */
     while (!window->WindowShouldClose())
     {
+        renderer->BindProgram();
+
         renderer->ClearScreen();
         
         Draw();
