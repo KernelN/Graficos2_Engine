@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp" />
+    <ClCompile Include="src\Data Organizers\Program.cpp" />
     <ClCompile Include="src\Data Organizers\Vertex.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
@@ -31,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h" />
+    <ClInclude Include="src\Data Organizers\Program.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />
     <ClInclude Include="src\DLLManager.h" />
     <ClInclude Include="src\Entity\Entity.h" />
@@ -123,7 +125,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>$(ProjectDir)src;</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\glew\include\;$(ProjectDir)src;$(ProjectDir)libs\glfw\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

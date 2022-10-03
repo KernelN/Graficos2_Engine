@@ -1,6 +1,6 @@
 #include "Triangle.h"
 
-#include <GLFW/glfw3.h>
+#include <glfw/include/GLFW/glfw3.h>
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 {

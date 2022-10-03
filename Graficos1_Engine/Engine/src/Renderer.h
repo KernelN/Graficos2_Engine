@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Window.h"
+#include "Data Organizers/Program.h"
 #include <string>
 #include <stack>
 
 class Renderer
 {
 public:
-	Renderer();
 	Renderer(Window* window);
 	~Renderer();
 	void ClearScreen();
@@ -27,23 +27,11 @@ public:
 		unsigned int* iBuffer
 	);
 	void DeleteBuffer(unsigned int* buffer);
-	void CreateAllShaders();
-	void CreateProgram();
-	void UseProgram();
-	void SetFunnyChernoStuff();
-	void DrawFunnyChernoStuff();
+	void BindProgram();
 	void Draw(unsigned int indexCount);
-	void AttachShaderToProgram(unsigned int shader);
-	unsigned int program;
 private:
 	Window* window;
-	std::stack<unsigned int> shadersCompiling;
-
-	void CreateVertexShader();
-	void CreateFragmentShader();
-	unsigned int CompileShader(unsigned int type, std::string source);
-	void ClearShaders();
-	std::string ReadShader(std::string fileDir);
+	Program* program;
 };
 
 static Renderer* globalRenderer;

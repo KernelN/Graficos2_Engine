@@ -1,6 +1,6 @@
 #include "Square.h"
 
-#include <GLFW/glfw3.h>
+#include <glfw/include/GLFW/glfw3.h>
 
 Square::Square(float vertexPos[8], bool triangleIsStatic)
 {
