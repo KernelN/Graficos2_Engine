@@ -2,8 +2,12 @@
 
 #include <glew/include/GL/glew.h>
 #include <glfw/include/GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include <iostream>
 #include <fstream>
+#include <glm/ext/matrix_transform.hpp>
+
 
 Renderer::Renderer(Window* window) 
 {
@@ -16,6 +20,17 @@ Renderer::Renderer(Window* window)
 	};
 
 	program = new Program(shaders, 2);
+
+	glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+
+	glm::mat4 mvp = proj * view * model;
+
+	//program->SetUniformMat4f();
+	
+	
+
 }
 
 Renderer::~Renderer()

@@ -1,4 +1,6 @@
 #include "Base.h"
+#include "Window.h"
+#include "Renderer.h"
 #include <glfw/include/GLFW/glfw3.h>
 #include <iostream>
 #include "Entity/Entity2D/Shape/Shapes/Triangle.h"
@@ -18,11 +20,12 @@ BaseEngine::BaseEngine()
     }
 
     window = new Window();
+    Window* temWindow = (Window*)window;
 
     /*if (glewInit() != GLEW_OK)
         std::cout << "ENGINE ERROR: GLEW Init failed" << std::endl;*/
 
-    if (!window->WindowExists())
+    if (!temWindow->WindowExists())
     {
         std::cout << "ENGINE ERROR: Window Init failed" << std::endl;
         isRunning = false;
@@ -31,8 +34,9 @@ BaseEngine::BaseEngine()
     }
 
 
-    this->renderer = new Renderer(window);
-    globalRenderer = this->renderer;
+    this->renderer = new Renderer(temWindow);
+    Renderer* tempRenderer = (Renderer*)renderer;
+    globalRenderer = tempRenderer;
 
 
     /*float tVertices[8] = 
@@ -60,18 +64,21 @@ bool BaseEngine::IsRunning()
 
 void BaseEngine::Loop()
 {
-    /* Loop until the user closes the window */
-    while (!window->WindowShouldClose())
-    {
-        renderer->BindProgram();
+    Window* temWindow = (Window*)window;
+    Renderer* tempRenderer = (Renderer*)renderer;
 
-        renderer->ClearScreen();
+    /* Loop until the user closes the window */
+    while (!temWindow->WindowShouldClose())
+    {
+        tempRenderer->BindProgram();
+
+        tempRenderer->ClearScreen();
         
         Draw();
 
-        renderer->SwapWindowBuffers();
+        tempRenderer->SwapWindowBuffers();
 
-        window->ProcessWindowEvents();
+        temWindow->ProcessWindowEvents();
     }
 
     //Close glfw

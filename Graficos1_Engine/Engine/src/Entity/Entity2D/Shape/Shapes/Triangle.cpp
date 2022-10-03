@@ -1,13 +1,14 @@
 #include "Triangle.h"
 
 #include <glfw/include/GLFW/glfw3.h>
+#include "Renderer.h"
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 {
 	vertices = new Vertex[3];
 	indices = new unsigned int[3];
 	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer
+	globalRenderer->GetNewVertexBuffer
 	(
 		vertices->GetComponentAmount(), //vertex components
 		vertices->GetStride(), //stride
@@ -28,7 +29,7 @@ Triangle::~Triangle()
 
 void Triangle::Draw()
 {
-	renderer->Draw(3);
+	globalRenderer->Draw(3);
 }
 
 void Triangle::UpdateVertex(float vertexPos[6])

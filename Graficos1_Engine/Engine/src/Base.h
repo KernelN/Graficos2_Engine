@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Window.h"
-#include "Renderer.h"
+
 #include "DLLManager.h"
 
 class DLLEXPORT BaseEngine
@@ -13,7 +12,7 @@ public:
 	void Loop();
 	virtual void Draw();
 private:
-	Window* window;
-	Renderer* renderer;
+	void* window;
+	void* renderer;
 	bool isRunning = true; //Check if engine is running
 };

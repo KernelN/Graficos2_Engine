@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <stack>
+#include <glm/glm.hpp>
 
 struct ShaderData
 {
@@ -16,6 +17,7 @@ public:
 	void Bind() const;
 	void Unbind() const;
 	void SetUniform4f(const std::string& varName, float v1, float v2, float v3, float v4);
+	void SetUniformMat4f(const std::string& varName, const glm::mat4& matrix);
 private:
 	unsigned int ID;
 	std::stack<unsigned int> shadersCompiled;

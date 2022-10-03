@@ -51,6 +51,12 @@ void Program::SetUniform4f(const std::string& varName, float v1, float v2, float
 	glUniform4f(GetUniformLocation(varName), v1, v2, v3, v4);
 }
 
+void Program::SetUniformMat4f(const std::string& varName,const glm::mat4 & matrix)
+{
+	
+	glUniformMatrix4fv(GetUniformLocation(varName), 1, GL_FALSE, &matrix[0][0]);
+}
+
 std::string Program::ReadFile(std::string fileDir)
 {
 	std::string shaderLine;

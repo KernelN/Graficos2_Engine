@@ -1,13 +1,14 @@
 #include "Square.h"
 
 #include <glfw/include/GLFW/glfw3.h>
+#include "Renderer.h"
 
 Square::Square(float vertexPos[8], bool triangleIsStatic)
 {
 	vertices = new Vertex[4];
 	indices = new unsigned int[6];
 	UpdateVertex(vertexPos);
-	renderer->GetNewVertexBuffer
+	globalRenderer->GetNewVertexBuffer
 	(
 		vertices->GetComponentAmount(), //vertex components
 		vertices->GetStride(), //stride
@@ -28,7 +29,7 @@ Square::~Square()
 
 void Square::Draw()
 {
-	renderer->Draw(6);
+	globalRenderer->Draw(6);
 }
 
 void Square::UpdateVertex(float vertexPos[8])
