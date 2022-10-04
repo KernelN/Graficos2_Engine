@@ -43,6 +43,9 @@
     <Filter Include="Headers\Data Organizers">
       <UniqueIdentifier>{91bde17a-3ba9-465b-97e4-80fe94d15bfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Utility">
+      <UniqueIdentifier>{a34d5e66-a6f9-423c-ae39-cd82c54f9ee3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -73,6 +76,9 @@
       <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="src\Data Organizers\Program.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Vector2.cpp">
       <Filter>Source\Data Organizers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="src\Data Organizers\Program.h">
       <Filter>Headers\Data Organizers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vector2.h">
+      <Filter>Headers\Data Organizers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Singleton.h">
+      <Filter>Headers\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

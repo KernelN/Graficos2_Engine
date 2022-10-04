@@ -12,10 +12,10 @@ Game::Game()
 
     float sVertices[8] =
     {
-        -0.5, -0.5,
-        0.5, -0.5,
-        0.5, 0.5,
-        -0.5, 0.5
+        -10, -10,
+        10, -10,
+        10, 10,
+        -10, 10
     };
     
     square = new Square(sVertices, true);

@@ -4,6 +4,7 @@
 #include "Data Organizers/Program.h"
 #include <string>
 #include <stack>
+#include <vector> 
 
 class Renderer
 {
@@ -28,10 +29,14 @@ public:
 	);
 	void DeleteBuffer(unsigned int* buffer);
 	void BindProgram();
-	void Draw(unsigned int indexCount);
+	void Draw(unsigned int indexCount, unsigned int modelID);
+	unsigned int GetNewModelID(glm::mat4 model);
+	void SetModel(glm::mat4 model, unsigned int modelID);
+
 private:
 	Window* window;
 	Program* program;
-};
+	glm::mat4 viewProj;
 
-static Renderer* globalRenderer;
+	std::vector<glm::mat4> models;
+};

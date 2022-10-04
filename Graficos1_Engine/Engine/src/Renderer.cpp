@@ -21,15 +21,15 @@ Renderer::Renderer(Window* window)
 
 	program = new Program(shaders, 2);
 
-	//glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+	//glm::mat4 proj = glm::ortho(0.0f, window->GetHeight(), 0.0f, window->GetWidth(), -1.0f, 1.0f);
+	glm::mat4 proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
+	
+	//"Camera" - vec sets position (if "Camera" should move to the right, mvp matrix will move everything to the left)
 	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
-	glm::mat4 mvp = proj * view * model;
+	viewProj = proj * view;
 
-	program->Bind();
-	program->SetUniformMat4f("mvp", mvp);
+	models = std::vector<glm::mat4>();
 	
 	
 
@@ -141,8 +141,24 @@ void Renderer::BindProgram()
 	program->Bind();
 }
 
-void Renderer::Draw(unsigned int indexCount)
+void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
+	BindProgram();
+
+	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
+
 	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+}
+
+unsigned int Renderer::GetNewModelID(glm::mat4 model)
+{
+	unsigned int newModelID = models.size();
+	models.push_back(model);
+	return newModelID;
+}
+
+void Renderer::SetModel(glm::mat4 model, unsigned int modelID)
+{
+	models[modelID] = model;
 }

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Base.cpp" />
     <ClCompile Include="src\Data Organizers\Program.cpp" />
+    <ClCompile Include="src\Data Organizers\Vector2.cpp" />
     <ClCompile Include="src\Data Organizers\Vertex.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="src\Base.h" />
     <ClInclude Include="src\Data Organizers\Program.h" />
+    <ClInclude Include="src\Data Organizers\Vector2.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />
     <ClInclude Include="src\DLLManager.h" />
     <ClInclude Include="src\Entity\Entity.h" />
@@ -41,6 +43,7 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Square.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Utility\Singleton.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>

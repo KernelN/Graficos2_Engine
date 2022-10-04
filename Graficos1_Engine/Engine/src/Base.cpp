@@ -1,4 +1,5 @@
 #include "Base.h"
+#include "Utility/Singleton.h"
 #include "Window.h"
 #include "Renderer.h"
 #include <glfw/include/GLFW/glfw3.h>
@@ -19,7 +20,7 @@ BaseEngine::BaseEngine()
         return;
     }
 
-    window = new Window();
+    window = new Window(640, 480);
     Window* temWindow = (Window*)window;
 
     /*if (glewInit() != GLEW_OK)
@@ -34,9 +35,8 @@ BaseEngine::BaseEngine()
     }
 
 
-    this->renderer = new Renderer(temWindow);
-    Renderer* tempRenderer = (Renderer*)renderer;
-    globalRenderer = tempRenderer;
+    Singleton::SetRenderer(new Renderer(temWindow));
+    renderer = Singleton::GetRenderer();
 
 
     /*float tVertices[8] = 

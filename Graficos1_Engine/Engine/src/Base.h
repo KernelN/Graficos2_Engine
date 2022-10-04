@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "DLLManager.h"
 
 class DLLEXPORT BaseEngine
