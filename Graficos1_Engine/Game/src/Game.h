@@ -11,11 +11,15 @@ public:
 	~Game();
 	bool IsRunning();
 	void Loop();
+	void OnLoop() override;
 	void Draw() override;
 
 private:
 	Square* square;
 	Triangle* triangle;
+
+	int squareScaleMod;
+	int squareMoveMod;
 
 
 };

@@ -59,32 +59,31 @@ BaseEngine::~BaseEngine()
 
 bool BaseEngine::IsRunning()
 {
-    return isRunning;
+    return isRunning && !((Window*)window)->WindowShouldClose();
 }
 
 void BaseEngine::Loop()
 {
     Window* temWindow = (Window*)window;
     Renderer* tempRenderer = (Renderer*)renderer;
+ 
+    OnLoop();
 
-    /* Loop until the user closes the window */
-    while (!temWindow->WindowShouldClose())
-    {
-        tempRenderer->BindProgram();
+    tempRenderer->BindProgram();
 
-        tempRenderer->ClearScreen();
+    tempRenderer->ClearScreen();
         
-        Draw();
+    Draw();
 
-        tempRenderer->SwapWindowBuffers();
+    tempRenderer->SwapWindowBuffers();
 
-        temWindow->ProcessWindowEvents();
-    }
+    temWindow->ProcessWindowEvents();
+   
+}
 
-    //Close glfw
-    glfwTerminate();
+void BaseEngine::OnLoop()
+{
 
-    isRunning = false;
 }
 
 void BaseEngine::Draw()

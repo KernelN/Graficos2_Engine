@@ -14,6 +14,10 @@ public:
 	void Rotate(float angle);
 	void Scale(float x, float y);
 
+	Vector2 GetTranslation();
+	float GetRotation();
+	Vector2 GetScale();
+
 protected:
 	void funnyTransformationStuff();
 	void funnyTransformUpdate();

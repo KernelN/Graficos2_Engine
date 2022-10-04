@@ -8,6 +8,7 @@ public:
 	~BaseEngine();
 	bool IsRunning();
 	void Loop();
+	virtual void OnLoop();
 	virtual void Draw();
 private:
 	void* window;
