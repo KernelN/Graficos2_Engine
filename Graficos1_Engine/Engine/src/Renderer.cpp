@@ -21,13 +21,15 @@ Renderer::Renderer(Window* window)
 
 	program = new Program(shaders, 2);
 
-	glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+	//glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
 	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
 	glm::mat4 mvp = proj * view * model;
 
-	//program->SetUniformMat4f();
+	program->Bind();
+	program->SetUniformMat4f("mvp", mvp);
 	
 	
 
