@@ -136,6 +136,17 @@
       <AdditionalLibraryDirectories>$(ProjectDir)libs\glew\lib;$(ProjectDir)libs\glfw\lib-vc2019</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>REM Copy Library files to Game lib
+MKDIR "$(SolutionDir)Game\libs\MatialeEngine"
+COPY "$(TargetDir)$(TargetName).dll" "$(SolutionDir)Game\libs\MatialeEngine\$(TargetName).dll"
+COPY "$(TargetDir)$(TargetName).dll" "$(SolutionDir)Game\libs\MatialeEngine\$(TargetName).lib"
+REM Copy Library Header to Game lib
+REM MKDIR "$(SolutionDir)Game\libs\MatialeEngine\include"
+REM xcopy "$(ProjectDir)ApplicationFiles" "$(TargetDir)ApplicationFiles" /e /y /i /r
+REM COPY "$(ProjectDir)src\Application.h" "$(SolutionDir)Game\lib\Engine\include\Application.h"
+REM COPY "$(ProjectDir)src\API\EngineAPI.h" "$(SolutionDir)Game\lib\Engine\include\API\EngineAPI.h"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
