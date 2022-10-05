@@ -32,6 +32,7 @@ public:
 	void Draw(unsigned int indexCount, unsigned int modelID);
 	unsigned int GetNewModelID(glm::mat4 model);
 	void SetModel(glm::mat4 model, unsigned int modelID);
+	glm::mat4 GetModel(unsigned int modelID);
 
 private:
 	Window* window;

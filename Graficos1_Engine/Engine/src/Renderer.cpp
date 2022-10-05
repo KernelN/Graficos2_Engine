@@ -25,7 +25,8 @@ Renderer::Renderer(Window* window)
 	glm::mat4 proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
 	
 	//"Camera" - vec sets position (if "Camera" should move to the right, mvp matrix will move everything to the left)
-	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+	//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	viewProj = proj * view;
 
@@ -161,4 +162,9 @@ unsigned int Renderer::GetNewModelID(glm::mat4 model)
 void Renderer::SetModel(glm::mat4 model, unsigned int modelID)
 {
 	models[modelID] = model;
+}
+
+glm::mat4 Renderer::GetModel(unsigned int modelID)
+{
+	return models[modelID];
 }

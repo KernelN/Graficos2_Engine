@@ -5,8 +5,8 @@ Game::Game()
 {
     float tVertices[6] =
     {
-        0.5, 0.5,
-        -0.5, 0.5,
+        1, 0,
+        -1, 0,
         0, 1
     };
 
@@ -18,18 +18,20 @@ Game::Game()
         -10, 10
     };
     
-    square = new Square(sVertices, true);
+    //square = new Square(sVertices, true);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
 
-    //triangle = new Triangle(tVertices, true);
+    triangle = new Triangle(tVertices, true);
+    triangle->Scale(100, 100);
+    triangle->Translate(0, 0);
 }
 
 Game::~Game()
 {
-    delete square;
-    //delete triangle;
+    //delete square;
+    delete triangle;
 }
 
 bool Game::IsRunning()
@@ -44,34 +46,41 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    square->Rotate(1);
-    if (square->GetScale().x > 5.0f && squareScaleMod > 0)
+    //triangle->Rotate(1);
+    /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;
     }
-    else if (square->GetScale().x < 0.5f && squareScaleMod < 0)
+    else if (triangle->GetScale().x < 0.5f && squareScaleMod < 0)
     {
         squareScaleMod = 1;
     }
 
-    if (square->GetTranslation().x > 200.0f && squareMoveMod > 0)
+    if (triangle->GetTranslation().x > 200.0f && squareMoveMod > 0)
     {
         squareMoveMod = -1;
     }
-    else if (square->GetTranslation().x < -200.0f && squareMoveMod < 0)
+    else if (triangle->GetTranslation().x < -200.0f && squareMoveMod < 0)
     {
         squareMoveMod = 1;
+    }*/
+
+    if (triangle->GetScale().x < 10 && squareScaleMod > 0)
+    {
+        squareScaleMod = 0;
     }
 
-    int squareScale = 1.0f * squareScaleMod;
-    int squareMove = 1.0f * squareMoveMod;
+    float squareScale = 0.5f * squareScaleMod;
+    float squareMove = 1.0f * squareMoveMod;
     
-    square->Scale(squareScale, -squareScale);
+
+    //triangle->Scale(squareScale, -squareScale);
+    triangle->Scale(-squareScale, -squareScale);
     //square->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	square->Draw();
-    //triangle->Draw();
+	//square->Draw();
+    triangle->Draw();
 }
