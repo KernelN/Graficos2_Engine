@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp" />
+    <ClCompile Include="src\Data Organizers\Program.cpp" />
+    <ClCompile Include="src\Data Organizers\Vector2.cpp" />
     <ClCompile Include="src\Data Organizers\Vertex.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
@@ -31,6 +33,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h" />
+    <ClInclude Include="src\Data Organizers\Program.h" />
+    <ClInclude Include="src\Data Organizers\Vector2.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />
     <ClInclude Include="src\DLLManager.h" />
     <ClInclude Include="src\Entity\Entity.h" />
@@ -39,6 +43,7 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Square.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Utility\Singleton.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +128,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>$(ProjectDir)src;</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\glew\include\;$(ProjectDir)src;$(ProjectDir)libs\glfw\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\glew\include\;$(ProjectDir)src;$(ProjectDir)libs\glfw\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)libs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(ProjectDir)src;</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -156,7 +161,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\glew\include\;$(ProjectDir)src;$(ProjectDir)libs\glfw\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)libs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(ProjectDir)src;</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -176,7 +181,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\glew\include\;$(ProjectDir)src;$(ProjectDir)libs\glfw\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)libs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(ProjectDir)src;</AdditionalUsingDirectories>
     </ClCompile>
     <Link>

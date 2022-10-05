@@ -1,9 +1,13 @@
 #include "Window.h"
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include "glew/include/GL/glew.h"
+#include "glfw/include/GLFW/glfw3.h"
 #include <iostream>
 
-Window::Window() { CreateWindow(); }
+Window::Window(float height, float width) { 
+    this->height = height;
+    this->width = width;
+    CreateWindow(); 
+}
 
 Window::~Window(){}
 
@@ -21,7 +25,7 @@ void Window::ProcessWindowEvents()
 
 void Window::CreateWindow()
 {
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(height, width, "Hello World", NULL, NULL);
  
     if (!WindowExists()) return;
 
@@ -39,4 +43,14 @@ bool Window::WindowExists()
 bool Window::WindowShouldClose()
 {
     return glfwWindowShouldClose((GLFWwindow*)window);
+}
+
+float Window::GetHeight()
+{
+    return height;
+}
+
+float Window::GetWidth()
+{
+    return width;
 }

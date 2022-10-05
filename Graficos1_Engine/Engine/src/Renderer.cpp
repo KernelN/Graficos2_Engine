@@ -1,17 +1,44 @@
 #include "Renderer.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <glew/include/GL/glew.h>
+#include <glfw/include/GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include <iostream>
+#include <fstream>
+#include <glm/ext/matrix_transform.hpp>
 
-Renderer::Renderer(){}
 
 Renderer::Renderer(Window* window) 
 {
 	SetWindow(window);
+
+	ShaderData shaders[] =
+	{
+		{"libs/MatialeEngine/vertexShader.shader", GL_VERTEX_SHADER},
+		{"libs/MatialeEngine/fragmentShader.shader", GL_FRAGMENT_SHADER}
+	};
+
+	program = new Program(shaders, 2);
+
+	//glm::mat4 proj = glm::ortho(0.0f, window->GetHeight(), 0.0f, window->GetWidth(), -1.0f, 1.0f);
+	glm::mat4 proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
+	
+	//"Camera" - vec sets position (if "Camera" should move to the right, mvp matrix will move everything to the left)
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+
+	viewProj = proj * view;
+
+	models = std::vector<glm::mat4>();
+	
+	
+
 }
 
-Renderer::~Renderer(){}
+Renderer::~Renderer()
+{
+	delete program;
+}
 
 void Renderer::ClearScreen()
 {
@@ -109,154 +136,29 @@ void Renderer::DeleteBuffer(unsigned int* buffer)
 	glDeleteBuffers(1, buffer);
 }
 
-void Renderer::CreateAllShaders()
+void Renderer::BindProgram()
 {
-	CreateVertexShader();
-	CreateFragmentShader();
+	program->Bind();
 }
 
-void Renderer::CreateVertexShader()
+void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
-	// TEMP CLEAN LATER
-	std::string tempVertexShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) in vec4 position;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"gl_Position = position;\n"
-		"}\n";
+	BindProgram();
 
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, tempVertexShader);
+	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
 
-	AttachShaderToProgram(vs);
-	shadersCompiling.push(vs);
-}
-
-unsigned int Renderer::CompileShader(unsigned int type, std::string source)
-{
-	unsigned int id = glCreateShader(type);
-	const char* src = source.c_str();
-	glShaderSource(id, 1, &src, nullptr);
-	glCompileShader(id);
-
-	int result;
-	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-	if (result == GL_FALSE)
-	{
-		int length;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		char* message = (char*)alloca(length * sizeof(char));
-		glGetShaderInfoLog(id, length, &length, message);
-		std::cout << "Failed to compile: " << (type == GL_VERTEX_SHADER ? "vertex " : "fragment") << std::endl;
-		std::cout << message << std::endl;
-		glDeleteShader(id);
-		return 0;
-	}
-
-	return id;
-}
-
-void Renderer::CreateFragmentShader()
-{
-	// TEMP CLEAN LATER
-	std::string tempFragmentShader =
-		"#version 330 core\n "
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-		"}\n";
-
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, tempFragmentShader);
-
-	AttachShaderToProgram(fs);
-	shadersCompiling.push(fs);
-}
-
-void Renderer::CreateProgram()
-{
-	program = glCreateProgram();
-}
-
-void Renderer::UseProgram()
-{
-	glLinkProgram(program);
-	glValidateProgram(program);
-	ClearShaders();
-	glUseProgram(program);
-}
-
-void Renderer::SetFunnyChernoStuff()
-{
-	// WITHOUT THIS BREAKS
-	float tVertices[] = { 
-		-0.5f, -0.5f, // 0
-		0.5f, -0.5f, // 1
-		0.5f, 0.5f, // 2
-		-0.5f, 0.5f // 3	
-		//-0.5f, 0.5f // 3
-	};
-	//float tVertices[] = { 
-	//	-1, -1, // 0
-	//	1, -1, // 1
-	//	1, 1 // 2
-	//	-1, 1 // 3	
-	//};
-
-	unsigned int indices[] = {
-		/*1, 2, 3,		
-		0, 1, 3,*/
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), tVertices, GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-
-	unsigned int ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
-	
-	//THIS BREAKS
-
-	this->CreateProgram();
-	this->CreateAllShaders();
-	this->UseProgram();
-}
-
-void Renderer::DrawFunnyChernoStuff()
-{
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-}
-
-void Renderer::Draw(unsigned int indexCount)
-{
 	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 }
 
-void Renderer::ClearShaders()
+unsigned int Renderer::GetNewModelID(glm::mat4 model)
 {
-	while (!shadersCompiling.empty())
-	{
-		glDeleteShader(shadersCompiling.top());
-		shadersCompiling.pop();
-	}
+	unsigned int newModelID = models.size();
+	models.push_back(model);
+	return newModelID;
 }
 
-void Renderer::AttachShaderToProgram(unsigned int shader)
+void Renderer::SetModel(glm::mat4 model, unsigned int modelID)
 {
-	glAttachShader(program, shader);
+	models[modelID] = model;
 }

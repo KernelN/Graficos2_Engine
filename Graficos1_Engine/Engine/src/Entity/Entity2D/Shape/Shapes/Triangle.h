@@ -2,7 +2,7 @@
 
 #include "Entity/Entity2D/Shape/Shape.h"
 
-class Triangle : protected Shape
+class DLLEXPORT Triangle : public Shape
 {
 public:
 	Triangle(float vertexPos[6], bool triangleIsStatic);

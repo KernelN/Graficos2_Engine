@@ -2,6 +2,7 @@
 
 #include "..\..\Engine\src\Base.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Square.h"
+#include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
 
 class Game : public BaseEngine
 {
@@ -10,11 +11,15 @@ public:
 	~Game();
 	bool IsRunning();
 	void Loop();
+	void OnLoop() override;
 	void Draw() override;
 
 private:
 	Square* square;
+	Triangle* triangle;
 
+	int squareScaleMod;
+	int squareMoveMod;
 
 
 };

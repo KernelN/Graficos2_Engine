@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Window.h"
+#include "Data Organizers/Program.h"
 #include <string>
 #include <stack>
+#include <vector> 
 
 class Renderer
 {
 public:
-	Renderer();
 	Renderer(Window* window);
 	~Renderer();
 	void ClearScreen();
@@ -27,22 +28,15 @@ public:
 		unsigned int* iBuffer
 	);
 	void DeleteBuffer(unsigned int* buffer);
-	void CreateAllShaders();
-	void CreateProgram();
-	void UseProgram();
-	void SetFunnyChernoStuff();
-	void DrawFunnyChernoStuff();
-	void Draw(unsigned int indexCount);
-	void AttachShaderToProgram(unsigned int shader);
-	unsigned int program;
+	void BindProgram();
+	void Draw(unsigned int indexCount, unsigned int modelID);
+	unsigned int GetNewModelID(glm::mat4 model);
+	void SetModel(glm::mat4 model, unsigned int modelID);
+
 private:
 	Window* window;
-	std::stack<unsigned int> shadersCompiling;
+	Program* program;
+	glm::mat4 viewProj;
 
-	void CreateVertexShader();
-	void CreateFragmentShader();
-	unsigned int CompileShader(unsigned int type, std::string source);
-	void ClearShaders();
+	std::vector<glm::mat4> models;
 };
-
-static Renderer* globalRenderer;

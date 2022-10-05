@@ -1,5 +1,8 @@
 #include "Base.h"
-#include <GLFW/glfw3.h>
+#include "Utility/Singleton.h"
+#include "Window.h"
+#include "Renderer.h"
+#include <glfw/include/GLFW/glfw3.h>
 #include <iostream>
 #include "Entity/Entity2D/Shape/Shapes/Triangle.h"
 #include "Entity/Entity2D/Shape/Shapes/Square.h"
@@ -17,12 +20,13 @@ BaseEngine::BaseEngine()
         return;
     }
 
-    window = new Window();
+    window = new Window(640, 480);
+    Window* temWindow = (Window*)window;
 
     /*if (glewInit() != GLEW_OK)
         std::cout << "ENGINE ERROR: GLEW Init failed" << std::endl;*/
 
-    if (!window->WindowExists())
+    if (!temWindow->WindowExists())
     {
         std::cout << "ENGINE ERROR: Window Init failed" << std::endl;
         isRunning = false;
@@ -31,8 +35,8 @@ BaseEngine::BaseEngine()
     }
 
 
-    this->renderer = new Renderer(window);
-    globalRenderer = this->renderer;
+    Singleton::SetRenderer(new Renderer(temWindow));
+    renderer = Singleton::GetRenderer();
 
 
     /*float tVertices[8] = 
@@ -44,10 +48,6 @@ BaseEngine::BaseEngine()
     };*/
     /*triangle = new Triangle(tVertices, true);
     square = new Square(tVertices, true);*/
-
-    renderer->CreateProgram();
-    renderer->CreateAllShaders();
-    renderer->UseProgram();
 }
 
 BaseEngine::~BaseEngine()
@@ -59,27 +59,31 @@ BaseEngine::~BaseEngine()
 
 bool BaseEngine::IsRunning()
 {
-    return isRunning;
+    return isRunning && !((Window*)window)->WindowShouldClose();
 }
 
 void BaseEngine::Loop()
 {
-    /* Loop until the user closes the window */
-    while (!window->WindowShouldClose())
-    {
-        renderer->ClearScreen();
+    Window* temWindow = (Window*)window;
+    Renderer* tempRenderer = (Renderer*)renderer;
+ 
+    OnLoop();
+
+    tempRenderer->BindProgram();
+
+    tempRenderer->ClearScreen();
         
-        Draw();
+    Draw();
 
-        renderer->SwapWindowBuffers();
+    tempRenderer->SwapWindowBuffers();
 
-        window->ProcessWindowEvents();
-    }
+    temWindow->ProcessWindowEvents();
+   
+}
 
-    //Close glfw
-    glfwTerminate();
+void BaseEngine::OnLoop()
+{
 
-    isRunning = false;
 }
 
 void BaseEngine::Draw()

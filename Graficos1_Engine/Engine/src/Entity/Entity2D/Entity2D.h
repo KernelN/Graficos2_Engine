@@ -2,7 +2,7 @@
 
 #include "Entity/Entity.h"
 
-class DLLEXPORT Entity2D : protected Entity
+class DLLEXPORT Entity2D : public Entity
 {
 public:
 	Entity2D();
