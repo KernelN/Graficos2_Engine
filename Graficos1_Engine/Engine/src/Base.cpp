@@ -1,5 +1,6 @@
 #include "Base.h"
 #include "Utility/Singleton.h"
+#include "InputManager.h"
 #include "Window.h"
 #include "Renderer.h"
 #include <glfw/include/GLFW/glfw3.h>
@@ -38,6 +39,7 @@ BaseEngine::BaseEngine()
     Singleton::SetRenderer(new Renderer(temWindow));
     renderer = Singleton::GetRenderer();
 
+    inputManager = new InputManager(temWindow->GetGLFWPointer());
 
     /*float tVertices[8] = 
     { 
@@ -55,6 +57,7 @@ BaseEngine::~BaseEngine()
     glfwTerminate();
     delete renderer;
     delete window;
+    delete inputManager;
 }
 
 bool BaseEngine::IsRunning()
@@ -92,3 +95,9 @@ void BaseEngine::Draw()
     //square->Draw();
     //renderer->DrawFunnyChernoStuff();
 }
+
+bool BaseEngine::IsKeyPressed(unsigned short KeyCode)
+{
+    return ((InputManager*)inputManager)->IsKeyPressed(KeyCode);
+}
+

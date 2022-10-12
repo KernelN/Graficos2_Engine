@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "iostream"
+#include "Utility/KeyCodes.h"
 
 Game::Game()
 {
@@ -64,6 +65,15 @@ void Game::OnLoop()
     {
         squareMoveMod = 1;
     }*/
+
+    if (IsKeyPressed(KEY_SPACE))
+    {
+        squareScaleMod = 1;
+    }
+    else
+    {
+        squareScaleMod = 0;
+    }
 
     if (triangle->GetScale().x < 10 && squareScaleMod > 0)
     {
