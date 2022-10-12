@@ -140,12 +140,16 @@
       <Command>REM Copy Library files to Game lib
 MKDIR "$(SolutionDir)Game\libs\MatialeEngine"
 COPY "$(TargetDir)$(TargetName).dll" "$(SolutionDir)Game\libs\MatialeEngine\$(TargetName).dll"
-COPY "$(TargetDir)$(TargetName).dll" "$(SolutionDir)Game\libs\MatialeEngine\$(TargetName).lib"
+COPY "$(TargetDir)$(TargetName).lib" "$(SolutionDir)Game\libs\MatialeEngine\$(TargetName).lib"
 REM Copy Library Header to Game lib
 REM MKDIR "$(SolutionDir)Game\libs\MatialeEngine\include"
 REM xcopy "$(ProjectDir)ApplicationFiles" "$(TargetDir)ApplicationFiles" /e /y /i /r
 REM COPY "$(ProjectDir)src\Application.h" "$(SolutionDir)Game\lib\Engine\include\Application.h"
-REM COPY "$(ProjectDir)src\API\EngineAPI.h" "$(SolutionDir)Game\lib\Engine\include\API\EngineAPI.h"</Command>
+REM COPY "$(ProjectDir)src\API\EngineAPI.h" "$(SolutionDir)Game\lib\Engine\include\API\EngineAPI.h"
+REM Copy shaders to game
+MKDIR "$(SolutionDir)Game\shaders"
+xcopy "$(ProjectDir)shaders" "$(SolutionDir)Game\shaders" /e /s /y /r /i
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

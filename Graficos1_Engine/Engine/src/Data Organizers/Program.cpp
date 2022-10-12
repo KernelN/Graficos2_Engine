@@ -62,13 +62,17 @@ std::string Program::ReadFile(std::string fileDir)
 	std::string shaderLine;
 	std::string tempShader = "";
 
+	std::cout << fileDir << std::endl;
+
 	std::ifstream inputStream;
 	inputStream.open(fileDir);
 
 	while (getline(inputStream, shaderLine))
 	{
 		tempShader += shaderLine + '\n';
+		std::cout << shaderLine << std::endl;
 	}
+	std::cout << tempShader << std::endl;
 
 	inputStream.close();
 
@@ -143,9 +147,9 @@ int Program::GetUniformLocation(const std::string& varName)
 
 	if (location == -1)
 	{
-		std::cout << 
-			"ERROR: Uniform Variable" + varName + " wasn't available / doesn't exist" 
-			<< std::endl;
+		/*std::cout << 
+			"ERROR: Uniform Variable " + varName + " wasn't available / doesn't exist" 
+			<< std::endl;*/
 	}
 
 	return location;

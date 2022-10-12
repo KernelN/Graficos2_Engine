@@ -91,7 +91,10 @@
     <PreBuildEvent>
       <Command>REM Copy Engine Library Files to the Game .exe directory
 MKDIR "$(ProjectDir)libs\MatialeEngine"
-XCOPY "$(ProjectDir)libs\MatialeEngine" "$(TargetDir)" /e /h /y /s</Command>
+XCOPY "$(ProjectDir)libs\MatialeEngine" "$(TargetDir)" /e /h /y /s
+REM Copy shaders to .exe directory
+MKDIR "$(ProjectDir)shaders"
+XCOPY "$(ProjectDir)shaders" "$(TargetDir)"  /e /s /y /r /i</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
