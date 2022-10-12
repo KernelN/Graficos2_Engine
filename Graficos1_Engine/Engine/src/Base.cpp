@@ -39,7 +39,9 @@ BaseEngine::BaseEngine()
     Singleton::SetRenderer(new Renderer(temWindow));
     renderer = Singleton::GetRenderer();
 
-    inputManager = new InputManager(temWindow->GetGLFWPointer());
+    GLFWwindow* tempGLFWwindow = ((GLFWwindow*)temWindow->GetGLFWPointer());
+
+    inputManager = new InputManager(tempGLFWwindow);
 
     /*float tVertices[8] = 
     { 
