@@ -48,7 +48,7 @@ void Program::Unbind() const
 
 void Program::SetUniform1i(const std::string& varName, int value)
 {
-	glUniform1i(GetUniformLocation(varName), value));
+	glUniform1i(GetUniformLocation(varName), value);
 }
 
 void Program::SetUniform4f(const std::string& varName, float v1, float v2, float v3, float v4)

@@ -38,6 +38,7 @@ Renderer::Renderer(Window* window)
 
 	sprite = new Sprite("res/stef.png");
 	sprite->Bind();
+	program->SetUniform1i("u_Sprite", 0);
 }
 
 Renderer::~Renderer()

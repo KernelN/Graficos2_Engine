@@ -46,6 +46,9 @@
     <Filter Include="Headers\Utility">
       <UniqueIdentifier>{a34d5e66-a6f9-423c-ae39-cd82c54f9ee3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Sprite">
+      <UniqueIdentifier>{28192984-8a44-4bfd-9b9f-358fbf48d669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="src\InputManager.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp">
+      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="src\Utility\GlIncludes.h">
       <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\stb_image.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h">
+      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
