@@ -354,3 +354,5 @@ healthchecksdb
 MigrationBackup/
 
 Graficos1_Engine/Game/shaders/
+
+Graficos1_Engine/Game/libs/MatialeEngine/
