@@ -15,8 +15,8 @@ Renderer::Renderer(Window* window)
 
 	ShaderData shaders[] =
 	{
-		{"libs/MatialeEngine/vertexShader.shader", GL_VERTEX_SHADER},
-		{"libs/MatialeEngine/fragmentShader.shader", GL_FRAGMENT_SHADER}
+		{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
+		{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
 	};
 
 	program = new Program(shaders, 2);
@@ -31,9 +31,6 @@ Renderer::Renderer(Window* window)
 	viewProj = proj * view;
 
 	models = std::vector<glm::mat4>();
-	
-	
-
 }
 
 Renderer::~Renderer()
