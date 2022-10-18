@@ -8,6 +8,9 @@
 #include <fstream>
 #include <glm/ext/matrix_transform.hpp>
 
+#include "Entity/Entity2D/Sprite/Sprite.h"
+
+Sprite* sprite;
 
 Renderer::Renderer(Window* window) 
 {
@@ -31,11 +34,16 @@ Renderer::Renderer(Window* window)
 	viewProj = proj * view;
 
 	models = std::vector<glm::mat4>();
+
+
+	sprite = new Sprite("res/stef.png");
+	sprite->Bind();
 }
 
 Renderer::~Renderer()
 {
 	delete program;
+	delete sprite;
 }
 
 void Renderer::ClearScreen()
