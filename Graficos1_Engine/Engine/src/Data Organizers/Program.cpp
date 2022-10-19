@@ -70,9 +70,9 @@ std::string Program::ReadFile(std::string fileDir)
 	while (getline(inputStream, shaderLine))
 	{
 		tempShader += shaderLine + '\n';
-		std::cout << shaderLine << std::endl;
+		//std::cout << shaderLine << std::endl;
 	}
-	std::cout << tempShader << std::endl;
+	std::cout << tempShader << std::endl << std::endl;
 
 	inputStream.close();
 

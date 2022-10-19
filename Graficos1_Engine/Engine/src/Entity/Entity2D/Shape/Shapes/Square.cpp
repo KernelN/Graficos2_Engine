@@ -4,16 +4,16 @@
 #include "Utility/Singleton.h"
 #include "Renderer.h"
 
-Square::Square(float vertexPos[8], bool triangleIsStatic)
+Square::Square(float vertexPos[4][2], float vertexCol[4][4], bool squareIsStatic)
 {
 	vertices = new Vertex[4];
 	indices = new unsigned int[6];
-	UpdateVertex(vertexPos);
+	UpdateVertex(vertexPos, vertexCol);
 	Singleton::GetRenderer()->GetNewVertexBuffer
 	(
 		vertices->GetComponentAmount(), //vertex components
 		vertices->GetStride(), //stride
-		triangleIsStatic, //data is static
+		squareIsStatic, //data is static
 		0, //attribute id
 		vertices, //vertices data
 		indices, //indices
@@ -33,24 +33,18 @@ void Square::Draw()
 	Singleton::GetRenderer()->Draw(6, modelID);
 }
 
-void Square::UpdateVertex(float vertexPos[8])
+void Square::UpdateVertex(float vertexPos[4][2], float vertexCol[4][4])
 {
-	for (int i = 0; i < 8; i++)
+	for (unsigned short i = 0; i < 4; i++)
 	{
-		//set 2 positions per vertex, if i is even set X, else set Y
-		if (i % 2 == 0)
+		//Set Vertex Pos
+		vertices[i].position[0] = vertexPos[i][0];
+		vertices[i].position[1] = vertexPos[i][1];
+		
+		//Set Vertex Col
+		for (unsigned short j = 0; j < 4; j++)
 		{
-			
-			vertices[i / 2].position[0] = vertexPos[i];
-
-			/*vertices[i / 2].color[0] = 1.0;
-			vertices[i / 2].color[1] = 0.0;
-			vertices[i / 2].color[2] = 0.0;
-			vertices[i / 2].color[3] = 1.0;*/
-		}
-		else
-		{
-			vertices[i / 2].position[1] = vertexPos[i];
+			vertices[i].color[j] = vertexCol[i][j];
 		}
 	}
 
@@ -60,6 +54,4 @@ void Square::UpdateVertex(float vertexPos[8])
 	indices[3] = 2;
 	indices[4] = 3;
 	indices[5] = 0;
-
-
 }

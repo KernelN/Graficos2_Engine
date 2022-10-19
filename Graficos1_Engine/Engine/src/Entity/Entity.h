@@ -1,9 +1,9 @@
 #pragma once
 
-//#include "Renderer.h"
-#include "Data Organizers/Vertex.h"
 #include "DLLManager.h"
+#include "Data Organizers/Vertex.h"
 #include "Data Organizers/Vector2.h"
+#include "Data Organizers/Buffer/Buffer.h"
 
 class DLLEXPORT Entity
 {

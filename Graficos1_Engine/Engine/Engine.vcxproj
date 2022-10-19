@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp" />
+    <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp" />
     <ClCompile Include="src\Data Organizers\Program.cpp" />
     <ClCompile Include="src\Data Organizers\Vector2.cpp" />
     <ClCompile Include="src\Data Organizers\Vertex.cpp" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h" />
+    <ClInclude Include="src\Data Organizers\Buffer\Buffer.h" />
     <ClInclude Include="src\Data Organizers\Program.h" />
     <ClInclude Include="src\Data Organizers\Vector2.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />
@@ -45,14 +47,20 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h" />
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Utility\Color.h" />
     <ClInclude Include="src\Utility\GlIncludes.h" />
     <ClInclude Include="src\Utility\KeyCodes.h" />
     <ClInclude Include="src\Utility\Singleton.h" />
+    <ClInclude Include="src\Utility\stb_image.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Diagrama de Clases.jpg" />
     <Image Include="..\..\Estructura de Carpetas.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragmentShader.shader" />
+    <None Include="shaders\vertexShader.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -102,11 +102,25 @@ void Renderer::GetNewVertexBuffer
 #pragma endregion
 
 #pragma region SET VERTEX ATTRIB POINTER
-	//https://docs.gl/gl4/glEnableVertexAttribArray
-	glEnableVertexAttribArray(attribID);
+	////https://docs.gl/gl4/glVertexAttribPointer
+	//glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
 
+	////https://docs.gl/gl4/glEnableVertexAttribArray
+	//glEnableVertexAttribArray(attribID);
+
+	//SET POS
 	//https://docs.gl/gl4/glVertexAttribPointer
-	glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, (void*)0);
+
+	//https://docs.gl/gl4/glEnableVertexAttribArray
+	glEnableVertexAttribArray(0);
+
+	//SET COLOR
+	//https://docs.gl/gl4/glVertexAttribPointer
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, (void*)(2*sizeof(float)));
+
+	//https://docs.gl/gl4/glEnableVertexAttribArray
+	glEnableVertexAttribArray(1);
 #pragma endregion
 
 #pragma region SET INDEX BUFFER
@@ -144,7 +158,9 @@ void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 	BindProgram();
 
 	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
+	//program->SetUniform4f("_color", viewProj * models[modelID]);
 
+	//https://docs.gl/gl4/glDrawElements
 	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 }
