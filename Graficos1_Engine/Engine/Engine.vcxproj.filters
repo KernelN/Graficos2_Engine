@@ -49,6 +49,9 @@
     <Filter Include="Headers\Data Organizers\Buffer">
       <UniqueIdentifier>{25a2450b-b7d6-43fe-b945-73e34d7e4d12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Data Organizers\Buffer">
+      <UniqueIdentifier>{5fbc2954-f390-4dfd-9672-82beb6cc7ae0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -88,7 +91,7 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp">
-      <Filter>Headers\Data Organizers\Buffer</Filter>
+      <Filter>Source\Data Organizers\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
