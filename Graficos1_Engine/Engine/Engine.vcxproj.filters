@@ -46,8 +46,11 @@
     <Filter Include="Headers\Utility">
       <UniqueIdentifier>{a34d5e66-a6f9-423c-ae39-cd82c54f9ee3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Entity\Entity2D\Sprite">
-      <UniqueIdentifier>{28192984-8a44-4bfd-9b9f-358fbf48d669}</UniqueIdentifier>
+    <Filter Include="Headers\Data Organizers\Buffer">
+      <UniqueIdentifier>{25a2450b-b7d6-43fe-b945-73e34d7e4d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer">
+      <UniqueIdentifier>{5fbc2954-f390-4dfd-9672-82beb6cc7ae0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +90,8 @@
     <ClCompile Include="src\InputManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp">
-      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
+    <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +146,11 @@
     <ClInclude Include="src\Utility\stb_image.h">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h">
-      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
+    <ClInclude Include="src\Data Organizers\Buffer\Buffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Color.h">
+      <Filter>Headers\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,5 +160,13 @@
     <Image Include="..\..\Diagrama de Clases.jpg">
       <Filter>Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\vertexShader.shader">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="shaders\fragmentShader.shader">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

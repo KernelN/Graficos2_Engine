@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "iostream"
 #include "Utility/KeyCodes.h"
+#include "Utility/Color.h"
 
 Game::Game()
 {
@@ -11,28 +12,36 @@ Game::Game()
         0, 1
     };
 
-    float sVertices[8] =
+    float sVertices[4][2] =
     {
-        -10, -10,
-        10, -10,
-        10, 10,
-        -10, 10
+        {-1, -1},
+        {1, -1},
+        {1, 1},
+        {-1, 1}
+    };
+
+    float sColors[4][4] =
+    {
+        {WHITE},
+        {RED},
+        {RED},
+        {WHITE}
     };
     
-    //square = new Square(sVertices, true);
+    square = new Square(sVertices, sColors, true);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
 
-    triangle = new Triangle(tVertices, true);
-    triangle->Scale(100, 100);
-    triangle->Translate(0, 0);
+    //triangle = new Triangle(tVertices, true);
+    square->Scale(100, 100);
+    square->Translate(0, 0);
 }
 
 Game::~Game()
 {
-    //delete square;
-    delete triangle;
+    delete square;
+    //delete triangle;
 }
 
 bool Game::IsRunning()
@@ -75,7 +84,7 @@ void Game::OnLoop()
         squareScaleMod = 0;
     }
 
-    if (triangle->GetScale().x < 10 && squareScaleMod > 0)
+    if (square->GetScale().x < 10 && squareScaleMod > 0)
     {
         squareScaleMod = 0;
     }
@@ -85,12 +94,12 @@ void Game::OnLoop()
     
 
     //triangle->Scale(squareScale, -squareScale);
-    triangle->Scale(-squareScale, -squareScale);
+    square->Scale(-squareScale, -squareScale);
     //square->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	//square->Draw();
-    triangle->Draw();
+	square->Draw();
+    //triangle->Draw();
 }

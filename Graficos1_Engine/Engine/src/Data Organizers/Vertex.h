@@ -4,9 +4,9 @@
 struct DLLEXPORT Vertex
 {
 public:
-	enum Attributes { pos, /*col,*/ _count };
+	enum Attributes { pos, col, _count };
 	float position[2];
-	//float color[4];
+	float color[4];
 	unsigned int GetStride();
 	unsigned int GetComponentAmount();
 	unsigned int GetIndex(Attributes attribute);
