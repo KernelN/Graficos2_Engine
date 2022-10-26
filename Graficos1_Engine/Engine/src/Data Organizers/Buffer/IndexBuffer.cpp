@@ -26,6 +26,7 @@ IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count)
 
 IndexBuffer::~IndexBuffer()
 {
+	glDeleteBuffers(1, &rendererID);
 }
 
 void IndexBuffer::Bind() const

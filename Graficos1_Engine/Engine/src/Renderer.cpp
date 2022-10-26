@@ -10,8 +10,6 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
-#include "Data Organizers/Buffer/Arrays/VertexArray.h"
-#include "Data Organizers/Buffer/IndexBuffer.h"
 
 //Sprite* sprite;
 
@@ -46,7 +44,19 @@ Renderer::Renderer(Window* window)
 
 Renderer::~Renderer()
 {
+	//Delete Program
 	delete program;
+
+	//Delete Buffers
+	for (unsigned short i = 0; i < vertexBuffers.size(); i++)
+	{
+		delete vertexBuffers[i];
+	}
+	for (unsigned short i = 0; i < indexBuffers.size(); i++)
+	{
+		delete indexBuffers[i];
+	}
+
 	//delete sprite;
 }
 
@@ -165,6 +175,16 @@ void Renderer::BindProgram()
 	program->Bind();
 }
 
+void Renderer::BindBuffers()
+{
+	va.Bind();
+
+	for (unsigned short i = 0; i < indexBuffers.size(); i++)
+	{
+		indexBuffers[i]->Bind();
+	}
+}
+
 void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
 	BindProgram();
@@ -194,22 +214,21 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 	return models[modelID];
 }
 
-void Renderer::GetChernoVertexBuffer(const void* data, unsigned int dataSize)
+void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
-	VertexArray va;
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
 
 	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
+	vertexBuffers.push_back(vb);
 	
 	VertexBufferLayout layout; 
 	layout.Push<float>(2);
 	layout.Push<float>(4);
 	va.AddBuffer(*vb, layout);
-	va.Bind(); // CHerno moved it to loop
-
 }
 
-void Renderer::GetIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+void Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
 {
 	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
+	indexBuffers.push_back(ib);
 }

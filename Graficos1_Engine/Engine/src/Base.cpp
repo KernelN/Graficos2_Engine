@@ -75,6 +75,7 @@ void BaseEngine::Loop()
     OnLoop();
 
     tempRenderer->BindProgram();
+    tempRenderer->BindBuffers();
 
     tempRenderer->ClearScreen();
         

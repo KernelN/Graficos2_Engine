@@ -2,6 +2,8 @@
 
 #include "Window.h"
 #include "Data Organizers/Program.h"
+#include "Data Organizers/Buffer/Arrays/VertexArray.h"
+#include "Data Organizers/Buffer/IndexBuffer.h"
 #include <string>
 #include <stack>
 #include <vector> 
@@ -29,13 +31,14 @@ public:
 	);
 	void DeleteBuffer(unsigned int* buffer);
 	void BindProgram();
+	void BindBuffers();
 	void Draw(unsigned int indexCount, unsigned int modelID);
 	unsigned int GetNewModelID(glm::mat4 model);
 	void SetModel(glm::mat4 model, unsigned int modelID);
 	glm::mat4 GetModel(unsigned int modelID);
 
-	void GetChernoVertexBuffer(const void* data, unsigned int dataSize);
-	void GetIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
+	void GetNewVertexBuffer(const void* data, unsigned int dataSize);
+	void GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
 
 private:
 	Window* window;
@@ -43,4 +46,8 @@ private:
 	glm::mat4 viewProj;
 
 	std::vector<glm::mat4> models;
+	std::vector<IndexBuffer*> indexBuffers;
+	std::vector<VertexBuffer*> vertexBuffers;
+	VertexArray va;
+
 };

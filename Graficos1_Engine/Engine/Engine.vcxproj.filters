@@ -64,6 +64,12 @@
     <Filter Include="Source\Data Organizers\Buffer\Arrays">
       <UniqueIdentifier>{9a58e424-65cf-454d-bc1f-a08d9ef3152e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Data Organizers\Buffer\Layout">
+      <UniqueIdentifier>{98568897-3057-41a3-82ec-df11f272bd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer\Layout">
+      <UniqueIdentifier>{9355f45f-e2b5-4069-82e0-1451167c1411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -116,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="src\Data Organizers\Buffer\IndexBuffer.cpp">
       <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Layout\VertexBufferLayout.cpp">
+      <Filter>Source\Data Organizers\Buffer\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.cpp">
+      <Filter>Source\Data Organizers\Buffer\Layout</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,11 +197,14 @@
     <ClInclude Include="src\Data Organizers\Buffer\VertexBuffer.h">
       <Filter>Headers\Data Organizers\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Data Organizers\Buffer\VertexBufferLayout.h">
-      <Filter>Headers\Data Organizers\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Data Organizers\Buffer\IndexBuffer.h">
       <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Layout\VertexBufferLayout.h">
+      <Filter>Headers\Data Organizers\Buffer\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.h">
+      <Filter>Headers\Data Organizers\Buffer\Layout</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
