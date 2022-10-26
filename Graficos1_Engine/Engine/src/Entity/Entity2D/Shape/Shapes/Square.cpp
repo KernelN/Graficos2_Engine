@@ -9,19 +9,21 @@ Square::Square(float vertexPos[4][2], float vertexCol[4][4], bool squareIsStatic
 	vertices = new Vertex[4];
 	indices = new unsigned int[6];
 	UpdateVertex(vertexPos, vertexCol);
-	Singleton::GetRenderer()->GetNewVertexBuffer
-	(
-		vertices->GetComponentAmount(), //vertex components
-		vertices->GetStride(), //stride
-		squareIsStatic, //data is static
-		0, //attribute id
-		vertices, //vertices data
-		indices, //indices
-		4, //vertices amount
-		6, //indices amount
-		vBuffer, //vertex buffer
-		iBuffer //index buffer
-	);
+	Singleton::GetRenderer()->GetChernoVertexBuffer(vertices, 4 * vertices->GetStride());
+	Singleton::GetRenderer()->GetIndexBuffer(indices, 6);
+	//Singleton::GetRenderer()->GetNewVertexBuffer
+	//(
+	//	vertices->GetComponentAmount(), //vertex components
+	//	vertices->GetStride(), //stride
+	//	squareIsStatic, //data is static
+	//	0, //attribute id
+	//	vertices, //vertices data
+	//	indices, //indices
+	//	4, //vertices amount
+	//	6, //indices amount
+	//	vBuffer, //vertex buffer
+	//	iBuffer //index buffer
+	//);
 }
 
 Square::~Square()

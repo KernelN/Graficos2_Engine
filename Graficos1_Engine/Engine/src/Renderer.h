@@ -34,6 +34,9 @@ public:
 	void SetModel(glm::mat4 model, unsigned int modelID);
 	glm::mat4 GetModel(unsigned int modelID);
 
+	void GetChernoVertexBuffer(const void* data, unsigned int dataSize);
+	void GetIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
+
 private:
 	Window* window;
 	Program* program;

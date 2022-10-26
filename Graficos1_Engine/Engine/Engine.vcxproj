@@ -20,7 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp" />
+    <ClCompile Include="src\Data Organizers\Buffer\Arrays\VertexArray.cpp" />
     <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp" />
+    <ClCompile Include="src\Data Organizers\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Data Organizers\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Data Organizers\Program.cpp" />
     <ClCompile Include="src\Data Organizers\Vector2.cpp" />
     <ClCompile Include="src\Data Organizers\Vertex.cpp" />
@@ -36,7 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h" />
+    <ClInclude Include="src\Data Organizers\Buffer\Arrays\VertexArray.h" />
     <ClInclude Include="src\Data Organizers\Buffer\Buffer.h" />
+    <ClInclude Include="src\Data Organizers\Buffer\IndexBuffer.h" />
+    <ClInclude Include="src\Data Organizers\Buffer\VertexBuffer.h" />
+    <ClInclude Include="src\Data Organizers\Buffer\VertexBufferLayout.h" />
     <ClInclude Include="src\Data Organizers\Program.h" />
     <ClInclude Include="src\Data Organizers\Vector2.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />

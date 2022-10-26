@@ -52,6 +52,18 @@
     <Filter Include="Source\Data Organizers\Buffer">
       <UniqueIdentifier>{5fbc2954-f390-4dfd-9672-82beb6cc7ae0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Sprite">
+      <UniqueIdentifier>{7353cd38-c45d-4d72-8525-e1e1f8d18949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Sprite">
+      <UniqueIdentifier>{6837fc28-a8dd-4644-8e79-a1aac83967a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers\Buffer\Arrays">
+      <UniqueIdentifier>{793153ad-8634-4616-9d9c-75132d16cacf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer\Arrays">
+      <UniqueIdentifier>{9a58e424-65cf-454d-bc1f-a08d9ef3152e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -91,6 +103,18 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp">
+      <Filter>Source\Entity\Entity2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\VertexBuffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Arrays\VertexArray.cpp">
+      <Filter>Source\Data Organizers\Buffer\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\IndexBuffer.cpp">
       <Filter>Source\Data Organizers\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -151,6 +175,21 @@
     </ClInclude>
     <ClInclude Include="src\Utility\Color.h">
       <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h">
+      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Arrays\VertexArray.h">
+      <Filter>Headers\Data Organizers\Buffer\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\VertexBuffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\VertexBufferLayout.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\IndexBuffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

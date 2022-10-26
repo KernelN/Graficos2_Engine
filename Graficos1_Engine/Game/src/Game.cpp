@@ -3,6 +3,7 @@
 #include "Utility/KeyCodes.h"
 #include "Utility/Color.h"
 
+
 Game::Game()
 {
     float tVertices[6] =

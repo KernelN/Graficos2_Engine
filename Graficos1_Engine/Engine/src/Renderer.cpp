@@ -10,7 +10,10 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
-Sprite* sprite;
+#include "Data Organizers/Buffer/Arrays/VertexArray.h"
+#include "Data Organizers/Buffer/IndexBuffer.h"
+
+//Sprite* sprite;
 
 Renderer::Renderer(Window* window) 
 {
@@ -36,15 +39,15 @@ Renderer::Renderer(Window* window)
 	models = std::vector<glm::mat4>();
 
 
-	sprite = new Sprite("res/stef.png");
-	sprite->Bind();
+	//sprite = new Sprite("res/stef.png");
+	//sprite->Bind();
 	program->SetUniform1i("u_Sprite", 0);
 }
 
 Renderer::~Renderer()
 {
 	delete program;
-	delete sprite;
+	//delete sprite;
 }
 
 void Renderer::ClearScreen()
@@ -189,4 +192,24 @@ void Renderer::SetModel(glm::mat4 model, unsigned int modelID)
 glm::mat4 Renderer::GetModel(unsigned int modelID)
 {
 	return models[modelID];
+}
+
+void Renderer::GetChernoVertexBuffer(const void* data, unsigned int dataSize)
+{
+	VertexArray va;
+	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
+
+	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
+	
+	VertexBufferLayout layout; 
+	layout.Push<float>(2);
+	layout.Push<float>(4);
+	va.AddBuffer(*vb, layout);
+	va.Bind(); // CHerno moved it to loop
+
+}
+
+void Renderer::GetIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+{
+	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
 }
