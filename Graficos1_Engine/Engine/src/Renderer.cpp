@@ -8,10 +8,6 @@
 #include <fstream>
 #include <glm/ext/matrix_transform.hpp>
 
-#include "Entity/Entity2D/Sprite/Sprite.h"
-
-
-//Sprite* sprite;
 
 Renderer::Renderer(Window* window) 
 {
@@ -19,8 +15,10 @@ Renderer::Renderer(Window* window)
 
 	ShaderData shaders[] =
 	{
-		{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
-		{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
+		{"shaders/vertexShader_sprite.shader", GL_VERTEX_SHADER},
+		{"shaders/fragmentShader_sprite.shader", GL_FRAGMENT_SHADER}
+		//{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
+		//{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
 	};
 
 	program = new Program(shaders, 2);
@@ -35,11 +33,6 @@ Renderer::Renderer(Window* window)
 	viewProj = proj * view;
 
 	models = std::vector<glm::mat4>();
-
-
-	//sprite = new Sprite("res/stef.png");
-	//sprite->Bind();
-	program->SetUniform1i("u_Sprite", 0);
 }
 
 Renderer::~Renderer()
@@ -56,8 +49,6 @@ Renderer::~Renderer()
 	{
 		delete indexBuffers[i];
 	}
-
-	//delete sprite;
 }
 
 void Renderer::ClearScreen()
@@ -188,6 +179,7 @@ void Renderer::BindBuffers()
 void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
 	BindProgram();
+	BindBuffers();
 
 	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
 	//program->SetUniform4f("_color", viewProj * models[modelID]);
@@ -214,6 +206,11 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 	return models[modelID];
 }
 
+void Renderer::SetSprite(unsigned int value)
+{
+	program->SetUniform1i("u_Sprite", 0);
+}
+
 void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
@@ -223,7 +220,7 @@ void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 	
 	VertexBufferLayout layout; 
 	layout.Push<float>(2);
-	layout.Push<float>(4);
+	layout.Push<float>(2);
 	va.AddBuffer(*vb, layout);
 }
 

@@ -70,6 +70,9 @@
     <Filter Include="Source\Data Organizers\Buffer\Layout">
       <UniqueIdentifier>{9355f45f-e2b5-4069-82e0-1451167c1411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Data Organizers\Vectors">
+      <UniqueIdentifier>{15d1b587-2984-46a6-91f6-2671559fbbcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.h">
       <Filter>Headers\Data Organizers\Buffer\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vectors\Vector4.h">
+      <Filter>Headers\Data Organizers\Vectors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

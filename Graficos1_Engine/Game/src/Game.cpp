@@ -13,14 +13,6 @@ Game::Game()
         0, 1
     };
 
-    float sVertices[4][2] =
-    {
-        {-1, -1},
-        {1, -1},
-        {1, 1},
-        {-1, 1}
-    };
-
     float sColors[4][4] =
     {
         {WHITE},
@@ -29,14 +21,14 @@ Game::Game()
         {WHITE}
     };
     
-    square = new Square(sVertices, sColors, true);
+    //square = new Square(sColors, true);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
 
     //triangle = new Triangle(tVertices, true);
-    square->Scale(100, 100);
-    square->Translate(0, 0);
+    //square->Scale(100, 100);
+    //square->Translate(0, 0);
 }
 
 Game::~Game()
@@ -85,17 +77,17 @@ void Game::OnLoop()
         squareScaleMod = 0;
     }
 
-    if (square->GetScale().x < 10 && squareScaleMod > 0)
-    {
-        squareScaleMod = 0;
-    }
+    //if (square->GetScale().x < 10 && squareScaleMod > 0)
+    //{
+    //    squareScaleMod = 0;
+    //}
 
     float squareScale = 0.5f * squareScaleMod;
     float squareMove = 1.0f * squareMoveMod;
     
 
     //triangle->Scale(squareScale, -squareScale);
-    square->Scale(-squareScale, -squareScale);
+    //square->Scale(-squareScale, -squareScale);
     //square->Translate(squareMove, 0);
 }
 

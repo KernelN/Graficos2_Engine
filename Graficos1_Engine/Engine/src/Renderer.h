@@ -36,7 +36,7 @@ public:
 	unsigned int GetNewModelID(glm::mat4 model);
 	void SetModel(glm::mat4 model, unsigned int modelID);
 	glm::mat4 GetModel(unsigned int modelID);
-
+	void SetSprite(unsigned int value);
 	void GetNewVertexBuffer(const void* data, unsigned int dataSize);
 	void GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
 

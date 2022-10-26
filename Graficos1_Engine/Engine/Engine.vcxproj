@@ -49,6 +49,7 @@
     <ClInclude Include="src\Data Organizers\Buffer\VertexBuffer.h" />
     <ClInclude Include="src\Data Organizers\Program.h" />
     <ClInclude Include="src\Data Organizers\Vector2.h" />
+    <ClInclude Include="src\Data Organizers\Vectors\Vector4.h" />
     <ClInclude Include="src\Data Organizers\Vertex.h" />
     <ClInclude Include="src\DLLManager.h" />
     <ClInclude Include="src\Entity\Entity.h" />

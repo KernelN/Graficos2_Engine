@@ -5,12 +5,11 @@
 #include "Renderer.h"
 #include <glfw/include/GLFW/glfw3.h>
 #include <iostream>
-#include "Entity/Entity2D/Shape/Shapes/Triangle.h"
-#include "Entity/Entity2D/Shape/Shapes/Square.h"
 
-Triangle* triangle;
-Square* square;
+#include "Entity/Entity2D/Sprite/Sprite.h"
 
+Sprite* sprite
+;
 BaseEngine::BaseEngine()
 {
     //Initialize glfw
@@ -52,10 +51,14 @@ BaseEngine::BaseEngine()
     };*/
     /*triangle = new Triangle(tVertices, true);
     square = new Square(tVertices, true);*/
+
+
+    sprite = new Sprite("res/stef.png");
 }
 
 BaseEngine::~BaseEngine()
 {
+    delete sprite;
     glfwTerminate();
     delete renderer;
     delete window;
@@ -78,8 +81,9 @@ void BaseEngine::Loop()
     tempRenderer->BindBuffers();
 
     tempRenderer->ClearScreen();
-        
-    Draw();
+      
+    sprite->Draw();
+    //Draw();
 
     tempRenderer->SwapWindowBuffers();
 
