@@ -17,14 +17,27 @@ Sprite::Sprite(const std::string& path)
 	stbi_set_flip_vertically_on_load(1);
 	localBuffer = stbi_load(filePath.c_str(), &width, &height, &bitsPerPixel, 4);
 
+	//https://docs.gl/gl4/glGenTextures
 	glGenTextures(1, &rendererID);
+
+	//https://docs.gl/gl4/glBindTexture
 	glBindTexture(GL_TEXTURE_2D, rendererID);
 
+
+	//https://docs.gl/gl4/glTexParameteri
+	///SET MIPMAPPING VARS
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	///SET WRAPPING VARS
+	//Repeat: repeats image in empty space
+	//Mirror Repeat: repeats image, but mirroring it
+	//Clamp Border: stretches image to edge of screen
+	//Clamp Edge: fills empty space left by image with color
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
+	//https://docs.gl/gl4/glTexImage2D
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
