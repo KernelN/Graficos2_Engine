@@ -1,6 +1,5 @@
 #include "Square.h"
 
-#include <glfw/include/GLFW/glfw3.h>
 #include "Utility/Singleton.h"
 #include "Renderer.h"
 

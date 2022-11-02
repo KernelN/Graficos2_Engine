@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <Utility/stb_image.h>
 #include <glew/include/GL/glew.h>
 #include <glfw/include/GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -34,9 +36,7 @@ Renderer::Renderer(Window* window)
 
 	models = std::vector<glm::mat4>();
 
-	//Enable blending, so images with transparency can be draw
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	SetUniversalSpriteSettings();
 }
 
 Renderer::~Renderer()
@@ -83,80 +83,114 @@ void Renderer::SetWindow(Window* window)
 	this->window = window;
 }
 
-void Renderer::GetNewVertexBuffer
-(
-#pragma region vars
-	unsigned int vComponents,
-	unsigned int stride,
-	bool dataIsStatic,
-	unsigned int attribID,
-	//could change to BufferData struct
-	void* vData,
-	unsigned int* indices,
-	unsigned int vAmount,
-	unsigned int iAmount,
-	unsigned int* vBuffer,
-	unsigned int* iBuffer
-	//could change to BufferData struct
-#pragma endregion
-)
+void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
-#pragma region SET VERTEX BUFFER
-	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
-	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, vBuffer);
+	BindProgram();
+	BindBuffers();
 
-	//Select buffer and set it as array buffer (ideal to work with vertexes)
-	//https://docs.gl/gl4/glBindBuffer
-	unsigned int vBufferData = *vBuffer;
-	glBindBuffer(GL_ARRAY_BUFFER, vBufferData); //maybe problems?
+	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
+	//program->SetUniform4f("_color", viewProj * models[modelID]);
 
-	//Send data to buffer
-	//https://docs.gl/gl4/glBufferData
-	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-	unsigned int vDataSize = vAmount * stride;
-	glBufferData(GL_ARRAY_BUFFER, vDataSize, vData, dataUsage); //may be a problem
-#pragma endregion
+	//https://docs.gl/gl4/glDrawElements
+	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
+	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+}
 
-#pragma region SET VERTEX ATTRIB POINTER
-	////https://docs.gl/gl4/glVertexAttribPointer
-	//glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
+#pragma region Buffers & Program
 
-	////https://docs.gl/gl4/glEnableVertexAttribArray
-	//glEnableVertexAttribArray(attribID);
+//void Renderer::GetNewVertexBuffer
+//(
+//#pragma region vars
+//	unsigned int vComponents,
+//	unsigned int stride,
+//	bool dataIsStatic,
+//	unsigned int attribID,
+//	//could change to BufferData struct
+//	void* vData,
+//	unsigned int* indices,
+//	unsigned int vAmount,
+//	unsigned int iAmount,
+//	unsigned int* vBuffer,
+//	unsigned int* iBuffer
+//	//could change to BufferData struct
+//#pragma endregion
+//)
+//{
+//#pragma region SET VERTEX BUFFER
+//	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
+//	//https://docs.gl/gl4/glGenBuffers
+//	glGenBuffers(1, vBuffer);
+//
+//	//Select buffer and set it as array buffer (ideal to work with vertexes)
+//	//https://docs.gl/gl4/glBindBuffer
+//	unsigned int vBufferData = *vBuffer;
+//	glBindBuffer(GL_ARRAY_BUFFER, vBufferData); //maybe problems?
+//
+//	//Send data to buffer
+//	//https://docs.gl/gl4/glBufferData
+//	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
+//	unsigned int vDataSize = vAmount * stride;
+//	glBufferData(GL_ARRAY_BUFFER, vDataSize, vData, dataUsage); //may be a problem
+//#pragma endregion
+//
+//#pragma region SET VERTEX ATTRIB POINTER
+//	////https://docs.gl/gl4/glVertexAttribPointer
+//	//glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
+//
+//	////https://docs.gl/gl4/glEnableVertexAttribArray
+//	//glEnableVertexAttribArray(attribID);
+//
+//	//SET POS
+//	//https://docs.gl/gl4/glVertexAttribPointer
+//	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, (void*)0);
+//
+//	//https://docs.gl/gl4/glEnableVertexAttribArray
+//	glEnableVertexAttribArray(0);
+//
+//	//SET COLOR
+//	//https://docs.gl/gl4/glVertexAttribPointer
+//	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, (void*)(2*sizeof(float)));
+//
+//	//https://docs.gl/gl4/glEnableVertexAttribArray
+//	glEnableVertexAttribArray(1);
+//#pragma endregion
+//
+//#pragma region SET INDEX BUFFER
+//	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
+//	//https://docs.gl/gl4/glGenBuffers
+//	glGenBuffers(1, iBuffer);
+//
+//	//Select buffer and set it as element array buffer (ideal to work with indices)
+//	//https://docs.gl/gl4/glBindBuffer
+//	unsigned int iBufferData = *iBuffer;
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
+//
+//	//Send data to buffer
+//	//https://docs.gl/gl4/glBufferData
+//	// index will always be an unsigned int
+//	//because it's just an index, it doesn't have components
+//	unsigned int iDataSize = iAmount * sizeof(unsigned int);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
+//#pragma endregion
+//}
 
-	//SET POS
-	//https://docs.gl/gl4/glVertexAttribPointer
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, (void*)0);
+void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
+{
+	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
 
-	//https://docs.gl/gl4/glEnableVertexAttribArray
-	glEnableVertexAttribArray(0);
+	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
+	vertexBuffers.push_back(vb);
 
-	//SET COLOR
-	//https://docs.gl/gl4/glVertexAttribPointer
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, (void*)(2*sizeof(float)));
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.AddBuffer(*vb, layout);
+}
 
-	//https://docs.gl/gl4/glEnableVertexAttribArray
-	glEnableVertexAttribArray(1);
-#pragma endregion
-
-#pragma region SET INDEX BUFFER
-	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
-	//https://docs.gl/gl4/glGenBuffers
-	glGenBuffers(1, iBuffer);
-
-	//Select buffer and set it as element array buffer (ideal to work with indices)
-	//https://docs.gl/gl4/glBindBuffer
-	unsigned int iBufferData = *iBuffer;
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
-
-	//Send data to buffer
-	//https://docs.gl/gl4/glBufferData
-	// index will always be an unsigned int
-	//because it's just an index, it doesn't have components
-	unsigned int iDataSize = iAmount * sizeof(unsigned int);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
-#pragma endregion
+void Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+{
+	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
+	indexBuffers.push_back(ib);
 }
 
 void Renderer::DeleteBuffer(unsigned int* buffer)
@@ -179,19 +213,9 @@ void Renderer::BindBuffers()
 		indexBuffers[i]->Bind();
 	}
 }
+#pragma endregion
 
-void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
-{
-	BindProgram();
-	BindBuffers();
-
-	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
-	//program->SetUniform4f("_color", viewProj * models[modelID]);
-
-	//https://docs.gl/gl4/glDrawElements
-	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
-	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
-}
+#pragma region Model
 
 unsigned int Renderer::GetNewModelID(glm::mat4 model)
 {
@@ -210,26 +234,76 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 	return models[modelID];
 }
 
+#pragma endregion
+
+#pragma region Sprite
+
+void Renderer::GetSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID)
+{
+	unsigned char* localBuffer = nullptr;
+
+	stbi_set_flip_vertically_on_load(1);
+
+	//bpp = Bits per Pixel
+	localBuffer = stbi_load(imgPath.c_str(), width, height, bpp, 4);
+
+	//https://docs.gl/gl4/glGenTextures
+	glGenTextures(1, spriteID);
+
+	//https://docs.gl/gl4/glBindTexture
+	glBindTexture(GL_TEXTURE_2D, *spriteID);
+
+	//If image didn't load exit
+	if (!localBuffer) return;
+
+	//https://docs.gl/gl4/glTexImage2D
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	//Free buffer/image from stbi
+	stbi_image_free(localBuffer);
+}
+
 void Renderer::SetSprite(unsigned int value)
 {
 	program->SetUniform1i("u_Sprite", 0);
 }
 
-void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
+void Renderer::DeleteSprite(unsigned int* spriteID)
 {
-	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
-
-	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
-	vertexBuffers.push_back(vb);
-	
-	VertexBufferLayout layout; 
-	layout.Push<float>(2);
-	layout.Push<float>(2);
-	va.AddBuffer(*vb, layout);
+	glDeleteTextures(1, spriteID);
 }
 
-void Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+void Renderer::BindSprite(unsigned int slot, unsigned int spriteID)
 {
-	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
-	indexBuffers.push_back(ib);
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(GL_TEXTURE_2D, spriteID);
 }
+
+void Renderer::UnbindSprite()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Renderer::SetUniversalSpriteSettings()
+{
+	//https://docs.gl/gl4/glTexParameteri
+	///SET MIPMAPPING VARS
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	///SET WRAPPING VARS
+	//Repeat: repeats image in empty space
+	//Mirror Repeat: repeats image, but mirroring it
+	//Clamp Border: stretches image to edge of screen
+	//Clamp Edge: fills empty space left by image with color
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+	//Enable blending, so images with transparency can be draw
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+#pragma endregion

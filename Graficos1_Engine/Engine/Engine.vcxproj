@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Base.cpp" />
     <ClCompile Include="src\Data Organizers\Buffer\Arrays\VertexArray.cpp" />
     <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Base.h" />
     <ClInclude Include="src\Data Organizers\Buffer\Arrays\VertexArray.h" />
     <ClInclude Include="src\Data Organizers\Buffer\Buffer.h" />

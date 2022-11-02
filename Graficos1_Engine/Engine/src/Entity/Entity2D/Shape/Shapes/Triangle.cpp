@@ -1,6 +1,5 @@
 #include "Triangle.h"
 
-#include <glfw/include/GLFW/glfw3.h>
 #include "Utility/Singleton.h"
 #include "Renderer.h"
 
@@ -9,19 +8,19 @@ Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)
 	vertices = new Vertex[3];
 	indices = new unsigned int[3];
 	UpdateVertex(vertexPos);
-	Singleton::GetRenderer()->GetNewVertexBuffer
-	(
-		vertices->GetComponentAmount(), //vertex components
-		vertices->GetStride(), //stride
-		triangleIsStatic, //data is static
-		0, //attribute id
-		vertices, //vertices data
-		indices, //indices
-		3, //vertices amount
-		3, //indices amount
-		vBuffer, //vertex buffer
-		iBuffer //index buffer
-	);
+	//Singleton::GetRenderer()->GetNewVertexBuffer
+	//(
+	//	vertices->GetComponentAmount(), //vertex components
+	//	vertices->GetStride(), //stride
+	//	triangleIsStatic, //data is static
+	//	0, //attribute id
+	//	vertices, //vertices data
+	//	indices, //indices
+	//	3, //vertices amount
+	//	3, //indices amount
+	//	vBuffer, //vertex buffer
+	//	iBuffer //index buffer
+	//);
 }
 
 Triangle::~Triangle()

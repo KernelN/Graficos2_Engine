@@ -14,10 +14,9 @@ private:
 
 public:
 	Sprite(const std::string& path);
+	Sprite(const std::string& path, const int uvOffset[4][2]);
 	~Sprite();
 
-	void Bind(unsigned int slot = 0);
-	void UnBind() const;
 	void Draw();
 	inline int GetWidth() const { return width; }
 	inline int GetHeight() const { return height; }

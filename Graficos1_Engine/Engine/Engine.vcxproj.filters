@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Headers">
@@ -73,6 +73,12 @@
     <Filter Include="Headers\Data Organizers\Vectors">
       <UniqueIdentifier>{15d1b587-2984-46a6-91f6-2671559fbbcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{321f743d-7f86-4dbe-9ff8-482a7ee49f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Animation">
+      <UniqueIdentifier>{49105f1b-b86c-4c0e-ad94-13c550353587}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -131,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.cpp">
       <Filter>Source\Data Organizers\Buffer\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation\Animation.cpp">
+      <Filter>Source\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="src\Data Organizers\Vectors\Vector4.h">
       <Filter>Headers\Data Organizers\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Animation.h">
+      <Filter>Headers\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
