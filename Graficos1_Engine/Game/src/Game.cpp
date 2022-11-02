@@ -3,6 +3,7 @@
 #include "Utility/KeyCodes.h"
 #include "Utility/Color.h"
 
+
 Game::Game()
 {
     float tVertices[6] =
@@ -10,14 +11,6 @@ Game::Game()
         1, 0,
         -1, 0,
         0, 1
-    };
-
-    float sVertices[4][2] =
-    {
-        {-1, -1},
-        {1, -1},
-        {1, 1},
-        {-1, 1}
     };
 
     float sColors[4][4] =
@@ -28,19 +21,23 @@ Game::Game()
         {WHITE}
     };
     
-    square = new Square(sVertices, sColors, true);
+    //square = new Square(sColors, true);
+
+    sprite = new Sprite("res/stef.png");
+    sprite->Scale(100, 100);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
 
     //triangle = new Triangle(tVertices, true);
-    square->Scale(100, 100);
-    square->Translate(0, 0);
+    //square->Scale(100, 100);
+    //square->Translate(0, 0);
 }
 
 Game::~Game()
 {
-    delete square;
+    delete sprite;
+    //delete square;
     //delete triangle;
 }
 
@@ -56,7 +53,7 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    //triangle->Rotate(1);
+    sprite->Rotate(1);
     /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;
@@ -84,22 +81,23 @@ void Game::OnLoop()
         squareScaleMod = 0;
     }
 
-    if (square->GetScale().x < 10 && squareScaleMod > 0)
-    {
-        squareScaleMod = 0;
-    }
+    //if (square->GetScale().x < 10 && squareScaleMod > 0)
+    //{
+    //    squareScaleMod = 0;
+    //}
 
     float squareScale = 0.5f * squareScaleMod;
     float squareMove = 1.0f * squareMoveMod;
     
 
     //triangle->Scale(squareScale, -squareScale);
-    square->Scale(-squareScale, -squareScale);
+    sprite->Scale(-squareScale, -squareScale);
     //square->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	square->Draw();
+	sprite->Draw();
+	//square->Draw();
     //triangle->Draw();
 }

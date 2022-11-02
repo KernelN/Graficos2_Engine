@@ -4,9 +4,9 @@
 class DLLEXPORT Square : public Shape
 {
 public:
-	Square(float vertexPos[4][2], float vertexCol[4][4], bool squareIsStatic);
+	Square(float vertexCol[4][4], bool squareIsStatic);
 	~Square();
 	void Draw();
 private:
-	void UpdateVertex(float vertexPos[4][2], float vertexCol[4][4]);
+	void UpdateVertex(float vertexCol[4][4]);
 };

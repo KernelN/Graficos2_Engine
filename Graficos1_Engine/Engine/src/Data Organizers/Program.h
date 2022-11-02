@@ -18,6 +18,7 @@ public:
 	void Unbind() const;
 	void SetUniform4f(const std::string& varName, float v1, float v2, float v3, float v4);
 	void SetUniformMat4f(const std::string& varName, const glm::mat4& matrix);
+	void SetUniform1i(const std::string& varName, int value);
 private:
 	unsigned int ID;
 	std::stack<unsigned int> shadersCompiled;

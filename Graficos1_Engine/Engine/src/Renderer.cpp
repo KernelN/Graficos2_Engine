@@ -15,8 +15,10 @@ Renderer::Renderer(Window* window)
 
 	ShaderData shaders[] =
 	{
-		{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
-		{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
+		{"shaders/vertexShader_sprite.shader", GL_VERTEX_SHADER},
+		{"shaders/fragmentShader_sprite.shader", GL_FRAGMENT_SHADER}
+		//{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
+		//{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
 	};
 
 	program = new Program(shaders, 2);
@@ -31,11 +33,26 @@ Renderer::Renderer(Window* window)
 	viewProj = proj * view;
 
 	models = std::vector<glm::mat4>();
+
+	//Enable blending, so images with transparency can be draw
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 Renderer::~Renderer()
 {
+	//Delete Program
 	delete program;
+
+	//Delete Buffers
+	for (unsigned short i = 0; i < vertexBuffers.size(); i++)
+	{
+		delete vertexBuffers[i];
+	}
+	for (unsigned short i = 0; i < indexBuffers.size(); i++)
+	{
+		delete indexBuffers[i];
+	}
 }
 
 void Renderer::ClearScreen()
@@ -153,9 +170,20 @@ void Renderer::BindProgram()
 	program->Bind();
 }
 
+void Renderer::BindBuffers()
+{
+	va.Bind();
+
+	for (unsigned short i = 0; i < indexBuffers.size(); i++)
+	{
+		indexBuffers[i]->Bind();
+	}
+}
+
 void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 {
 	BindProgram();
+	BindBuffers();
 
 	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
 	//program->SetUniform4f("_color", viewProj * models[modelID]);
@@ -180,4 +208,28 @@ void Renderer::SetModel(glm::mat4 model, unsigned int modelID)
 glm::mat4 Renderer::GetModel(unsigned int modelID)
 {
 	return models[modelID];
+}
+
+void Renderer::SetSprite(unsigned int value)
+{
+	program->SetUniform1i("u_Sprite", 0);
+}
+
+void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
+{
+	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
+
+	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
+	vertexBuffers.push_back(vb);
+	
+	VertexBufferLayout layout; 
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.AddBuffer(*vb, layout);
+}
+
+void Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+{
+	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
+	indexBuffers.push_back(ib);
 }

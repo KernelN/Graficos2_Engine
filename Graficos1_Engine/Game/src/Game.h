@@ -3,6 +3,7 @@
 #include "..\..\Engine\src\Base.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Square.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
+#include "..\..\Engine\src\Entity\Entity2D\Sprite\Sprite.h"
 
 class Game : public BaseEngine
 {
@@ -17,6 +18,7 @@ public:
 private:
 	Square* square;
 	Triangle* triangle;
+	Sprite* sprite;
 
 	int squareScaleMod;
 	int squareMoveMod;
