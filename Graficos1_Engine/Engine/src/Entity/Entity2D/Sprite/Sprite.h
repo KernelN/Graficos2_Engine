@@ -4,7 +4,7 @@
 #include "DLLManager.h"
 
 
-class DLLEXPORT Sprite : Entity2D
+class DLLEXPORT Sprite : public Entity2D
 {
 private:
 	unsigned int rendererID;
