@@ -11,7 +11,7 @@ Sprite::Sprite(const std::string& path)
 	height = 0;
 	bitsPerPixel = 0;
 	
-	Singleton::GetRenderer()->GetSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	Singleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
 
 	float vertexPos[4][2] =
 	{
@@ -62,7 +62,7 @@ Sprite::Sprite(const std::string& path, const int uvOffset[4][2])
 	height = 0;
 	bitsPerPixel = 0;
 
-	Singleton::GetRenderer()->GetSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	Singleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
 
 	float vertexPos[4][2] =
 	{

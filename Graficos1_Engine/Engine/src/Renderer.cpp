@@ -238,7 +238,7 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 
 #pragma region Sprite
 
-void Renderer::GetSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID)
+void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID)
 {
 	unsigned char* localBuffer = nullptr;
 

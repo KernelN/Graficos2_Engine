@@ -46,7 +46,7 @@ public:
 #pragma endregion
 
 #pragma region Sprite
-	void GetSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID);
+	void GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID);
 	void SetSprite(unsigned int value);
 	void DeleteSprite(unsigned int* spriteID);
 	void BindSprite(unsigned int slot, unsigned int spriteID);

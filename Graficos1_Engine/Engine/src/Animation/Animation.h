@@ -5,7 +5,7 @@
 class Animation
 {
 public:
-	Animation(Sprite* _sprites[], unsigned int spriteQty);
+	Animation(std::string animPath, unsigned int spriteQty);
 	~Animation();
 
 private:
