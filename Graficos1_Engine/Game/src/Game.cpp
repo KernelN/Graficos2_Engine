@@ -23,6 +23,9 @@ Game::Game()
     
     //square = new Square(sColors, true);
 
+    sprite = new Sprite("res/stef.png");
+    sprite->Scale(100, 100);
+
     squareScaleMod = 1;
     squareMoveMod = 1;
 
@@ -33,7 +36,8 @@ Game::Game()
 
 Game::~Game()
 {
-    delete square;
+    delete sprite;
+    //delete square;
     //delete triangle;
 }
 
@@ -49,7 +53,7 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    //triangle->Rotate(1);
+    sprite->Rotate(1);
     /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;
@@ -87,12 +91,13 @@ void Game::OnLoop()
     
 
     //triangle->Scale(squareScale, -squareScale);
-    //square->Scale(-squareScale, -squareScale);
+    sprite->Scale(-squareScale, -squareScale);
     //square->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	square->Draw();
+	sprite->Draw();
+	//square->Draw();
     //triangle->Draw();
 }
