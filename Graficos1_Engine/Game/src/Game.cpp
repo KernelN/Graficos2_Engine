@@ -22,8 +22,10 @@ Game::Game()
     };
     
     //square = new Square(sColors, true);
-
-    sprite = new Sprite("res/stef.png");
+    int imageSize[] = {260,64};
+    //sprite = new Sprite("res/Wolfies.png");
+    //sprite = new Sprite("res/Wolfies.png", imageSize);
+    sprite = new Sprite("res/Wolfies.png", imageSize, 4, 1);
     sprite->Scale(100, 100);
 
     squareScaleMod = 1;
@@ -53,7 +55,7 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    sprite->Rotate(1);
+    //sprite->Rotate(1);
     /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;

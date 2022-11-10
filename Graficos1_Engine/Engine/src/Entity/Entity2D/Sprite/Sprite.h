@@ -14,7 +14,8 @@ private:
 
 public:
 	Sprite(const std::string& path);
-	Sprite(const std::string& path, const int uvOffset[4][2]);
+	Sprite(const std::string& path, int imgSize[2]);
+	Sprite(const std::string& path, int imgSize[2], int spriteQuantity, int spriteNumber);
 	~Sprite();
 
 	void Draw();
