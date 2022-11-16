@@ -35,8 +35,8 @@ Square::Square(float vertexCol[4][4], bool squareIsStatic)
 	indices = new unsigned int[6];
 	//UpdateVertex(vertexCol);
 
-	Singleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 4));
-	Singleton::GetRenderer()->GetNewIndexBuffer(tempIndices, 6);
+	Singleton::GetRenderer()->SetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 4));
+	Singleton::GetRenderer()->SetNewIndexBuffer(tempIndices, 6);
 	//Singleton::GetRenderer()->GetNewVertexBuffer
 	//(
 	//	vertices->GetComponentAmount(), //vertex components

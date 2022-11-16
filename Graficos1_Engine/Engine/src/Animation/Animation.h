@@ -7,6 +7,7 @@ class Animation
 public:
 	Animation(std::string animPath, unsigned int spriteQty);
 	~Animation();
+	void ChangeSprite(int spriteNumber);
 
 private:
 	std::vector<Sprite*> sprites;

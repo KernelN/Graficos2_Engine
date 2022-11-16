@@ -25,6 +25,16 @@ VertexBuffer::~VertexBuffer()
 	glDeleteBuffers(1, &rendererID);
 }
 
+void VertexBuffer::SetBuffer(const void* data, unsigned int size)
+{
+	//Send data to buffer
+	//https://docs.gl/gl4/glBufferData
+	bool dataIsStatic = false;
+	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
+	//unsigned int vDataSize = vAmount * stride;
+	glBufferData(GL_ARRAY_BUFFER, size, data, dataUsage); //may be a problem
+}
+
 void VertexBuffer::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, rendererID);

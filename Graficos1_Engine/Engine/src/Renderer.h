@@ -35,8 +35,10 @@ public:
 	void DeleteBuffer(unsigned int* buffer);
 	void BindProgram();
 	void BindBuffers();
-	void GetNewVertexBuffer(const void* data, unsigned int dataSize);
-	void GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
+	void SetNewVertexBuffer(const void* data, unsigned int dataSize);
+	unsigned int GetNewVertexBuffer(const void* data, unsigned int dataSize);
+	void SetVertexBuffer(unsigned int vertexID, const void* data, unsigned int dataSize);
+	void SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
 #pragma endregion
 
 #pragma region Model
@@ -46,7 +48,8 @@ public:
 #pragma endregion
 
 #pragma region Sprite
-	void GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID);
+	void GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* imageID);
+	void GetNewSprite(int* width, int* height, int* bpp, unsigned int* imageID);
 	void SetSprite(unsigned int value);
 	void DeleteSprite(unsigned int* spriteID);
 	void BindSprite(unsigned int slot, unsigned int spriteID);

@@ -174,7 +174,7 @@ void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
 //#pragma endregion
 //}
 
-void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
+void Renderer::SetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
 
@@ -187,7 +187,35 @@ void Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 	va.AddBuffer(*vb, layout);
 }
 
-void Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
+{
+	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
+
+	unsigned int bufferID = vertexBuffers.size();
+
+	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
+	vertexBuffers.push_back(vb);
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.AddBuffer(*vb, layout);
+
+	return bufferID;
+}
+
+void Renderer::SetVertexBuffer(unsigned int vertexID, const void* data, unsigned int dataSize)
+{
+	VertexBuffer* vb = vertexBuffers[vertexID];
+	vb->SetBuffer(data, dataSize);
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.SetBuffer(*vb, layout);
+}
+
+void Renderer::SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
 {
 	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
 	indexBuffers.push_back(ib);
@@ -238,7 +266,7 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 
 #pragma region Sprite
 
-void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* spriteID)
+void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* imageID)
 {
 	unsigned char* localBuffer = nullptr;
 
@@ -248,10 +276,10 @@ void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* b
 	localBuffer = stbi_load(imgPath.c_str(), width, height, bpp, 4);
 
 	//https://docs.gl/gl4/glGenTextures
-	glGenTextures(1, spriteID);
+	glGenTextures(1, imageID);
 
 	//https://docs.gl/gl4/glBindTexture
-	glBindTexture(GL_TEXTURE_2D, *spriteID);
+	glBindTexture(GL_TEXTURE_2D, *imageID);
 
 	//If image didn't load exit
 	if (!localBuffer) return;
@@ -267,7 +295,7 @@ void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* b
 
 void Renderer::SetSprite(unsigned int value)
 {
-	program->SetUniform1i("u_Sprite", 0);
+	program->SetUniform1i("u_Sprite", value);
 }
 
 void Renderer::DeleteSprite(unsigned int* spriteID)
