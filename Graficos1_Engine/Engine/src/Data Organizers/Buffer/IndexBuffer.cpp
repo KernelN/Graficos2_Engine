@@ -4,7 +4,7 @@
 #include "Renderer.h"
 
 IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count)
-	: count(0)
+	: count(count)
 {
 	assert(sizeof(unsigned int) == sizeof(GLuint));
 

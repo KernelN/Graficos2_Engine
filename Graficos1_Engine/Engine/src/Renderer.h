@@ -16,7 +16,7 @@ public:
 	void ClearScreen();
 	void SwapWindowBuffers();
 	void SetWindow(Window* window);
-	void Draw(unsigned int indexCount, unsigned int modelID);
+	void Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigned int modelID);
 
 #pragma region Buffers & Program
 	//void GetNewVertexBuffer
@@ -39,6 +39,7 @@ public:
 	unsigned int GetNewVertexBuffer(const void* data, unsigned int dataSize);
 	void SetVertexBuffer(unsigned int vertexID, const void* data, unsigned int dataSize);
 	void SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
+	unsigned int GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
 #pragma endregion
 
 #pragma region Model

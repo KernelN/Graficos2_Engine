@@ -159,8 +159,8 @@ Sprite::Sprite(const std::string& path, int imgSize[2],
 		}
 	}
 
-	localBuffer = Singleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-	Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
+	*vBuffer = Singleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = Singleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
 
 	Singleton::GetRenderer()->BindSprite(0, rendererID);
 	Singleton::GetRenderer()->SetSprite(rendererID);
@@ -216,7 +216,7 @@ Sprite::Sprite(unsigned int bufferID, int imgSize[2], int spriteQuantity, int sp
 	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
 
 	Singleton::GetRenderer()->BindSprite(0, rendererID);
-	Singleton::GetRenderer()->SetSprite(0);
+	Singleton::GetRenderer()->SetSprite(rendererID);
 }
 
 Sprite::~Sprite()
@@ -247,11 +247,6 @@ void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 		{rightX, 1}, //top right
 		{leftX, 1}  //top left
 	};
-	unsigned int indices[6] =
-	{
-		0, 1, 2,
-		2, 3, 0
-	};
 
 	float tempVertices[4][4];
 	for (unsigned short i = 0; i < 4; i++)
@@ -266,18 +261,17 @@ void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 		}
 	}
 
-	Singleton::GetRenderer()->SetVertexBuffer(localBuffer, tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	Singleton::GetRenderer()->SetVertexBuffer(*vBuffer, tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
 
-	Singleton::GetRenderer()->UnbindSprite();
 	Singleton::GetRenderer()->BindSprite(0, rendererID);
-	Singleton::GetRenderer()->SetSprite(0);
+	Singleton::GetRenderer()->SetSprite(rendererID);
 }
 
 void Sprite::Bind()
 {
 	Singleton::GetRenderer()->BindSprite(0, rendererID);
-	Singleton::GetRenderer()->SetSprite(0);
+	Singleton::GetRenderer()->SetSprite(rendererID);
 }
 
 void Sprite::UnBind()
@@ -287,5 +281,6 @@ void Sprite::UnBind()
 
 void Sprite::Draw()
 {
-	Singleton::GetRenderer()->Draw(6, modelID);
+	Bind();
+	Singleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
 }

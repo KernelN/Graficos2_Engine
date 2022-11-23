@@ -83,17 +83,23 @@ void Renderer::SetWindow(Window* window)
 	this->window = window;
 }
 
-void Renderer::Draw(unsigned int indexCount, unsigned int modelID)
+void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigned int modelID)
 {
 	BindProgram();
-	BindBuffers();
+	//BindBuffers();
+
+	VertexBuffer* vb = vertexBuffers[vertexBuffer];
+	IndexBuffer* ib = indexBuffers[indexBuffer];
+
+	vb->Bind();
+	ib->Bind();
 
 	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
 	//program->SetUniform4f("_color", viewProj * models[modelID]);
 
 	//https://docs.gl/gl4/glDrawElements
 	//glDrawArrays(GL_TRIANGLES, 0, indexCount);
-	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, ib->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
 #pragma region Buffers & Program
@@ -221,6 +227,16 @@ void Renderer::SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmoun
 	indexBuffers.push_back(ib);
 }
 
+unsigned int Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
+{
+	unsigned int bufferID = indexBuffers.size();
+
+	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
+	indexBuffers.push_back(ib);
+
+	return bufferID;
+}
+
 void Renderer::DeleteBuffer(unsigned int* buffer)
 {
 	//Get buffer using index and delete it
@@ -295,7 +311,7 @@ void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* b
 
 void Renderer::SetSprite(unsigned int value)
 {
-	program->SetUniform1i("u_Sprite", value);
+	program->SetUniform1i("u_Sprite", value - 1);
 }
 
 void Renderer::DeleteSprite(unsigned int* spriteID)

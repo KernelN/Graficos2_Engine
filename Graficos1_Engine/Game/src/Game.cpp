@@ -1,11 +1,12 @@
 #include "Game.h"
-#include "iostream"
+#include <iostream>
 #include "Utility/KeyCodes.h"
 #include "Utility/Color.h"
 
-unsigned int spriteNum;
+unsigned int spriteNum = 0;
 unsigned int keyFrameCooldown = 0;
- 
+int imageSize[2];
+
 Game::Game()
 {
     float tVertices[6] =
@@ -22,19 +23,22 @@ Game::Game()
         {RED},
         {WHITE}
     };
-    
+
     //square = new Square(sColors, true);
-    int imageSize[] = {260,64};
+
     //sprite = new Sprite("res/Wolfies.png");
     //sprite = new Sprite("res/Wolfies.png", imageSize);
-    for (int i = 0; i < 4; i++)
-    {
-        sprite[i] = new Sprite("res/Wolfies.png", imageSize, 4, i);
-        sprite[i]->Scale(100, 100);
-        sprite[i]->UnBind();
-    }
+    //for (int i = 0; i < 4; i++)
+    //{
+    //    sprite[i] = new Sprite("res/Wolfies.png", imageSize, 4, i);
+    //    sprite[i]->Scale(100, 100);
+    //}
 
-    sprite[spriteNum]->Bind();
+    imageSize[0] = 260;
+    imageSize[1] = 64;
+
+    sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
+    sprite->Scale(50, 50);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
@@ -88,17 +92,19 @@ void Game::OnLoop()
     {
         if (keyFrameCooldown > 0) return;
 
-        keyFrameCooldown = 1000;
+        keyFrameCooldown = 10;
 
-        sprite[spriteNum]->UnBind();
+        //delete sprite;
 
         spriteNum++;
         if (spriteNum > 3) spriteNum = 0;
-
-        sprite[spriteNum]->Bind();
         
-        //sprite->ChangeSprite(4, 1);
-        std::cout << spriteNum << std::endl;
+        sprite->ChangeSprite(4, spriteNum);
+
+        //sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
+        //sprite->Scale(50, 50);
+
+        //std::cout << spriteNum << std::endl;
         //squareScaleMod = 1;
     }
     else
@@ -128,13 +134,13 @@ void Game::OnLoop()
     
 
     //triangle->Scale(squareScale, -squareScale);
-    sprite[spriteNum]->Scale(-squareScale, -squareScale);
-    sprite[spriteNum]->Translate(squareMove, 0);
+    sprite->Scale(-squareScale, -squareScale);
+    sprite->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	sprite[spriteNum]->Draw();
+	sprite->Draw();
 	//square->Draw();
     //triangle->Draw();
 }

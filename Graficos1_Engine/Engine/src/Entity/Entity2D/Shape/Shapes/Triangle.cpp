@@ -29,7 +29,7 @@ Triangle::~Triangle()
 
 void Triangle::Draw()
 {
-	Singleton::GetRenderer()->Draw(3, modelID);
+	//Singleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
 }
 
 //MUST UPDATE

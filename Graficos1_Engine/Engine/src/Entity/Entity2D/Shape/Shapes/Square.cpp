@@ -58,7 +58,7 @@ Square::~Square()
 
 void Square::Draw()
 {
-	Singleton::GetRenderer()->Draw(6, modelID);
+	//Singleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
 }
 
 void Square::UpdateVertex(float vertexCol[4][4])

@@ -18,7 +18,8 @@ public:
 private:
 	Square* square;
 	Triangle* triangle;
-	Sprite* sprite[4];
+	Sprite* sprite;
+	//Sprite* sprite[4];
 
 	int squareScaleMod;
 	int squareMoveMod;
