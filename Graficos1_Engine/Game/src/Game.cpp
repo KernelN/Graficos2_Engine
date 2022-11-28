@@ -41,7 +41,9 @@ Game::Game()
     sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
     sprite->Scale(50, 50);
 
-    Animation* wolfieHowlAnim = new Animation(1, 4);
+    //WITH A LENGTH OF LESS THAN 0.675 SECONDS 
+      //THE ANIMATION STOPS WORKING
+    Animation* wolfieHowlAnim = new Animation(.675f, 4);
     sprite->SetAnim(wolfieHowlAnim);
 
     squareScaleMod = 1;
@@ -100,18 +102,10 @@ void Game::OnLoop()
 
         timer = .1f;
 
-        //delete sprite;
-
         //spriteNum++;
         //if (spriteNum > 3) spriteNum = 0;
         //
         //sprite->ChangeSprite(4, spriteNum);
-
-        //sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
-        //sprite->Scale(50, 50);
-
-        //std::cout << spriteNum << std::endl;
-        //squareScaleMod = 1;
     }
     else
     {
