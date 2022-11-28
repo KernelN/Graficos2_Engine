@@ -1,6 +1,6 @@
 #include "Triangle.h"
 
-#include "Utility/Singleton.h"
+#include "Utility/RendererSingleton.h"
 #include "Renderer.h"
 
 Triangle::Triangle(float vertexPos[6], bool triangleIsStatic)

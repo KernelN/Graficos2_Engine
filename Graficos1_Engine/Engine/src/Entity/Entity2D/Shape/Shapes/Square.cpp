@@ -1,6 +1,6 @@
 #include "Square.h"
 
-#include "Utility/Singleton.h"
+#include "Utility/RendererSingleton.h"
 #include "Renderer.h"
 
 Square::Square(float vertexCol[4][4], bool squareIsStatic)
@@ -35,8 +35,8 @@ Square::Square(float vertexCol[4][4], bool squareIsStatic)
 	indices = new unsigned int[6];
 	//UpdateVertex(vertexCol);
 
-	Singleton::GetRenderer()->SetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 4));
-	Singleton::GetRenderer()->SetNewIndexBuffer(tempIndices, 6);
+	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 4));
+	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(tempIndices, 6);
 	//Singleton::GetRenderer()->GetNewVertexBuffer
 	//(
 	//	vertices->GetComponentAmount(), //vertex components

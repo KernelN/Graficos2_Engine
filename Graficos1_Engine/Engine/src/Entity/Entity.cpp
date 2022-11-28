@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "Utility/Singleton.h"
+#include "Utility/RendererSingleton.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,13 +25,13 @@ Entity::~Entity()
 	if (vBuffer != nullptr)
 	{ 
 		//Delete buffer from renderer
-		Singleton::GetRenderer()->DeleteBuffer(vBuffer);
+		RendererSingleton::GetRenderer()->DeleteBuffer(vBuffer);
 	}
 
 	if (iBuffer != nullptr)
 	{
 		//Delete buffer from renderer
-		Singleton::GetRenderer()->DeleteBuffer(iBuffer);
+		RendererSingleton::GetRenderer()->DeleteBuffer(iBuffer);
 	}
 }
 
@@ -99,10 +99,10 @@ void Entity::UpdateModel(bool isModelCreated)
 
 	if (isModelCreated)
 	{
-		Singleton::GetRenderer()->SetModel(model, modelID);
+		RendererSingleton::GetRenderer()->SetModel(model, modelID);
 	}
 	else
 	{
-		modelID = Singleton::GetRenderer()->GetNewModelID(model);
+		modelID = RendererSingleton::GetRenderer()->GetNewModelID(model);
 	}
 }

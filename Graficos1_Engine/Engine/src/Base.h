@@ -1,5 +1,6 @@
 #pragma once
 #include "DLLManager.h"
+#include "Utility/Time.h"
 
 
 class DLLEXPORT BaseEngine
@@ -12,6 +13,8 @@ public:
 	virtual void OnLoop();
 	virtual void Draw();
 	bool IsKeyPressed(unsigned short KeyCode);
+protected:
+	Time* time;
 private:
 	void* inputManager;
 	void* window;

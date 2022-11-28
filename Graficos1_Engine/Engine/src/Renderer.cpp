@@ -309,6 +309,33 @@ void Renderer::GetNewSprite(std::string imgPath, int* width, int* height, int* b
 	stbi_image_free(localBuffer);
 }
 
+void Renderer::GetNewSprite(int* width, int* height, int* bpp, unsigned int* imageID)
+{
+	unsigned char* localBuffer = nullptr;
+
+	stbi_set_flip_vertically_on_load(1);
+
+	//bpp = Bits per Pixel
+	//localBuffer = stbi_load(imgPath.c_str(), width, height, bpp, 4);
+
+	//https://docs.gl/gl4/glGenTextures
+	glGenTextures(1, imageID);
+
+	//https://docs.gl/gl4/glBindTexture
+	glBindTexture(GL_TEXTURE_2D, *imageID);
+
+	//If image didn't load exit
+	if (!localBuffer) return;
+
+	//https://docs.gl/gl4/glTexImage2D
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	//Free buffer/image from stbi
+	stbi_image_free(localBuffer);
+}
+
 void Renderer::SetSprite(unsigned int value)
 {
 	program->SetUniform1i("u_Sprite", value - 1);

@@ -1,5 +1,6 @@
 #include "Base.h"
-#include "Utility/Singleton.h"
+#include "Utility/RendererSingleton.h"
+#include "Utility/TimeSingleton.h"
 #include "InputManager.h"
 #include "Window.h"
 #include "Renderer.h"
@@ -31,12 +32,15 @@ BaseEngine::BaseEngine()
     }
 
 
-    Singleton::SetRenderer(new Renderer(temWindow));
-    renderer = Singleton::GetRenderer();
+    RendererSingleton::SetRenderer(new Renderer(temWindow));
+    renderer = RendererSingleton::GetRenderer();
 
     GLFWwindow* tempGLFWwindow = ((GLFWwindow*)temWindow->GetGLFWPointer());
 
     inputManager = new InputManager(tempGLFWwindow);
+
+    time = new Time();
+    TimeSingleton::SetTime(time);
 
     /*float tVertices[8] = 
     { 
@@ -67,6 +71,8 @@ void BaseEngine::Loop()
     Window* temWindow = (Window*)window;
     Renderer* tempRenderer = (Renderer*)renderer;
  
+    time->Update();
+ 
     OnLoop();
 
     tempRenderer->BindProgram();
@@ -79,7 +85,6 @@ void BaseEngine::Loop()
     tempRenderer->SwapWindowBuffers();
 
     temWindow->ProcessWindowEvents();
-   
 }
 
 void BaseEngine::OnLoop()

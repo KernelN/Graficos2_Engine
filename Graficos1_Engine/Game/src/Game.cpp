@@ -2,9 +2,10 @@
 #include <iostream>
 #include "Utility/KeyCodes.h"
 #include "Utility/Color.h"
+#include "Utility/TimeSingleton.h"
 
 unsigned int spriteNum = 0;
-unsigned int keyFrameCooldown = 0;
+float timer = 0;
 int imageSize[2];
 
 Game::Game()
@@ -39,6 +40,9 @@ Game::Game()
 
     sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
     sprite->Scale(50, 50);
+
+    Animation* wolfieHowlAnim = new Animation(1, 4);
+    sprite->SetAnim(wolfieHowlAnim);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
@@ -86,20 +90,22 @@ void Game::OnLoop()
         squareMoveMod = 1;
     }*/
 
-    if (keyFrameCooldown > 0) keyFrameCooldown--;
+    sprite->UpdateFrame();
+
+    if (timer > 0) timer -= time->GetDelta();
 
     if (IsKeyPressed(KEY_SPACE))
     {
-        if (keyFrameCooldown > 0) return;
+        if (timer > 0) return;
 
-        keyFrameCooldown = 10;
+        timer = .1f;
 
         //delete sprite;
 
-        spriteNum++;
-        if (spriteNum > 3) spriteNum = 0;
-        
-        sprite->ChangeSprite(4, spriteNum);
+        //spriteNum++;
+        //if (spriteNum > 3) spriteNum = 0;
+        //
+        //sprite->ChangeSprite(4, spriteNum);
 
         //sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
         //sprite->Scale(50, 50);

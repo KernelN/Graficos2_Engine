@@ -79,6 +79,9 @@
     <Filter Include="Headers\Animation">
       <UniqueIdentifier>{49105f1b-b86c-4c0e-ad94-13c550353587}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{4fd87801-4eb6-48bb-940f-3b0e623ecdae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -141,6 +144,9 @@
     <ClCompile Include="src\Animation\Animation.cpp">
       <Filter>Source\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\Time.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h">
@@ -178,9 +184,6 @@
     </ClInclude>
     <ClInclude Include="src\Data Organizers\Vector2.h">
       <Filter>Headers\Data Organizers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utility\Singleton.h">
-      <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="src\InputManager.h">
       <Filter>Headers</Filter>
@@ -223,6 +226,15 @@
     </ClInclude>
     <ClInclude Include="src\Animation\Animation.h">
       <Filter>Headers\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Time.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\RendererSingleton.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\TimeSingleton.h">
+      <Filter>Headers\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
