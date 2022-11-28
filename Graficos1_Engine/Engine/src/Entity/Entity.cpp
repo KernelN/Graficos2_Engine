@@ -1,11 +1,9 @@
 #include "Entity.h"
-#include "Utility/Singleton.h"
+#include "Utility/RendererSingleton.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <glew/include/GL/glew.h>
-#include <glfw/include/GLFW/glfw3.h>
 #include <Renderer.h>
 
 Entity::Entity()
@@ -27,13 +25,13 @@ Entity::~Entity()
 	if (vBuffer != nullptr)
 	{ 
 		//Delete buffer from renderer
-		Singleton::GetRenderer()->DeleteBuffer(vBuffer);
+		RendererSingleton::GetRenderer()->DeleteBuffer(vBuffer);
 	}
 
 	if (iBuffer != nullptr)
 	{
 		//Delete buffer from renderer
-		Singleton::GetRenderer()->DeleteBuffer(iBuffer);
+		RendererSingleton::GetRenderer()->DeleteBuffer(iBuffer);
 	}
 }
 
@@ -91,14 +89,6 @@ void Entity::funnyTransformationStuff()
 
 }
 
-//https://learnopengl.com/Getting-started/Transformations
-void Entity::funnyTransformUpdate()
-{
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-	trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-}
-
 void Entity::UpdateModel(bool isModelCreated)
 {
 	glm::mat4 trans = glm::translate(glm::mat4(1.0f), glm::vec3(translation.x, translation.y, 0.0f));
@@ -109,10 +99,10 @@ void Entity::UpdateModel(bool isModelCreated)
 
 	if (isModelCreated)
 	{
-		Singleton::GetRenderer()->SetModel(model, modelID);
+		RendererSingleton::GetRenderer()->SetModel(model, modelID);
 	}
 	else
 	{
-		modelID = Singleton::GetRenderer()->GetNewModelID(model);
+		modelID = RendererSingleton::GetRenderer()->GetNewModelID(model);
 	}
 }

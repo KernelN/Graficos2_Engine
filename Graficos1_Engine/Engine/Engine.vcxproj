@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Base.cpp" />
     <ClCompile Include="src\Data Organizers\Buffer\Arrays\VertexArray.cpp" />
     <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp" />
@@ -37,9 +38,11 @@
     <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Utility\Time.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Base.h" />
     <ClInclude Include="src\Data Organizers\Buffer\Arrays\VertexArray.h" />
     <ClInclude Include="src\Data Organizers\Buffer\Buffer.h" />
@@ -63,8 +66,10 @@
     <ClInclude Include="src\Utility\Color.h" />
     <ClInclude Include="src\Utility\GlIncludes.h" />
     <ClInclude Include="src\Utility\KeyCodes.h" />
-    <ClInclude Include="src\Utility\Singleton.h" />
+    <ClInclude Include="src\Utility\RendererSingleton.h" />
     <ClInclude Include="src\Utility\stb_image.h" />
+    <ClInclude Include="src\Utility\Time.h" />
+    <ClInclude Include="src\Utility\TimeSingleton.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>

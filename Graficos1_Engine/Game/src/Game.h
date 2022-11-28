@@ -5,7 +5,7 @@
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
 #include "..\..\Engine\src\Entity\Entity2D\Sprite\Sprite.h"
 
-class Game : public BaseEngine
+class Game : protected BaseEngine
 {
 public:
 	Game();
@@ -19,6 +19,7 @@ private:
 	Square* square;
 	Triangle* triangle;
 	Sprite* sprite;
+	//Sprite* sprite[4];
 
 	int squareScaleMod;
 	int squareMoveMod;

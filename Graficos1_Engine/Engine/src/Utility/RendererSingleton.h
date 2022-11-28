@@ -1,13 +1,13 @@
 #pragma once
 #include "Renderer.h"
 
-class Singleton
+class RendererSingleton
 {
 public:
-    Singleton(const Singleton&) = delete;
-    static Singleton& Get()
+    RendererSingleton(const RendererSingleton&) = delete;
+    static RendererSingleton& Get()
     {
-        static Singleton instance;
+        static RendererSingleton instance;
         return instance;
     }
     static Renderer* GetRenderer() { return Get().GetRendererInternal(); }
@@ -15,6 +15,6 @@ public:
 private:
     Renderer* GetRendererInternal() { return renderer; }
     void SetRendererInternal(Renderer* newRenderer) { renderer = newRenderer; }
-    Singleton() {}
+    RendererSingleton() {}
     Renderer* renderer;
 };

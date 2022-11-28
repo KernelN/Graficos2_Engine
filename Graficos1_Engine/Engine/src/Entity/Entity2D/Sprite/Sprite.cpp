@@ -1,54 +1,16 @@
 #include "Sprite.h"
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "Utility/stb_image.h"
-#include <glew/include/GL/glew.h>
-#include <Utility/Singleton.h>
+#include "Utility/RendererSingleton.h"
+#include <iostream>
 
 Sprite::Sprite(const std::string& path)
 {
 	rendererID = 0;
 	filePath = path;
-	localBuffer = nullptr;
 	width = 0;
 	height = 0;
 	bitsPerPixel = 0;
-
-	stbi_set_flip_vertically_on_load(1);
-	localBuffer = stbi_load(filePath.c_str(), &width, &height, &bitsPerPixel, 4);
-
-	//https://docs.gl/gl4/glGenTextures
-	glGenTextures(1, &rendererID);
-
-	//https://docs.gl/gl4/glBindTexture
-	glBindTexture(GL_TEXTURE_2D, rendererID);
-
-
-	//https://docs.gl/gl4/glTexParameteri
-	///SET MIPMAPPING VARS
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	///SET WRAPPING VARS
-	//Repeat: repeats image in empty space
-	//Mirror Repeat: repeats image, but mirroring it
-	//Clamp Border: stretches image to edge of screen
-	//Clamp Edge: fills empty space left by image with color
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
-	//If image didn't load exit
-	if (!localBuffer)	
-		return;
-
-	//https://docs.gl/gl4/glTexImage2D
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	if (localBuffer)
-		stbi_image_free(localBuffer);
-
+	
+	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
 
 	float vertexPos[4][2] =
 	{
@@ -59,10 +21,10 @@ Sprite::Sprite(const std::string& path)
 	};
 	float uvPos[4][2] =
 	{
-		{0, 0},
-		{1, 0},
-		{1, 1},
-		{0, 1}
+		{0, 0}, //bot left
+		{1, 0}, //bot right
+		{1, 1}, //top right
+		{0, 1}  //top left
 	};
 	unsigned int indices[6] =
 	{
@@ -70,43 +32,310 @@ Sprite::Sprite(const std::string& path)
 		2, 3, 0
 	};
 
-	float tempVertices[4][4];
 	for (unsigned short i = 0; i < 4; i++)
 	{
 		for (unsigned short j = 0; j < 2; j++)
 		{
-			tempVertices[i][j] = vertexPos[i][j];
+			vertices[i][j] = vertexPos[i][j];
 		}
 		for (unsigned short j = 2; j < 4; j++)
 		{
-			tempVertices[i][j] = uvPos[i][j - 2];
+			vertices[i][j] = uvPos[i][j - 2];
 		}
 	}
 
-	Singleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-	Singleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
+	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
 
-	Bind();
-	Singleton::GetRenderer()->SetSprite(0);
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+}
+
+Sprite::Sprite(const std::string& path, int imgSize[2])
+{
+	rendererID = 0;
+	filePath = path;
+	width = imgSize[0];
+	height = imgSize[1];
+	bitsPerPixel = 0;
+
+	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+
+	float widthHeightRatio = width / height;
+	float adjustedX = 0.5f * widthHeightRatio;
+
+	float vertexPos[4][2] =
+	{
+		{-adjustedX, -1},
+		{adjustedX, -1},
+		{adjustedX, 1},
+		{-adjustedX, 1}
+	};
+	float uvPos[4][2] =
+	{
+		{0, 0}, //bot left
+		{1, 0}, //bot right
+		{1, 1}, //top right
+		{0, 1}  //top left
+	};
+	unsigned int indices[6] =
+	{
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		for (unsigned short j = 0; j < 2; j++)
+		{
+			vertices[i][j] = vertexPos[i][j];
+		}
+		for (unsigned short j = 2; j < 4; j++)
+		{
+			vertices[i][j] = uvPos[i][j - 2];
+		}
+	}
+
+	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
+
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+}
+
+Sprite::Sprite(const std::string& path, int imgSize[2],
+							int spriteQuantity, int spriteNumber)
+{
+ 	rendererID = 0;
+	filePath = path;
+	width = imgSize[0];
+	height = imgSize[1];
+	bitsPerPixel = 0;
+
+	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+
+	float widthHeightRatio = width / height;
+	float adjustedX = 0.5f * widthHeightRatio;
+
+	float vertexPos[4][2] =
+	{
+		{-adjustedX, -1},
+		{adjustedX, -1},
+		{adjustedX, 1},
+		{-adjustedX, 1}
+	};
+	
+	float leftX = (float)spriteNumber / spriteQuantity;
+	float rightX = (float)(spriteNumber+1) / spriteQuantity;
+
+	float uvPos[4][2] =
+	{
+		{leftX, 0}, //bot left
+		{rightX, 0}, //bot right
+		{rightX, 1}, //top right
+		{leftX, 1}  //top left
+	};
+	unsigned int indices[6] =
+	{
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		for (unsigned short j = 0; j < 2; j++)
+		{
+			vertices[i][j] = vertexPos[i][j];
+		}
+		for (unsigned short j = 2; j < 4; j++)
+		{
+			vertices[i][j] = uvPos[i][j - 2];
+		}
+	}
+
+	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
+
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+}
+
+Sprite::Sprite(unsigned int bufferID, int imgSize[2], int spriteQuantity, int spriteNumber)
+{
+	rendererID = 0;
+	*vBuffer = bufferID;
+	bitsPerPixel = 0;
+
+	float widthHeightRatio = width / height;
+	float adjustedX = 0.5f * widthHeightRatio;
+
+	float vertexPos[4][2] =
+	{
+		{-adjustedX, -1},
+		{adjustedX, -1},
+		{adjustedX, 1},
+		{-adjustedX, 1}
+	};
+
+	float leftX = (float)spriteNumber / spriteQuantity;
+	float rightX = (float)(spriteNumber + 1) / spriteQuantity;
+
+	float uvPos[4][2] =
+	{
+		{leftX, 0}, //bot left
+		{rightX, 0}, //bot right
+		{rightX, 1}, //top right
+		{leftX, 1}  //top left
+	};
+	unsigned int indices[6] =
+	{
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		for (unsigned short j = 0; j < 2; j++)
+		{
+			vertices[i][j] = vertexPos[i][j];
+		}
+		for (unsigned short j = 2; j < 4; j++)
+		{
+			vertices[i][j] = uvPos[i][j - 2];
+		}
+	}
+
+	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
+
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
 }
 
 Sprite::~Sprite()
 {
-	glDeleteTextures(1, &rendererID);
+	RendererSingleton::GetRenderer()->DeleteSprite(&rendererID);
+
+	if (anim)
+		delete anim;
 }
 
-void Sprite::Bind(unsigned int slot)
+void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 {
-	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, rendererID);
+	float widthHeightRatio = width / height;
+	float adjustedX = 0.5f * widthHeightRatio;
+
+	float vertexPos[4][2] =
+	{
+		{-adjustedX, -1},
+		{adjustedX, -1},
+		{adjustedX, 1},
+		{-adjustedX, 1}
+	};
+
+	float leftX = (float)spriteNumber / spriteQuantity;
+	float rightX = (float)(spriteNumber + 1) / spriteQuantity;
+
+	float uvPos[4][2] =
+	{
+		{leftX, 0}, //bot left
+		{rightX, 0}, //bot right
+		{rightX, 1}, //top right
+		{leftX, 1}  //top left
+	};
+
+	//float tempVertices[4][4];
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		//for (unsigned short j = 0; j < 2; j++)
+		//{
+		//	vertices[i][j] = vertices[i][j];
+		//}
+		for (unsigned short j = 2; j < 4; j++)
+		{
+			vertices[i][j] = uvPos[i][j - 2];
+		}
+	}
+
+	std::cout << "New Frame Left:" << uvPos[0][0] << " Right:" << uvPos[1][0] << std::endl;
+
+
+	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
+
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
 }
 
-void Sprite::UnBind() const
+void Sprite::SetAnim(Animation* _anim)
 {
-	glBindTexture(GL_TEXTURE_2D, 0);
+	anim = _anim;
+}
+
+void Sprite::UpdateFrame()
+{
+	//Get old coords
+	Vector2 oldCoords = anim->GetCurrentFrame();
+
+	//Update animation timer
+	anim->Update();
+	
+	//Get new coords
+	Vector2 uCoords = anim->GetCurrentFrame();
+
+	//If frame didn't change, exit
+	if (oldCoords.x == uCoords.x) return;
+		
+	//std::cout << "New Frame Left:" << uCoords.x << " Right:" << uCoords.y << std::endl;
+
+	//If it's in new frame, update sprite
+	ChangeSprite(uCoords.x, uCoords.y);
+}
+
+void Sprite::ChangeSprite(float leftU, float rightU)
+{
+	float uvPos[4][2] =
+	{
+		{leftU, 0}, //bot left
+		{rightU, 0}, //bot right
+		{rightU, 1}, //top right
+		{leftU, 1}  //top left
+	};
+
+	//ONLY CHANGES TEX COORD FROM EACH VERTEX
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		//for (unsigned short j = 0; j < 2; j++)
+		//{
+		//	vertices[i][j] = vertices[i][j];
+		//}
+		for (unsigned short j = 2; j < 4; j++)
+		{
+			vertices[i][j] = uvPos[i][j - 2];
+		}
+	}
+
+	std::cout << "New Frame Left:" << uvPos[0][0] << " Right:" << uvPos[1][0] << std::endl;
+
+	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+}
+
+void Sprite::Bind()
+{
+	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+}
+
+void Sprite::UnBind()
+{
+	RendererSingleton::GetRenderer()->UnbindSprite();
 }
 
 void Sprite::Draw()
 {
-	Singleton::GetRenderer()->Draw(6, modelID);
+	Bind();
+	RendererSingleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
 }
