@@ -12,6 +12,8 @@ Sprite::Sprite(const std::string& path)
 	
 	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
 
+	imageID = rendererID - 1;
+
 	float vertexPos[4][2] =
 	{
 		{-1, -1},
@@ -47,8 +49,7 @@ Sprite::Sprite(const std::string& path)
 	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	Bind();
 }
 
 Sprite::Sprite(const std::string& path, int imgSize[2])
@@ -60,6 +61,8 @@ Sprite::Sprite(const std::string& path, int imgSize[2])
 	bitsPerPixel = 0;
 
 	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+
+	imageID = rendererID - 1;
 
 	float widthHeightRatio = width / height;
 	float adjustedX = 0.5f * widthHeightRatio;
@@ -99,8 +102,7 @@ Sprite::Sprite(const std::string& path, int imgSize[2])
 	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	Bind();
 }
 
 Sprite::Sprite(const std::string& path, int imgSize[2],
@@ -112,7 +114,10 @@ Sprite::Sprite(const std::string& path, int imgSize[2],
 	height = imgSize[1];
 	bitsPerPixel = 0;
 
-	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	Renderer* tempRenderer = RendererSingleton::GetRenderer();
+	tempRenderer->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	
+	imageID = rendererID - 1;
 
 	float widthHeightRatio = width / height;
 	float adjustedX = 0.5f * widthHeightRatio;
@@ -153,17 +158,20 @@ Sprite::Sprite(const std::string& path, int imgSize[2],
 		}
 	}
 
-	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
+	//Bind();
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	*vBuffer = tempRenderer->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = tempRenderer->GetNewIndexBuffer(indices, 6);
+
+	Bind();
 }
 
-Sprite::Sprite(unsigned int bufferID, int imgSize[2], int spriteQuantity, int spriteNumber)
+Sprite::Sprite(unsigned int _imageID, int imgSize[2], int spriteQuantity, int spriteNumber)
 {
 	rendererID = 0;
-	*vBuffer = bufferID;
+	imageID = _imageID;
+	width = imgSize[0];
+	height = imgSize[1];
 	bitsPerPixel = 0;
 
 	float widthHeightRatio = width / height;
@@ -205,11 +213,12 @@ Sprite::Sprite(unsigned int bufferID, int imgSize[2], int spriteQuantity, int sp
 		}
 	}
 
-	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
+	Bind();
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
+	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
+
+	UnBind();
 }
 
 Sprite::~Sprite()
@@ -259,11 +268,12 @@ void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 
 	//std::cout << "Frame Left:" << uvPos[0][0] << "	Right:" << uvPos[1][0] << std::endl;
 
+	Bind();
 
 	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
 
-	Bind();
+	UnBind();
 }
 
 void Sprite::SetAnim(Animation* _anim)
@@ -315,16 +325,18 @@ void Sprite::ChangeSprite(float leftU, float rightU)
 	}
 
 	//std::cout << "Frame Left:" << uvPos[0][0] << "	Right:" << uvPos[1][0] << std::endl;
-
+	
 	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-
+	
 	Bind();
+
+	//UnBind();
 }
 
 void Sprite::Bind()
 {
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	RendererSingleton::GetRenderer()->BindSprite(imageID, rendererID);
+	RendererSingleton::GetRenderer()->SetSprite(imageID);
 }
 
 void Sprite::UnBind()
@@ -336,4 +348,10 @@ void Sprite::Draw()
 {
 	Bind();
 	RendererSingleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
+	UnBind();
+}
+
+unsigned int Sprite::GetImageID()
+{
+	return imageID;
 }

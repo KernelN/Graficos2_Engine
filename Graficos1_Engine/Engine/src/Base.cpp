@@ -75,11 +75,12 @@ void BaseEngine::Loop()
  
     OnLoop();
 
-    tempRenderer->BindProgram();
-    tempRenderer->BindBuffers();
+    //tempRenderer->BindProgram();
+    //tempRenderer->BindBuffers();
 
     tempRenderer->ClearScreen();
       
+    tempRenderer->BindProgram();
     Draw();
 
     tempRenderer->SwapWindowBuffers();

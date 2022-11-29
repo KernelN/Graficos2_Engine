@@ -35,16 +35,23 @@ Game::Game()
     //    sprite[i]->Scale(100, 100);
     //}
 
-    imageSize[0] = 260;
-    imageSize[1] = 64;
+    imageSize[0] = 324;
+    imageSize[1] = 35;
 
-    sprite = new Sprite("res/Wolfies.png", imageSize, 4, spriteNum);
-    sprite->Scale(50, 50);
+    sprite1 = new Sprite("res/WolfiesWalk.png", imageSize, 5, 0);
+    sprite1->Scale(25, 25);
+    sprite1->Translate(150, 0);
+    
+    sprite2 = new Sprite("res/WolfiesGrowl.png", imageSize, 5, 0);
+    sprite2->Scale(-25, 25);
+    sprite2->Translate(-150, 0);
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    Animation* wolfieHowlAnim = new Animation(1, 4);
-    sprite->SetAnim(wolfieHowlAnim);
+    //Animation* wolfieWalkAnim = new Animation(1, 5);
+    Animation* wolfieGrowlAnim = new Animation(1.5f, 5);
+    //sprite1->SetAnim(wolfieWalkAnim);
+    sprite2->SetAnim(wolfieGrowlAnim);
 
     squareScaleMod = 1;
     squareMoveMod = 1;
@@ -56,7 +63,8 @@ Game::Game()
 
 Game::~Game()
 {
-    delete sprite;
+    delete sprite1;
+    delete sprite2;
     //delete square;
     //delete triangle;
 }
@@ -92,7 +100,8 @@ void Game::OnLoop()
         squareMoveMod = 1;
     }*/
 
-    sprite->UpdateFrame();
+    //sprite1->UpdateFrame();
+    sprite2->UpdateFrame();
 
     if (timer > 0) timer -= time->GetDelta();
 
@@ -129,18 +138,19 @@ void Game::OnLoop()
     //    squareScaleMod = 0;
     //}
 
-    float squareScale = 0.5f * squareScaleMod;
-    float squareMove = 1.0f * squareMoveMod;
+    float squareScale = 0.5f * squareScaleMod * time->GetDelta();
+    float squareMove = 100.0f * squareMoveMod * time->GetDelta();
     
 
     //triangle->Scale(squareScale, -squareScale);
-    sprite->Scale(-squareScale, -squareScale);
-    sprite->Translate(squareMove, 0);
+    sprite1->Scale(-squareScale, -squareScale);
+    sprite1->Translate(squareMove, 0);
 }
 
 void Game::Draw()
 {
-	sprite->Draw();
+	sprite1->Draw();
+	sprite2->Draw();
 	//square->Draw();
     //triangle->Draw();
 }

@@ -85,12 +85,9 @@ void Renderer::SetWindow(Window* window)
 
 void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigned int modelID)
 {
-	BindProgram();
-	//BindBuffers();
-
 	VertexBuffer* vb = vertexBuffers[vertexBuffer];
 	IndexBuffer* ib = indexBuffers[indexBuffer];
-
+		
 	vb->Bind();
 	ib->Bind();
 
@@ -338,7 +335,7 @@ void Renderer::GetNewSprite(int* width, int* height, int* bpp, unsigned int* ima
 
 void Renderer::SetSprite(unsigned int value)
 {
-	program->SetUniform1i("u_Sprite", value - 1);
+	program->SetUniform1i("u_Sprite", value);
 }
 
 void Renderer::DeleteSprite(unsigned int* spriteID)
