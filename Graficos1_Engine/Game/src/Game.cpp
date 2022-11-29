@@ -43,7 +43,7 @@ Game::Game()
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    Animation* wolfieHowlAnim = new Animation(.83f, 4);
+    Animation* wolfieHowlAnim = new Animation(1, 4);
     sprite->SetAnim(wolfieHowlAnim);
 
     squareScaleMod = 1;

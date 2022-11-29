@@ -257,14 +257,13 @@ void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 		}
 	}
 
-	std::cout << "New Frame Left:" << uvPos[0][0] << " Right:" << uvPos[1][0] << std::endl;
+	//std::cout << "Frame Left:" << uvPos[0][0] << "	Right:" << uvPos[1][0] << std::endl;
 
 
 	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	//Singleton::GetRenderer()->SetNewIndexBuffer(indices, 6);
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	Bind();
 }
 
 void Sprite::SetAnim(Animation* _anim)
@@ -286,7 +285,7 @@ void Sprite::UpdateFrame()
 	//If frame didn't change, exit
 	if (oldCoords.x == uCoords.x) return;
 		
-	//std::cout << "New Frame Left:" << uCoords.x << " Right:" << uCoords.y << std::endl;
+	//std::cout << "Frame Left:" << uCoords.x << "	Right:" << uCoords.y << std::endl;
 
 	//If it's in new frame, update sprite
 	ChangeSprite(uCoords.x, uCoords.y);
@@ -315,12 +314,11 @@ void Sprite::ChangeSprite(float leftU, float rightU)
 		}
 	}
 
-	std::cout << "New Frame Left:" << uvPos[0][0] << " Right:" << uvPos[1][0] << std::endl;
+	//std::cout << "Frame Left:" << uvPos[0][0] << "	Right:" << uvPos[1][0] << std::endl;
 
 	RendererSingleton::GetRenderer()->SetVertexBuffer(*vBuffer, vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 
-	RendererSingleton::GetRenderer()->BindSprite(0, rendererID);
-	RendererSingleton::GetRenderer()->SetSprite(rendererID);
+	Bind();
 }
 
 void Sprite::Bind()
