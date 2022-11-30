@@ -53,8 +53,8 @@ Game::Game()
     //sprite1->SetAnim(wolfieWalkAnim);
     sprite2->SetAnim(wolfieGrowlAnim);
 
-    squareScaleMod = 1;
-    squareMoveMod = 1;
+    scaleMod = 1;
+    verticalMoveMod = 1;
 
     //triangle = new Triangle(tVertices, true);
     //square->Scale(100, 100);
@@ -81,7 +81,7 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    //sprite->Rotate(1);
+   
     /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;
@@ -99,6 +99,8 @@ void Game::OnLoop()
     {
         squareMoveMod = 1;
     }*/
+
+   
 
     //sprite1->UpdateFrame();
     sprite2->UpdateFrame();
@@ -118,19 +120,41 @@ void Game::OnLoop()
     }
     else
     {
-        squareScaleMod = 0;
+        scaleMod = 0;
     }
-    if (IsKeyPressed(KEY_A))
+    if (IsKeyPressed(KEY_W))
     {
-        squareMoveMod = -1;
+        verticalMoveMod = 1;
     }
-    else if (IsKeyPressed(KEY_D))
+    else if (IsKeyPressed(KEY_S))
     {
-        squareMoveMod = 1;
+        verticalMoveMod = -1;
     }
     else
     {
-        squareMoveMod = 0;
+        verticalMoveMod = 0;
+    }
+
+    if (IsKeyPressed(KEY_A))
+    {
+        horizontalMoveMod = -1;
+    }
+    else if (IsKeyPressed(KEY_D))
+    {
+        horizontalMoveMod = 1;
+    }
+    else
+    {
+        horizontalMoveMod = 0;
+    }
+
+    if (IsKeyPressed(KEY_Q))
+    {
+        sprite1->Rotate(1);
+    }
+    else if (IsKeyPressed(KEY_E))
+    {
+        sprite1->Rotate(-1);
     }
 
     //if (square->GetScale().x < 10 && squareScaleMod > 0)
@@ -138,13 +162,26 @@ void Game::OnLoop()
     //    squareScaleMod = 0;
     //}
 
-    float squareScale = 0.5f * squareScaleMod * time->GetDelta();
-    float squareMove = 100.0f * squareMoveMod * time->GetDelta();
+    float squareScale = 0.5f * scaleMod * time->GetDelta();
+    float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
+    float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
     
 
     //triangle->Scale(squareScale, -squareScale);
     sprite1->Scale(-squareScale, -squareScale);
-    sprite1->Translate(squareMove, 0);
+
+    sprite1->Translate(0, verticalMove);
+    sprite1->Translate(horizontalMove, 0);
+
+    // Colisionan sprite1 y sprite2
+   /* while (collisionManager->CheckCollision(sprite1, sprite2))
+    {
+        sprite1->Translate(0, -verticalMove);
+        sprite1->Translate(-horizontalMove, 0);
+    }*/
+    
+   
+
 }
 
 void Game::Draw()

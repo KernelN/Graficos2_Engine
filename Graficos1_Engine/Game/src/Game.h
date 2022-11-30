@@ -22,8 +22,9 @@ private:
 	Sprite* sprite2;
 	//Sprite* sprite[4];
 
-	int squareScaleMod;
-	int squareMoveMod;
+	int scaleMod;
+	int verticalMoveMod;
+	int horizontalMoveMod;
 
 
 };
