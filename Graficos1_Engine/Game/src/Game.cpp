@@ -43,7 +43,7 @@ Game::Game()
     sprite1->Translate(150, 0);
     
     sprite2 = new Sprite("res/WolfiesGrowl.png", imageSize, 5, 0);
-    sprite2->Scale(-25, 25);
+    sprite2->Scale(25, 25);
     sprite2->Translate(-150, 0);
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
@@ -53,8 +53,8 @@ Game::Game()
     //sprite1->SetAnim(wolfieWalkAnim);
     sprite2->SetAnim(wolfieGrowlAnim);
 
-    scaleMod = 1;
-    verticalMoveMod = 1;
+    squareScaleMod = 1;
+    squareMoveMod = 1;
 
     //triangle = new Triangle(tVertices, true);
     //square->Scale(100, 100);
@@ -65,8 +65,8 @@ Game::~Game()
 {
     delete sprite1;
     delete sprite2;
-    //delete square;
-    //delete triangle;
+  /*  delete square;
+    delete triangle;*/
 }
 
 bool Game::IsRunning()
@@ -81,7 +81,7 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-   
+    //sprite->Rotate(1);
     /*if (triangle->GetScale().x > 5.0f && squareScaleMod > 0)
     {
         squareScaleMod = -1;
@@ -99,8 +99,6 @@ void Game::OnLoop()
     {
         squareMoveMod = 1;
     }*/
-
-   
 
     //sprite1->UpdateFrame();
     sprite2->UpdateFrame();
@@ -120,41 +118,19 @@ void Game::OnLoop()
     }
     else
     {
-        scaleMod = 0;
+        squareScaleMod = 0;
     }
-    if (IsKeyPressed(KEY_W))
-    {
-        verticalMoveMod = 1;
-    }
-    else if (IsKeyPressed(KEY_S))
-    {
-        verticalMoveMod = -1;
-    }
-    else
-    {
-        verticalMoveMod = 0;
-    }
-
     if (IsKeyPressed(KEY_A))
     {
-        horizontalMoveMod = -1;
+        squareMoveMod = -1;
     }
     else if (IsKeyPressed(KEY_D))
     {
-        horizontalMoveMod = 1;
+        squareMoveMod = 1;
     }
     else
     {
-        horizontalMoveMod = 0;
-    }
-
-    if (IsKeyPressed(KEY_Q))
-    {
-        sprite1->Rotate(1);
-    }
-    else if (IsKeyPressed(KEY_E))
-    {
-        sprite1->Rotate(-1);
+        squareMoveMod = 0;
     }
 
     //if (square->GetScale().x < 10 && squareScaleMod > 0)
@@ -162,26 +138,21 @@ void Game::OnLoop()
     //    squareScaleMod = 0;
     //}
 
-    float squareScale = 0.5f * scaleMod * time->GetDelta();
-    float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
-    float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
+    float squareScale = 0.5f * squareScaleMod * time->GetDelta();
+    float squareMove = 100.0f * squareMoveMod * time->GetDelta();
     
 
     //triangle->Scale(squareScale, -squareScale);
     sprite1->Scale(-squareScale, -squareScale);
-
-    sprite1->Translate(0, verticalMove);
-    sprite1->Translate(horizontalMove, 0);
+    sprite1->Translate(squareMove, 0);
 
     // Colisionan sprite1 y sprite2
-   /* while (collisionManager->CheckCollision(sprite1, sprite2))
+    while (collisionManager->CheckCollision(sprite1, sprite2))
     {
-        sprite1->Translate(0, -verticalMove);
-        sprite1->Translate(-horizontalMove, 0);
-    }*/
+        sprite1->Translate(-squareMove, 0);
+    }
     
    
-
 }
 
 void Game::Draw()

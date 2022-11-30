@@ -113,6 +113,7 @@ Sprite::Sprite(const std::string& path, int imgSize[2],
 	width = imgSize[0];
 	height = imgSize[1];
 	bitsPerPixel = 0;
+	spriteQty = spriteQuantity;
 
 	Renderer* tempRenderer = RendererSingleton::GetRenderer();
 	tempRenderer->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);

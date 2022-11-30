@@ -51,6 +51,8 @@ BaseEngine::BaseEngine()
     };*/
     /*triangle = new Triangle(tVertices, true);
     square = new Square(tVertices, true);*/
+
+    collisionManager = new CollisionManager();
 }
 
 BaseEngine::~BaseEngine()
@@ -59,6 +61,7 @@ BaseEngine::~BaseEngine()
     delete renderer;
     delete window;
     delete inputManager;
+    delete collisionManager;
 }
 
 bool BaseEngine::IsRunning()
