@@ -147,6 +147,9 @@
     <ClCompile Include="src\Utility\Time.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\CollisionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="src\Utility\TimeSingleton.h">
       <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionManager.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

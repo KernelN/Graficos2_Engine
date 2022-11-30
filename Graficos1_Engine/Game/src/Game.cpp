@@ -43,7 +43,7 @@ Game::Game()
     sprite1->Translate(150, 0);
     
     sprite2 = new Sprite("res/WolfiesGrowl.png", imageSize, 5, 0);
-    sprite2->Scale(-25, 25);
+    sprite2->Scale(25, 25);
     sprite2->Translate(-150, 0);
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
@@ -65,8 +65,8 @@ Game::~Game()
 {
     delete sprite1;
     delete sprite2;
-    //delete square;
-    //delete triangle;
+  /*  delete square;
+    delete triangle;*/
 }
 
 bool Game::IsRunning()
@@ -145,6 +145,14 @@ void Game::OnLoop()
     //triangle->Scale(squareScale, -squareScale);
     sprite1->Scale(-squareScale, -squareScale);
     sprite1->Translate(squareMove, 0);
+
+    // Colisionan sprite1 y sprite2
+    while (collisionManager->CheckCollision(sprite1, sprite2))
+    {
+        sprite1->Translate(-squareMove, 0);
+    }
+    
+   
 }
 
 void Game::Draw()

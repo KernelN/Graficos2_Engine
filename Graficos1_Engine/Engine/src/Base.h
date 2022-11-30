@@ -1,7 +1,7 @@
 #pragma once
 #include "DLLManager.h"
 #include "Utility/Time.h"
-
+#include "CollisionManager.h"
 
 class DLLEXPORT BaseEngine
 {
@@ -15,8 +15,9 @@ public:
 	bool IsKeyPressed(unsigned short KeyCode);
 protected:
 	Time* time;
+	CollisionManager* collisionManager;
 private:
-	void* inputManager;
+	void* inputManager;	
 	void* window;
 	void* renderer;
 	bool isRunning = true; //Check if engine is running

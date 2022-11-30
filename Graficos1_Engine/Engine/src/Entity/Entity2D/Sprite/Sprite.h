@@ -14,6 +14,7 @@ private:
 	int width, height, bitsPerPixel;
 	float vertices[4][4];
 	Animation* anim;
+	unsigned int spriteQty;
 
 	void ChangeSprite(float leftU, float rightU);
 	void Bind();
@@ -32,5 +33,6 @@ public:
 	void Draw();
 	unsigned int GetImageID();
 	inline int GetWidth() const { return width; }
+	inline int GetSpriteQty() const { return spriteQty; }
 	inline int GetHeight() const { return height; }
 };
