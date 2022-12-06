@@ -37,19 +37,6 @@ Square::Square(float vertexCol[4][4], bool squareIsStatic)
 
 	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(tempVertices, 4 * (sizeof(float) * 2 + sizeof(float) * 4));
 	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(tempIndices, 6);
-	//Singleton::GetRenderer()->GetNewVertexBuffer
-	//(
-	//	vertices->GetComponentAmount(), //vertex components
-	//	vertices->GetStride(), //stride
-	//	squareIsStatic, //data is static
-	//	0, //attribute id
-	//	vertices, //vertices data
-	//	indices, //indices
-	//	4, //vertices amount
-	//	6, //indices amount
-	//	vBuffer, //vertex buffer
-	//	iBuffer //index buffer
-	//);
 }
 
 Square::~Square()
@@ -58,7 +45,7 @@ Square::~Square()
 
 void Square::Draw()
 {
-	//Singleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
+	RendererSingleton::GetRenderer()->Draw(*vBuffer, *iBuffer, modelID);
 }
 
 void Square::UpdateVertex(float vertexCol[4][4])

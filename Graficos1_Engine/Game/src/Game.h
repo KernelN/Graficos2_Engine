@@ -16,7 +16,8 @@ public:
 	void Draw() override;
 
 private:
-	Square* square;
+	Square* square1;
+	Square* square2;
 	Triangle* triangle;
 	Sprite* sprite1;
 	Sprite* sprite2;
