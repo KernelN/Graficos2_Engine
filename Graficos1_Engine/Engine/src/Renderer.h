@@ -35,10 +35,8 @@ public:
 	void DeleteBuffer(unsigned int* buffer);
 	void BindProgram();
 	void BindBuffers();
-	void SetNewVertexBuffer(const void* data, unsigned int dataSize);
 	unsigned int GetNewVertexBuffer(const void* data, unsigned int dataSize);
-	void SetVertexBuffer(unsigned int vertexID, const void* data, unsigned int dataSize);
-	void SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
+	void SetVertexBuffer(unsigned int bufferID, const void* data, unsigned int dataSize);
 	unsigned int GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount);
 #pragma endregion
 
@@ -63,9 +61,9 @@ private:
 	glm::mat4 viewProj;
 
 	std::vector<glm::mat4> models;
-	std::vector<IndexBuffer*> indexBuffers;
 	std::vector<VertexBuffer*> vertexBuffers;
-	VertexArray va;
+	std::vector<IndexBuffer*> indexBuffers;
+	std::vector<VertexArray*> vertexArrays;
 
 	void SetUniversalSpriteSettings();
 };

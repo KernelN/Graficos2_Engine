@@ -8,14 +8,22 @@ VertexArray::VertexArray()
 
 VertexArray::~VertexArray()
 {
+	for (unsigned short i = 0; i < vertexBuffers.size(); i++)
+	{
+		delete vertexBuffers[i];
+	}
+
 	glDeleteVertexArrays(1, &rendererID);
 }
 
-void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+void VertexArray::AddBuffer(VertexBuffer* vb, const VertexBufferLayout& layout)
 {
+	vertexBuffers.push_back(vb);
+	layouts.push_back(layout);
+
 	Bind();
 	
-	vb.Bind();
+	vb->Bind();
 
 	unsigned int offset = 0;
 	const auto& elements = layout.GetElements();
@@ -27,7 +35,7 @@ void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 		//https://docs.gl/gl4/glEnableVertexAttribArray
 		glEnableVertexAttribArray(i);
 
-		//SET POS
+		//SET EVERY CHUNK OF THE VERTEX
 		//https://docs.gl/gl4/glVertexAttribPointer
 		unsigned int stride = layout.GetStride();
 		glVertexAttribPointer(i, element.count, element.type, element.normalized, stride, (const void*)offset);
@@ -37,14 +45,16 @@ void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 
 }
 
-void VertexArray::SetBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+void VertexArray::SetBuffer(unsigned int bufferID)
 {
 	Bind();
 
-	vb.Bind();
+	vertexBuffers[0]->Bind(); //HERE BREAKS
 
 	unsigned int offset = 0;
+	VertexBufferLayout layout = layouts[0];
 	const auto& elements = layout.GetElements();
+
 	for (unsigned int i = 0; i < elements.size(); i++)
 	{
 		const auto& element = elements[i];
@@ -60,7 +70,6 @@ void VertexArray::SetBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 
 		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 	}
-
 }
 
 

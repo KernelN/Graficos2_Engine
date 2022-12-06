@@ -45,9 +45,9 @@ Renderer::~Renderer()
 	delete program;
 
 	//Delete Buffers
-	for (unsigned short i = 0; i < vertexBuffers.size(); i++)
+	for (unsigned short i = 0; i < vertexArrays.size(); i++)
 	{
-		delete vertexBuffers[i];
+		delete vertexArrays[i];
 	}
 	for (unsigned short i = 0; i < indexBuffers.size(); i++)
 	{
@@ -86,9 +86,11 @@ void Renderer::SetWindow(Window* window)
 void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigned int modelID)
 {
 	VertexBuffer* vb = vertexBuffers[vertexBuffer];
+	VertexArray* va = vertexArrays[vertexBuffer];
 	IndexBuffer* ib = indexBuffers[indexBuffer];
 		
 	vb->Bind();
+	va->Bind();
 	ib->Bind();
 
 	program->SetUniformMat4f("mvp", viewProj * models[modelID]);
@@ -103,7 +105,7 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 
 //void Renderer::GetNewVertexBuffer
 //(
-//#pragma region vars
+//#pragma region //vars
 //	unsigned int vComponents,
 //	unsigned int stride,
 //	bool dataIsStatic,
@@ -111,7 +113,7 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 //	//could change to BufferData struct
 //	void* vData,
 //	unsigned int* indices,
-//	unsigned int vAmount,
+//	unsigned int //vamount,
 //	unsigned int iAmount,
 //	unsigned int* vBuffer,
 //	unsigned int* iBuffer
@@ -132,7 +134,7 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 //	//Send data to buffer
 //	//https://docs.gl/gl4/glBufferData
 //	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-//	unsigned int vDataSize = vAmount * stride;
+//	unsigned int vDataSize = //vamount * stride;
 //	glBufferData(GL_ARRAY_BUFFER, vDataSize, vData, dataUsage); //may be a problem
 //#pragma endregion
 //
@@ -177,24 +179,11 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 //#pragma endregion
 //}
 
-void Renderer::SetNewVertexBuffer(const void* data, unsigned int dataSize)
-{
-	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
-
-	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
-	vertexBuffers.push_back(vb);
-
-	VertexBufferLayout layout;
-	layout.Push<float>(2);
-	layout.Push<float>(2);
-	va.AddBuffer(*vb, layout);
-}
-
 unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
 
-	unsigned int bufferID = vertexBuffers.size();
+	unsigned int bufferID = vertexArrays.size();
 
 	VertexBuffer* vb = new VertexBuffer(data, dataSize, true);
 	vertexBuffers.push_back(vb);
@@ -202,26 +191,24 @@ unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSiz
 	VertexBufferLayout layout;
 	layout.Push<float>(2);
 	layout.Push<float>(2);
-	va.AddBuffer(*vb, layout);
+	
+	VertexArray* va = new VertexArray();
+	va->AddBuffer(vb, layout);
+
+	vertexArrays.push_back(va);
 
 	return bufferID;
 }
 
-void Renderer::SetVertexBuffer(unsigned int vertexID, const void* data, unsigned int dataSize)
+void Renderer::SetVertexBuffer(unsigned int bufferID, const void* data, unsigned int dataSize)
 {
-	VertexBuffer* vb = vertexBuffers[vertexID];
+	VertexBuffer* vb = vertexBuffers[bufferID];
+
+	vb->Bind();
+
 	vb->SetBuffer(data, dataSize);
 
-	VertexBufferLayout layout;
-	layout.Push<float>(2);
-	layout.Push<float>(2);
-	va.SetBuffer(*vb, layout);
-}
-
-void Renderer::SetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
-{
-	IndexBuffer* ib = new IndexBuffer(indices, indexAmmount);
-	indexBuffers.push_back(ib);
+	vertexArrays[bufferID]->SetBuffer(bufferID);
 }
 
 unsigned int Renderer::GetNewIndexBuffer(unsigned int* indices, unsigned int indexAmmount)
@@ -247,7 +234,10 @@ void Renderer::BindProgram()
 
 void Renderer::BindBuffers()
 {
-	va.Bind();
+	for (unsigned short i = 0; i < vertexArrays.size(); i++)
+	{
+		vertexArrays[i]->Bind();
+	}
 
 	for (unsigned short i = 0; i < indexBuffers.size(); i++)
 	{
@@ -357,11 +347,11 @@ void Renderer::UnbindSprite()
 void Renderer::SetUniversalSpriteSettings()
 {
 	//https://docs.gl/gl4/glTexParameteri
-	///SET MIPMAPPING VARS
+	///SET MIPMAPPING //vaRS
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	///SET WRAPPING VARS
+	///SET WRAPPING //vaRS
 	//Repeat: repeats image in empty space
 	//Mirror Repeat: repeats image, but mirroring it
 	//Clamp Border: stretches image to edge of screen

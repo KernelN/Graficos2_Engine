@@ -48,9 +48,9 @@ Game::Game()
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    //Animation* wolfieWalkAnim = new Animation(1, 5);
-    Animation* wolfieGrowlAnim = new Animation(1.5f, 5);
-    //sprite1->SetAnim(wolfieWalkAnim);
+    Animation* wolfieWalkAnim = new Animation(1, 5);
+    Animation* wolfieGrowlAnim = new Animation(1, 5);
+    sprite1->SetAnim(wolfieWalkAnim);
     sprite2->SetAnim(wolfieGrowlAnim);
 
     scaleMod = 1;
@@ -99,7 +99,6 @@ void Game::OnLoop()
         squareMoveMod = 1;
     }*/
 
-    //sprite1->UpdateFrame();
     sprite2->UpdateFrame();
 
     if (timer > 0) timer -= time->GetDelta();
@@ -160,13 +159,17 @@ void Game::OnLoop()
     //    squareScaleMod = 0;
     //}
 
-    float squareScale = 0.5f * scaleMod * time->GetDelta();
+    if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
+
+    //float squareScale = 0.5f * scaleMod * time->GetDelta();
     float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
     float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
 
 
     //triangle->Scale(squareScale, -squareScale);
-    sprite1->Scale(-squareScale, -squareScale);
+    //sprite1->Scale(-squareScale, -squareScale);
+
+    sprite1->UpdateFrame();
 
     sprite1->Translate(0, verticalMove);
     sprite1->Translate(horizontalMove, 0);
@@ -177,8 +180,6 @@ void Game::OnLoop()
         sprite1->Translate(0, -verticalMove);
         sprite1->Translate(-horizontalMove, 0);
     }
-    
-   
 }
 
 void Game::Draw()

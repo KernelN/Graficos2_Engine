@@ -6,12 +6,14 @@ class VertexArray
 {
 private:
 	unsigned int rendererID;
+	std::vector<VertexBuffer*> vertexBuffers;
+	std::vector<VertexBufferLayout> layouts;
 public:
 	VertexArray();
 	~VertexArray();
 
-	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
-	void SetBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+	void AddBuffer(VertexBuffer* vb, const VertexBufferLayout& layout);
+	void SetBuffer(unsigned int bufferID);
 
 	void Bind() const;
 	void UnBind() const;
