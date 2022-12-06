@@ -16,12 +16,12 @@ public:
 	void Draw() override;
 
 private:
+	Entity2D* player;
+	Entity2D* enemy;
 	Square* square1;
 	Square* square2;
-	Triangle* triangle;
 	Sprite* sprite1;
 	Sprite* sprite2;
-	//Sprite* sprite[4];
 
 	int scaleMod;
 	int verticalMoveMod;

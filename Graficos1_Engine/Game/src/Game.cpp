@@ -36,15 +36,15 @@ Game::Game()
     //sprite1 = new Sprite("res/WolfiesWalk.png", 1, 0);
     //sprite1->Scale(25, 25);
     //sprite1->Translate(150, 0);
-    
+    //
     //sprite2 = new Sprite("res/WolfiesGrowl.png", 1, 0);
     //sprite2->Scale(25, 25);
     //sprite2->Translate(-150, 0);
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    Animation* wolfieWalkAnim = new Animation(1, 1);
-    Animation* wolfieGrowlAnim = new Animation(1, 1);
+    //Animation* wolfieWalkAnim = new Animation(1, 1);
+    //Animation* wolfieGrowlAnim = new Animation(1, 1);
     //sprite1->SetAnim(wolfieWalkAnim);
     //sprite2->SetAnim(wolfieGrowlAnim);
 
@@ -86,10 +86,6 @@ void Game::OnLoop()
         //
         ////sprite1->ChangeSprite(4, //spriteNum);
     }
-    else
-    {
-        scaleMod = 0;
-    }
 
     if (IsKeyPressed(KEY_W))
     {
@@ -126,20 +122,10 @@ void Game::OnLoop()
         //sprite1->Rotate(-1);
     }
 
-    //if (square->GetScale().x < 10 && squareScaleMod > 0)
-    //{
-    //    squareScaleMod = 0;
-    //}
-
     if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
 
-    //float squareScale = 0.5f * scaleMod * time->GetDelta();
     float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
     float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
-
-
-    //triangle->Scale(squareScale, -squareScale);
-    ////sprite1->Scale(-squareScale, -squareScale);
 
     //sprite1->UpdateFrame();
 
@@ -165,5 +151,4 @@ void Game::Draw()
 	//sprite2->Draw();
     square1->Draw();
     square2->Draw();
-    //triangle->Draw();
 }

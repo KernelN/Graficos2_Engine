@@ -102,83 +102,6 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 }
 
 #pragma region Buffers & Program
-
-//void Renderer::GetNewVertexBuffer
-//(
-//#pragma region //vars
-//	unsigned int vComponents,
-//	unsigned int stride,
-//	bool dataIsStatic,
-//	unsigned int attribID,
-//	//could change to BufferData struct
-//	void* vData,
-//	unsigned int* indices,
-//	unsigned int //vamount,
-//	unsigned int iAmount,
-//	unsigned int* vBuffer,
-//	unsigned int* iBuffer
-//	//could change to BufferData struct
-//#pragma endregion
-//)
-//{
-//#pragma region SET VERTEX BUFFER
-//	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
-//	//https://docs.gl/gl4/glGenBuffers
-//	glGenBuffers(1, vBuffer);
-//
-//	//Select buffer and set it as array buffer (ideal to work with vertexes)
-//	//https://docs.gl/gl4/glBindBuffer
-//	unsigned int vBufferData = *vBuffer;
-//	glBindBuffer(GL_ARRAY_BUFFER, vBufferData); //maybe problems?
-//
-//	//Send data to buffer
-//	//https://docs.gl/gl4/glBufferData
-//	GLenum dataUsage = dataIsStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
-//	unsigned int vDataSize = //vamount * stride;
-//	glBufferData(GL_ARRAY_BUFFER, vDataSize, vData, dataUsage); //may be a problem
-//#pragma endregion
-//
-//#pragma region SET VERTEX ATTRIB POINTER
-//	////https://docs.gl/gl4/glVertexAttribPointer
-//	//glVertexAttribPointer(attribID, vComponents, GL_FLOAT, GL_FALSE, stride, 0);
-//
-//	////https://docs.gl/gl4/glEnableVertexAttribArray
-//	//glEnableVertexAttribArray(attribID);
-//
-//	//SET POS
-//	//https://docs.gl/gl4/glVertexAttribPointer
-//	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, (void*)0);
-//
-//	//https://docs.gl/gl4/glEnableVertexAttribArray
-//	glEnableVertexAttribArray(0);
-//
-//	//SET COLOR
-//	//https://docs.gl/gl4/glVertexAttribPointer
-//	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, (void*)(2*sizeof(float)));
-//
-//	//https://docs.gl/gl4/glEnableVertexAttribArray
-//	glEnableVertexAttribArray(1);
-//#pragma endregion
-//
-//#pragma region SET INDEX BUFFER
-//	//Ask openGL for X buffers (1 in this case) and links them to a uint pointer
-//	//https://docs.gl/gl4/glGenBuffers
-//	glGenBuffers(1, iBuffer);
-//
-//	//Select buffer and set it as element array buffer (ideal to work with indices)
-//	//https://docs.gl/gl4/glBindBuffer
-//	unsigned int iBufferData = *iBuffer;
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferData);
-//
-//	//Send data to buffer
-//	//https://docs.gl/gl4/glBufferData
-//	// index will always be an unsigned int
-//	//because it's just an index, it doesn't have components
-//	unsigned int iDataSize = iAmount * sizeof(unsigned int);
-//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, iDataSize, indices, dataUsage);
-//#pragma endregion
-//}
-
 unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
@@ -190,6 +113,7 @@ unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSiz
 
 	VertexBufferLayout layout;
 	layout.Push<float>(2);
+	//layout.Push<float>(2);
 	layout.Push<float>(4);
 	
 	VertexArray* va = new VertexArray();
