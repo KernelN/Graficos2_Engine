@@ -26,11 +26,11 @@ Game::Game()
     };
 
     square1 = new Square(s1Colors, true);
-    square1->Scale(10, 10);
+    square1->Scale(100, 100);
     square1->Translate(100, 0);
 
     square2 = new Square(s2Colors, true);
-    square2->Scale(10, 10);
+    square2->Scale(100, 100);
     square2->Translate(-100, 0);
 
     //sprite1 = new Sprite("res/WolfiesWalk.png", 1, 0);
