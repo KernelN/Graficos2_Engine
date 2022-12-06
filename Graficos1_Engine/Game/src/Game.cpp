@@ -6,7 +6,6 @@
 
 unsigned int spriteNum = 0;
 float timer = 0;
-int imageSize[2];
 
 Game::Game()
 {
@@ -35,14 +34,11 @@ Game::Game()
     //    sprite[i]->Scale(100, 100);
     //}
 
-    imageSize[0] = 324;
-    imageSize[1] = 35;
-
-    sprite1 = new Sprite("res/WolfiesWalk.png", imageSize, 5, 0);
+    sprite1 = new Sprite("res/WolfiesWalk.png", 5, 0);
     sprite1->Scale(25, 25);
     sprite1->Translate(150, 0);
     
-    sprite2 = new Sprite("res/WolfiesGrowl.png", imageSize, 5, 0);
+    sprite2 = new Sprite("res/WolfiesGrowl.png", 5, 0);
     sprite2->Scale(25, 25);
     sprite2->Translate(-150, 0);
 

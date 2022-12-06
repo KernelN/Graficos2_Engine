@@ -52,66 +52,12 @@ Sprite::Sprite(const std::string& path)
 	Bind();
 }
 
-Sprite::Sprite(const std::string& path, int imgSize[2])
-{
-	rendererID = 0;
-	filePath = path;
-	width = imgSize[0];
-	height = imgSize[1];
-	bitsPerPixel = 0;
-
-	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
-
-	imageID = rendererID - 1;
-
-	float widthHeightRatio = width / height;
-	float adjustedX = 0.5f * widthHeightRatio;
-
-	float vertexPos[4][2] =
-	{
-		{-adjustedX, -1},
-		{adjustedX, -1},
-		{adjustedX, 1},
-		{-adjustedX, 1}
-	};
-	float uvPos[4][2] =
-	{
-		{0, 0}, //bot left
-		{1, 0}, //bot right
-		{1, 1}, //top right
-		{0, 1}  //top left
-	};
-	unsigned int indices[6] =
-	{
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	for (unsigned short i = 0; i < 4; i++)
-	{
-		for (unsigned short j = 0; j < 2; j++)
-		{
-			vertices[i][j] = vertexPos[i][j];
-		}
-		for (unsigned short j = 2; j < 4; j++)
-		{
-			vertices[i][j] = uvPos[i][j - 2];
-		}
-	}
-
-	*vBuffer = RendererSingleton::GetRenderer()->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
-	*iBuffer = RendererSingleton::GetRenderer()->GetNewIndexBuffer(indices, 6);
-
-	Bind();
-}
-
-Sprite::Sprite(const std::string& path, int imgSize[2],
-							int spriteQuantity, int spriteNumber)
+Sprite::Sprite(const std::string& path, int spriteQuantity, int spriteNumber)
 {
  	rendererID = 0;
 	filePath = path;
-	width = imgSize[0];
-	height = imgSize[1];
+	width = 0;
+	height = 0;
 	bitsPerPixel = 0;
 	spriteQty = spriteQuantity;
 

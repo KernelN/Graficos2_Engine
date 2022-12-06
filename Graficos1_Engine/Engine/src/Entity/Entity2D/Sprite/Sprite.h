@@ -22,8 +22,7 @@ private:
 
 public:
 	Sprite(const std::string& path);
-	Sprite(const std::string& path, int imgSize[2]);
-	Sprite(const std::string& path, int imgSize[2], int spriteQuantity, int spriteNumber);
+	Sprite(const std::string& path, int spriteQuantity, int spriteNumber);
 	Sprite(unsigned int _imageID, int imgSize[2], int spriteQuantity, int spriteNumber);
 	~Sprite();
 
