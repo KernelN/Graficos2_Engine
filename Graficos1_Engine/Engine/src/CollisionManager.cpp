@@ -38,21 +38,18 @@ bool CollisionManager::CheckCollision(Sprite* sprite1, Sprite* sprite2)
 {
 	int x1 = sprite1->GetTranslation().x;
 	int y1 = sprite1->GetTranslation().y;
+	int x2 = sprite2->GetTranslation().x;
+	int y2 = sprite2->GetTranslation().y;
+
 	int width1 = sprite1->GetWidth() / 2 + sprite1->GetScale().x / 2;
 	int height1 = sprite1->GetHeight() / 2 + sprite1->GetScale().y / 2;
 
-	int x2 = sprite2->GetTranslation().x;
-	int y2 = sprite2->GetTranslation().y;
 	int width2 = sprite2->GetWidth() / 2 + sprite2->GetScale().x / 2;
 	int height2 = sprite2->GetHeight() / 2 + sprite2->GetScale().y / 2;
 
-	//int x1 = sprite1->GetTranslation().x;
-	//int y1 = sprite1->GetTranslation().y;
 	//int width1 = ((sprite1->GetWidth() / 6) * sprite1->GetScale().x) / 2;
 	//int height1 = (sprite1->GetHeight() * sprite1->GetScale().y) / 2;
 
-	//int x2 = sprite2->GetTranslation().x;
-	//int y2 = sprite2->GetTranslation().y;
 	//int width2 = ((sprite2->GetWidth() / 6) * sprite2->GetScale().x) / 2;
 	//int height2 = (sprite2->GetHeight() / sprite2->GetScale().y) / 2;
 
