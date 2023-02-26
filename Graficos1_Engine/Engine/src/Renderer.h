@@ -19,19 +19,6 @@ public:
 	void Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigned int modelID);
 
 #pragma region Buffers & Program
-	//void GetNewVertexBuffer
-	//(
-	//	unsigned int vComponents,
-	//	unsigned int stride,
-	//	bool dataIsStatic,
-	//	unsigned int attribID,
-	//	void* vData,
-	//	unsigned int* indices,
-	//	unsigned int vAmount,
-	//	unsigned int iAmount,
-	//	unsigned int* vBuffer,
-	//	unsigned int* iBuffer
-	//);
 	void DeleteBuffer(unsigned int* buffer);
 	void BindProgram();
 	void BindBuffers();

@@ -42,16 +42,6 @@ BaseEngine::BaseEngine()
     time = new Time();
     TimeSingleton::SetTime(time);
 
-    /*float tVertices[8] = 
-    { 
-        -0.5, -0.5,
-        0.5, -0.5,
-        0.5, 0.5,
-        -0.5, 0.5
-    };*/
-    /*triangle = new Triangle(tVertices, true);
-    square = new Square(tVertices, true);*/
-
     collisionManager = new CollisionManager();
 }
 

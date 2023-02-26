@@ -17,10 +17,10 @@ Renderer::Renderer(Window* window)
 
 	ShaderData shaders[] =
 	{
-		//{"shaders/vertexShader_sprite.shader", GL_VERTEX_SHADER},
-		//{"shaders/fragmentShader_sprite.shader", GL_FRAGMENT_SHADER}
-		{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
-		{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
+		{"shaders/vertexShader_sprite.shader", GL_VERTEX_SHADER},
+		{"shaders/fragmentShader_sprite.shader", GL_FRAGMENT_SHADER}
+		//{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
+		//{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
 	};
 
 	program = new Program(shaders, 2);
@@ -112,9 +112,9 @@ unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSiz
 	vertexBuffers.push_back(vb);
 
 	VertexBufferLayout layout;
-	layout.Push<float>(2);
-	//layout.Push<float>(2);
-	layout.Push<float>(4);
+	layout.Push<float>(2); //Position
+	layout.Push<float>(2); //UV
+	//layout.Push<float>(4); //Color
 	
 	VertexArray* va = new VertexArray();
 	va->AddBuffer(vb, layout);

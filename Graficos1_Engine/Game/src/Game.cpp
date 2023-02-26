@@ -25,38 +25,35 @@ Game::Game()
         {YELLOW}
     };
 
-    square1 = new Square(s1Colors, true);
-    square1->Scale(100, 100);
-    square1->Translate(100, 0);
+    //player = new Square(s1Colors, true);
+    //player->Scale(100, 100);
+    //player->Translate(100, 0);
+    player = new Sprite("res/WolfiesWalk.png", 5, 0);
+    player->Scale(25, 25);
+    player->Translate(150, 0);
 
-    square2 = new Square(s2Colors, true);
-    square2->Scale(100, 100);
-    square2->Translate(-100, 0);
+    //enemy = new Square(s2Colors, true);
+    //enemy->Scale(100, 100);
+    //enemy->Translate(-100, 0);
+    enemy = new Sprite("res/WolfiesGrowl.png", 5, 0);
+    enemy->Scale(25, 25);
+    enemy->Translate(-150, 0);
 
-    //sprite1 = new Sprite("res/WolfiesWalk.png", 1, 0);
-    //sprite1->Scale(25, 25);
-    //sprite1->Translate(150, 0);
-    //
-    //sprite2 = new Sprite("res/WolfiesGrowl.png", 1, 0);
-    //sprite2->Scale(25, 25);
-    //sprite2->Translate(-150, 0);
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    //Animation* wolfieWalkAnim = new Animation(1, 1);
-    //Animation* wolfieGrowlAnim = new Animation(1, 1);
-    //sprite1->SetAnim(wolfieWalkAnim);
-    //sprite2->SetAnim(wolfieGrowlAnim);
+    Animation* wolfieWalkAnim = new Animation(1, 5);
+    Animation* wolfieGrowlAnim = new Animation(1, 5);
+    static_cast<Sprite*>(player)->SetAnim(wolfieWalkAnim);
+    static_cast<Sprite*>(enemy)->SetAnim(wolfieGrowlAnim);
 
     scaleMod = 1;
 }
 
 Game::~Game()
 {
-    //delete sprite1;
-    //delete sprite2;
-    delete square1;
-    delete square2;
+    delete player;
+    delete enemy;
 }
 
 bool Game::IsRunning()
@@ -71,21 +68,9 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
-    //sprite2->UpdateFrame();
+    static_cast<Sprite*>(enemy)->UpdateFrame();
 
     if (timer > 0) timer -= time->GetDelta();
-
-    if (IsKeyPressed(KEY_SPACE))
-    {
-        if (timer > 0) return;
-
-        timer = .1f;
-
-        ////spriteNum++;
-        //if (//spriteNum > 3) //spriteNum = 0;
-        //
-        ////sprite1->ChangeSprite(4, //spriteNum);
-    }
 
     if (IsKeyPressed(KEY_W))
     {
@@ -113,42 +98,37 @@ void Game::OnLoop()
         horizontalMoveMod = 0;
     }
 
-    if (IsKeyPressed(KEY_Q))
-    {
-        //sprite1->Rotate(1);
-    }
-    else if (IsKeyPressed(KEY_E))
-    {
-        //sprite1->Rotate(-1);
-    }
+    //if (IsKeyPressed(KEY_Q))
+    //{
+    //    player->Rotate(1);
+    //}
+    //else if (IsKeyPressed(KEY_E))
+    //{
+    //    player->Rotate(-1);
+    //}
 
     if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
 
     float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
     float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
 
-    //sprite1->UpdateFrame();
+    static_cast<Sprite*>(player)->UpdateFrame();
 
-    //sprite1->Translate(0, verticalMove);
-    //sprite1->Translate(horizontalMove, 0);
-    square1->Translate(0, verticalMove);
-    square1->Translate(horizontalMove, 0);
+    player->Translate(0, verticalMove);
+    player->Translate(horizontalMove, 0);
 
-    // Colisionan //sprite1 y //sprite2
-    //while (collisionManager->CheckCollision(sprite1, sprite2))
-    while (collisionManager->CheckCollision(square1, square2))
+    // Colisionan player y enemy
+    while (collisionManager->CheckCollision(player, enemy))
     {
-        square1->Translate(0, -verticalMove);
-        square1->Translate(-horizontalMove, 0);
-        //sprite1->Translate(0, -verticalMove);
-        //sprite1->Translate(-horizontalMove, 0);
+        player->Translate(0, -verticalMove);
+        player->Translate(-horizontalMove, 0);
     }
 }
 
 void Game::Draw()
 {
-	//sprite1->Draw();
-	//sprite2->Draw();
-    square1->Draw();
-    square2->Draw();
+    static_cast<Sprite*>(player)->Draw();
+    static_cast<Sprite*>(enemy)->Draw();
+    //static_cast<Square*>(player)->Draw();
+    //static_cast<Square*>(enemy)->Draw();
 }

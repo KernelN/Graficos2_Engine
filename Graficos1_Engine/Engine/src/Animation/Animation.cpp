@@ -27,7 +27,7 @@ void Animation::Update()
 {
 	timer += TimeSingleton::GetTime()->GetDelta();	
 	
-	while (timer > length) {
+	while (timer >= length) {
 		timer -= length;
 	}
 

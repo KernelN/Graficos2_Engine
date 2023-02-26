@@ -18,10 +18,6 @@ public:
 private:
 	Entity2D* player;
 	Entity2D* enemy;
-	Square* square1;
-	Square* square2;
-	Sprite* sprite1;
-	Sprite* sprite2;
 
 	int scaleMod;
 	int verticalMoveMod;
