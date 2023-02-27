@@ -40,14 +40,12 @@ void Entity::Translate(float x, float y)
 	translation.x += x;
 	translation.y += y;
 	UpdateModel(true);
-	
 }
 
 void Entity::Rotate(float angle)
 {	
 	rotation += angle;
 	UpdateModel(true);
-	
 }
 
 void Entity::Scale(float x, float y)
@@ -55,7 +53,6 @@ void Entity::Scale(float x, float y)
 	scale.x += x;
 	scale.y += y;
 	UpdateModel(true);	
-	
 }
 
 Vector2 Entity::GetTranslation()
@@ -71,22 +68,6 @@ float Entity::GetRotation()
 Vector2 Entity::GetScale()
 {
 	return scale;
-}
-
-//https://learnopengl.com/Getting-started/Transformations
-void Entity::funnyTransformationStuff()
-{
-	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, glm::vec3(1.0f, 1.0f, 0.0f));
-	trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-	vec = trans * vec;
-
-	//Make function in renderer for transform location
-	/*unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));*/
-
 }
 
 void Entity::UpdateModel(bool isModelCreated)

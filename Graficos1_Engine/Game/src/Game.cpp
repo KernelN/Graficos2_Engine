@@ -26,15 +26,17 @@ Game::Game()
     };
 
     //player = new Square(s1Colors, true);
-    //player->Scale(100, 100);
+    //player->Scale(25, 25);
     //player->Translate(100, 0);
+
+    //enemy = new Square(s2Colors, true);
+    //enemy->Scale(25, 25);
+    //enemy->Translate(-100, 0);
+
     player = new Sprite("res/WolfiesWalk.png", 5, 0);
     player->Scale(25, 25);
     player->Translate(150, 0);
 
-    //enemy = new Square(s2Colors, true);
-    //enemy->Scale(100, 100);
-    //enemy->Translate(-100, 0);
     enemy = new Sprite("res/WolfiesGrowl.png", 5, 0);
     enemy->Scale(25, 25);
     enemy->Translate(-150, 0);
@@ -98,15 +100,6 @@ void Game::OnLoop()
         horizontalMoveMod = 0;
     }
 
-    //if (IsKeyPressed(KEY_Q))
-    //{
-    //    player->Rotate(1);
-    //}
-    //else if (IsKeyPressed(KEY_E))
-    //{
-    //    player->Rotate(-1);
-    //}
-
     if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
 
     float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
@@ -129,6 +122,4 @@ void Game::Draw()
 {
     static_cast<Sprite*>(player)->Draw();
     static_cast<Sprite*>(enemy)->Draw();
-    //static_cast<Square*>(player)->Draw();
-    //static_cast<Square*>(enemy)->Draw();
 }

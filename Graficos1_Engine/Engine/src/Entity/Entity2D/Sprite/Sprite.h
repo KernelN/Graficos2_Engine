@@ -11,7 +11,7 @@ private:
 	unsigned int rendererID;
 	unsigned int imageID;
 	std::string filePath;
-	int width, height, bitsPerPixel;
+	int imgWidth, imgHeight, width, height, bitsPerPixel;
 	float vertices[4][4];
 	Animation* anim;
 	unsigned int spriteQty;
@@ -31,7 +31,9 @@ public:
 	void UpdateFrame();
 	void Draw();
 	unsigned int GetImageID();
-	inline int GetWidth() const { return width; }
 	inline int GetSpriteQty() const { return spriteQty; }
-	inline int GetHeight() const { return height; }
+	inline int GetImgWidth() const { return imgWidth; }
+	inline int GetImgHeight() const { return imgHeight; }
+	inline int GetWidth() const { return imgWidth / spriteQty; }
+	inline int GetHeight() const { return imgHeight; }
 };

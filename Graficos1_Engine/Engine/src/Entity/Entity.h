@@ -19,8 +19,6 @@ public:
 	Vector2 GetScale();
 
 protected:
-	void funnyTransformationStuff();
-	void funnyTransformUpdate();
 	void UpdateModel(bool isModelCreated);
 
 	unsigned int* vBuffer;

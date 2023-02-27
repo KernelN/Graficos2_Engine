@@ -6,11 +6,11 @@ Sprite::Sprite(const std::string& path)
 {
 	rendererID = 0;
 	filePath = path;
-	width = 0;
-	height = 0;
+	imgWidth = 0;
+	imgHeight = 0;
 	bitsPerPixel = 0;
 	
-	RendererSingleton::GetRenderer()->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	RendererSingleton::GetRenderer()->GetNewSprite(path, &imgWidth, &imgHeight, &bitsPerPixel, &rendererID);
 
 	imageID = rendererID - 1;
 
@@ -56,25 +56,24 @@ Sprite::Sprite(const std::string& path, int spriteQuantity, int spriteNumber)
 {
  	rendererID = 0;
 	filePath = path;
-	width = 0;
-	height = 0;
+	imgWidth = 0;
+	imgHeight = 0;
 	bitsPerPixel = 0;
 	spriteQty = spriteQuantity;
 
 	Renderer* tempRenderer = RendererSingleton::GetRenderer();
-	tempRenderer->GetNewSprite(path, &width, &height, &bitsPerPixel, &rendererID);
+	tempRenderer->GetNewSprite(path, &imgWidth, &imgHeight, &bitsPerPixel, &rendererID);
 	
 	imageID = rendererID - 1;
 
-	float widthHeightRatio = width / height;
-	float adjustedX = 0.5f * widthHeightRatio;
+	Scale(GetWidth(), GetHeight());
 
 	float vertexPos[4][2] =
 	{
-		{-adjustedX, -1},
-		{adjustedX, -1},
-		{adjustedX, 1},
-		{-adjustedX, 1}
+		{-1, -1},
+		{1, -1},
+		{1, 1},
+		{-1, 1}
 	};
 	
 	float leftX = (float)spriteNumber / spriteQuantity;
@@ -105,8 +104,6 @@ Sprite::Sprite(const std::string& path, int spriteQuantity, int spriteNumber)
 		}
 	}
 
-	//Bind();
-
 	*vBuffer = tempRenderer->GetNewVertexBuffer(vertices, 4 * (sizeof(float) * 2 + sizeof(float) * 2));
 	*iBuffer = tempRenderer->GetNewIndexBuffer(indices, 6);
 
@@ -117,11 +114,11 @@ Sprite::Sprite(unsigned int _imageID, int imgSize[2], int spriteQuantity, int sp
 {
 	rendererID = 0;
 	imageID = _imageID;
-	width = imgSize[0];
-	height = imgSize[1];
+	imgWidth = imgSize[0];
+	imgHeight = imgSize[1];
 	bitsPerPixel = 0;
 
-	float widthHeightRatio = width / height;
+	float widthHeightRatio = imgWidth / imgHeight;
 	float adjustedX = 0.5f * widthHeightRatio;
 
 	float vertexPos[4][2] =
@@ -178,7 +175,7 @@ Sprite::~Sprite()
 
 void Sprite::ChangeSprite(int spriteQuantity, int spriteNumber)
 {
-	float widthHeightRatio = width / height;
+	float widthHeightRatio = imgWidth / imgHeight;
 	float adjustedX = 0.5f * widthHeightRatio;
 
 	float vertexPos[4][2] =
