@@ -1,5 +1,5 @@
 #include "TileMap.h"
-//#include "tinyxml2.h"
+#include "Utility/XML/tinyxml2.h"
 #include "Utility/RendererSingleton.h"
 #include "CollisionManager.h"
 #include <iostream>
