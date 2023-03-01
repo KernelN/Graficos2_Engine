@@ -16,7 +16,7 @@ public:
 	void setDimensions(float width, float heigth);
 	void setTileDimensions(float tileWidth, float tileHeigth);
 
-	void setTexture(std::string& path);
+	void setTexture(std::string path);
 	void draw();
 
 	bool importTileMap(std::string filePath);

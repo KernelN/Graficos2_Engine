@@ -82,6 +82,24 @@
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{4fd87801-4eb6-48bb-940f-3b0e623ecdae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Tile Map">
+      <UniqueIdentifier>{1068352f-4c72-47b2-be68-fc92659118da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tile Map">
+      <UniqueIdentifier>{a5f40e0f-1055-4074-a655-a1849bff02a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Sprite\Tile">
+      <UniqueIdentifier>{2960aac9-14b1-446b-b799-5f6b8cefc484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Sprite\Tile">
+      <UniqueIdentifier>{9a635748-26eb-4d73-8191-40e2ea4c25d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility\XML">
+      <UniqueIdentifier>{be6a588b-b46b-4fab-b805-336e17ae8914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Utility\XML">
+      <UniqueIdentifier>{e8449a9e-885b-4f7d-9361-f838e309a462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -149,6 +167,15 @@
     </ClCompile>
     <ClCompile Include="src\CollisionManager.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tile Map\TileMap.cpp">
+      <Filter>Source\Tile Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Sprite\Tile\Tile.cpp">
+      <Filter>Source\Entity\Entity2D\Sprite\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\XML\tinyxml2.cpp">
+      <Filter>Source\Utility\XML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +268,15 @@
     </ClInclude>
     <ClInclude Include="src\CollisionManager.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile Map\TileMap.h">
+      <Filter>Headers\Tile Map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Sprite\Tile\Tile.h">
+      <Filter>Headers\Entity\Entity2D\Sprite\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\XML\tinyxml2.h">
+      <Filter>Headers\Utility\XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

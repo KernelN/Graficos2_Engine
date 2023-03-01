@@ -26,17 +26,11 @@ Game::Game()
     };
 
     //player = new Square(s1Colors, true);
-    //player->Scale(25, 25);
-    //player->Translate(100, 0);
-
-    //enemy = new Square(s2Colors, true);
-    //enemy->Scale(25, 25);
-    //enemy->Translate(-100, 0);
-
-    player = new Sprite("res/WolfiesWalk.png", 5, 0);
+    player = new Sprite("res/link_walk_right.png", 2, 0);
     player->Scale(25, 25);
     player->Translate(150, 0);
 
+    //enemy = new Square(s2Colors, true);
     enemy = new Sprite("res/WolfiesGrowl.png", 5, 0);
     enemy->Scale(25, 25);
     enemy->Translate(-150, 0);
@@ -44,10 +38,15 @@ Game::Game()
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
-    Animation* wolfieWalkAnim = new Animation(1, 5);
+    Animation* playerAnim = new Animation(.5, 2);
     Animation* wolfieGrowlAnim = new Animation(1, 5);
-    static_cast<Sprite*>(player)->SetAnim(wolfieWalkAnim);
+    static_cast<Sprite*>(player)->SetAnim(playerAnim);
     static_cast<Sprite*>(enemy)->SetAnim(wolfieGrowlAnim);
+
+    //tilemap = new TileMap();
+    //tilemap->importTileMap("res/tilemap.tmx");
+    //tilemap->setTexture("res/ZLA_tileset.png");
+
 
     scaleMod = 1;
 }

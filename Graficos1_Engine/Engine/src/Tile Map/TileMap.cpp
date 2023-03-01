@@ -4,7 +4,26 @@
 #include "CollisionManager.h"
 #include <iostream>
 
-TileMap::TileMap() {}
+TileMap::TileMap() 
+{
+	bpp = -1;
+
+	_width = -1;
+	_height = -1;
+
+	_tileWidth = -1;
+	_tileHeight = -1;
+
+	textureID = 0;
+	rendererID = 0;
+
+	_imageWidth = -1;
+	_imageHeight = -1;
+
+	convertedPosX = -1;
+	convertedPosY = -1;
+}
+
 TileMap::~TileMap() {}
 
 const Tile& TileMap::tile(unsigned int uiId) {
@@ -45,8 +64,9 @@ void TileMap::setDimensions(float width, float height) {
 	_tileMapGrid.push_back(tileMap);
 }
 
-void TileMap::setTexture(std::string& path) {
-	RendererSingleton::GetRenderer()->GetNewTexture(path, &_width, &_height, &bpp, &rendererID);
+void TileMap::setTexture(std::string path) {
+	int temp;
+	RendererSingleton::GetRenderer()->GetNewTexture(path, &temp, &temp, &bpp, &rendererID);
 	textureID = rendererID - 1;
 }
 
@@ -110,15 +130,15 @@ bool TileMap::importTileMap(std::string filePath) {
 	int _id = 1;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-			Tile newTile;
+			Tile* newTile = new Tile();;
 
 			int imgSize[2] = { _imageWidth, _imageHeight };
 			float sprtSize[2] = { _tileWidth / _imageWidth, _tileHeight / _imageHeight };
 			float uv[2] = { tileX / _imageWidth, tileY / _imageHeight };
 
-			newTile.setId(_id);
-			newTile.SetSprite(textureID, imgSize, sprtSize, uv);
-			newTile.Scale(_tileWidth, _tileHeight);
+			newTile->setId(_id);
+			newTile->SetSprite(textureID, imgSize, sprtSize, uv);
+			newTile->Scale(_tileWidth, _tileHeight);
 
 			//newTile.setTextureCoordinates(tileX / _imageWidth, tileY / _imageHeight,
 			//	(tileX + _tileWidth) / _imageWidth, tileY / _imageHeight,
@@ -126,7 +146,7 @@ bool TileMap::importTileMap(std::string filePath) {
 			//	(tileX + _tileWidth) / _imageWidth, (tileY + _tileHeight) / _imageHeight);
 
 			tileX += _tileWidth;
-			setTile(newTile);
+			setTile(*newTile);
 			_id++;
 		}
 		tileX = 0;

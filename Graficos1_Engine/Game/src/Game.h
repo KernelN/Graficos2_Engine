@@ -4,6 +4,7 @@
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Square.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
 #include "..\..\Engine\src\Entity\Entity2D\Sprite\Sprite.h"
+#include "..\..\Engine\src\Tile Map\TileMap.h"
 
 class Game : protected BaseEngine
 {
@@ -18,6 +19,7 @@ public:
 private:
 	Entity2D* player;
 	Entity2D* enemy;
+	TileMap* tilemap;
 
 	int scaleMod;
 	int verticalMoveMod;
