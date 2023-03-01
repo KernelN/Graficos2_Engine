@@ -39,12 +39,19 @@ void Entity::Translate(float x, float y)
 {
 	translation.x += x;
 	translation.y += y;
+
+	lastTranslation.x = x;
+	lastTranslation.y = y;
+
 	UpdateModel(true);
 }
 
 void Entity::Rotate(float angle)
 {	
 	rotation += angle;
+
+	lastRotation = angle;
+
 	UpdateModel(true);
 }
 
@@ -52,6 +59,10 @@ void Entity::Scale(float x, float y)
 {
 	scale.x += x;
 	scale.y += y;
+
+	lastScale.x = x;
+	lastScale.y = y;
+
 	UpdateModel(true);	
 }
 
@@ -68,6 +79,29 @@ float Entity::GetRotation()
 Vector2 Entity::GetScale()
 {
 	return scale;
+}
+
+void Entity::UndoTranslation()
+{
+	translation.x -= lastTranslation.x;
+	translation.y -= lastTranslation.y;
+
+	UpdateModel(true);
+}
+
+void Entity::UndoRotation()
+{
+	rotation -= lastRotation;
+
+	UpdateModel(true);
+}
+
+void Entity::UndoScale()
+{
+	scale.x -= lastScale.x;
+	scale.y -= lastScale.y;
+
+	UpdateModel(true);
 }
 
 void Entity::UpdateModel(bool isModelCreated)

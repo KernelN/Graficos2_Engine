@@ -18,6 +18,10 @@ public:
 	float GetRotation();
 	Vector2 GetScale();
 
+	void UndoTranslation();
+	void UndoRotation();
+	void UndoScale();
+
 protected:
 	void UpdateModel(bool isModelCreated);
 
@@ -25,6 +29,9 @@ protected:
 	unsigned int* iBuffer;
 	unsigned int modelID;
 
+	Vector2 lastTranslation;
+	float lastRotation;
+	Vector2 lastScale;
 
 	Vector2 translation;
 	float rotation;

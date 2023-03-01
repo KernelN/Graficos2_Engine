@@ -3,7 +3,7 @@
 layout(location = 0) out vec4 color;
 in vec2 v_SpriteCoord;
 
-uniform sampler2D u_Sprite;
+uniform sampler2D u_Texture;
 
 void main()
 {

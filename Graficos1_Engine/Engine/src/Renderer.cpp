@@ -193,7 +193,7 @@ glm::mat4 Renderer::GetModel(unsigned int modelID)
 
 #pragma region Sprite
 
-void Renderer::GetNewSprite(std::string imgPath, int* imgWidth, int* imgHeight, int* bpp, unsigned int* imageID)
+void Renderer::GetNewTexture(std::string imgPath, int* imgWidth, int* imgHeight, int* bpp, unsigned int* imageID)
 {
 	unsigned char* localBuffer = nullptr;
 
@@ -220,7 +220,7 @@ void Renderer::GetNewSprite(std::string imgPath, int* imgWidth, int* imgHeight, 
 	stbi_image_free(localBuffer);
 }
 
-void Renderer::GetNewSprite(int* imgWidth, int* imgHeight, int* bpp, unsigned int* imageID)
+void Renderer::GetNewTexture(int* imgWidth, int* imgHeight, int* bpp, unsigned int* imageID)
 {
 	unsigned char* localBuffer = nullptr;
 
@@ -247,23 +247,23 @@ void Renderer::GetNewSprite(int* imgWidth, int* imgHeight, int* bpp, unsigned in
 	stbi_image_free(localBuffer);
 }
 
-void Renderer::SetSprite(unsigned int value)
+void Renderer::SetTexture(unsigned int value)
 {
-	program->SetUniform1i("u_Sprite", value);
+	program->SetUniform1i("u_Texture", value);
 }
 
-void Renderer::DeleteSprite(unsigned int* spriteID)
+void Renderer::DeleteTexture(unsigned int* textureID)
 {
-	glDeleteTextures(1, spriteID);
+	glDeleteTextures(1, textureID);
 }
 
-void Renderer::BindSprite(unsigned int slot, unsigned int spriteID)
+void Renderer::BindTexture(unsigned int slot, unsigned int textureID)
 {
 	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, spriteID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-void Renderer::UnbindSprite()
+void Renderer::UnbindTexture()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

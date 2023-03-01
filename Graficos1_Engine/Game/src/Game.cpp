@@ -111,7 +111,7 @@ void Game::OnLoop()
     player->Translate(horizontalMove, 0);
 
     // Colisionan player y enemy
-    while (collisionManager->CheckCollision(player, enemy))
+    while (CollisionManager::CheckCollision(player, enemy))
     {
         player->Translate(0, -verticalMove);
         player->Translate(-horizontalMove, 0);

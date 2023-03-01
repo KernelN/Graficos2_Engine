@@ -41,8 +41,6 @@ BaseEngine::BaseEngine()
 
     time = new Time();
     TimeSingleton::SetTime(time);
-
-    collisionManager = new CollisionManager();
 }
 
 BaseEngine::~BaseEngine()

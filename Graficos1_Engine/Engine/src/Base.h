@@ -15,7 +15,6 @@ public:
 	bool IsKeyPressed(unsigned short KeyCode);
 protected:
 	Time* time;
-	CollisionManager* collisionManager;
 private:
 	void* inputManager;	
 	void* window;

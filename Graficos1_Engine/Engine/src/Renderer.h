@@ -34,12 +34,12 @@ public:
 #pragma endregion
 
 #pragma region Sprite
-	void GetNewSprite(std::string imgPath, int* width, int* height, int* bpp, unsigned int* imageID);
-	void GetNewSprite(int* width, int* height, int* bpp, unsigned int* imageID);
-	void SetSprite(unsigned int value);
-	void DeleteSprite(unsigned int* spriteID);
-	void BindSprite(unsigned int slot, unsigned int spriteID);
-	void UnbindSprite();
+	void GetNewTexture(std::string imgPath, int* width, int* height, int* bpp, unsigned int* imageID);
+	void GetNewTexture(int* width, int* height, int* bpp, unsigned int* imageID);
+	void SetTexture(unsigned int value);
+	void DeleteTexture(unsigned int* textureID);
+	void BindTexture(unsigned int slot, unsigned int textureID);
+	void UnbindTexture();
 #pragma endregion
 
 private:

@@ -11,7 +11,8 @@ private:
 	unsigned int rendererID;
 	unsigned int imageID;
 	std::string filePath;
-	int imgWidth, imgHeight, width, height, bitsPerPixel;
+	int imgWidth, imgHeight, bitsPerPixel;
+	float width, height;
 	float vertices[4][4];
 	Animation* anim;
 	unsigned int spriteQty;
@@ -21,11 +22,13 @@ private:
 	void UnBind();
 
 public:
+	Sprite();
 	Sprite(const std::string& path);
 	Sprite(const std::string& path, int spriteQuantity, int spriteNumber);
 	Sprite(unsigned int _imageID, int imgSize[2], int spriteQuantity, int spriteNumber);
 	~Sprite();
 
+	void SetSprite(unsigned int _imageID, int imgSize[2], float spriteSize[2], float uv[2]);
 	void ChangeSprite(int spriteQuantity, int spriteNumber);
 	void SetAnim(Animation* _anim);
 	void UpdateFrame();
