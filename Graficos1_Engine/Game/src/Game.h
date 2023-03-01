@@ -21,9 +21,13 @@ private:
 	Entity2D* enemy;
 	TileMap* tilemap;
 
+
+	Animation* linkWRightAnim;
+	Animation* linkWUpAnim;
+	Animation* linkWLeftAnim;
+	Animation* linkWDownAnim;
+
 	int scaleMod;
 	int verticalMoveMod;
 	int horizontalMoveMod;
-
-
 };

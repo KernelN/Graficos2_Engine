@@ -37,8 +37,8 @@ private:
 	unsigned int textureID;
 	unsigned int rendererID;
 
-	float _imageWidth;
-	float _imageHeight;
+	int _imageWidth;
+	int _imageHeight;
 
 	float convertedPosX;
 	float convertedPosY;

@@ -7,6 +7,7 @@ class DLLEXPORT Animation
 {
 public:
 	Animation(float animLength, unsigned int framesQty);
+	Animation(float animLength, unsigned int framesQty, unsigned int firstFrame, unsigned int lastFrame);
 	~Animation();
 	void Update();
 	void AddFrame(Vector2 _uCoords);
