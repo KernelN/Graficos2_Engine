@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{b8baec95-af34-4cbb-8354-f63d2368d89b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity">
+      <UniqueIdentifier>{c9ea653c-e6e6-46b7-84f1-350dd56e0cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D">
+      <UniqueIdentifier>{aa677363-458d-49ef-b4f3-f5584f040bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D">
+      <UniqueIdentifier>{b0fba83e-868b-48aa-a36f-e823da52b7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Shape">
+      <UniqueIdentifier>{44459782-195f-44ca-ae3f-b64794affb0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Shape">
+      <UniqueIdentifier>{4cf785e6-555e-455e-87e9-40a0028025c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Shape\Shapes">
+      <UniqueIdentifier>{4afebfe1-9eb4-4a82-b38b-13d6b31f62d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Shape\Shapes">
+      <UniqueIdentifier>{b44e4c93-6a6e-4674-99f3-c62acc284846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers">
+      <UniqueIdentifier>{64ff67fb-337e-4a2c-9b94-d6a0cd0fe12d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers">
+      <UniqueIdentifier>{91bde17a-3ba9-465b-97e4-80fe94d15bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Utility">
+      <UniqueIdentifier>{a34d5e66-a6f9-423c-ae39-cd82c54f9ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers\Buffer">
+      <UniqueIdentifier>{25a2450b-b7d6-43fe-b945-73e34d7e4d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer">
+      <UniqueIdentifier>{5fbc2954-f390-4dfd-9672-82beb6cc7ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity2D\Sprite">
+      <UniqueIdentifier>{7353cd38-c45d-4d72-8525-e1e1f8d18949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity2D\Sprite">
+      <UniqueIdentifier>{6837fc28-a8dd-4644-8e79-a1aac83967a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers\Buffer\Arrays">
+      <UniqueIdentifier>{793153ad-8634-4616-9d9c-75132d16cacf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer\Arrays">
+      <UniqueIdentifier>{9a58e424-65cf-454d-bc1f-a08d9ef3152e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers\Buffer\Layout">
+      <UniqueIdentifier>{98568897-3057-41a3-82ec-df11f272bd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Data Organizers\Buffer\Layout">
+      <UniqueIdentifier>{9355f45f-e2b5-4069-82e0-1451167c1411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Data Organizers\Vectors">
+      <UniqueIdentifier>{15d1b587-2984-46a6-91f6-2671559fbbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{321f743d-7f86-4dbe-9ff8-482a7ee49f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Animation">
+      <UniqueIdentifier>{49105f1b-b86c-4c0e-ad94-13c550353587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{4fd87801-4eb6-48bb-940f-3b0e623ecdae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity3D">
+      <UniqueIdentifier>{4ac26f57-69a4-49ec-a11d-f36076724031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity3D">
+      <UniqueIdentifier>{3285785b-e1dd-4aed-891c-b12beeb08aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Entity3D\Camera">
+      <UniqueIdentifier>{0b0e3250-b86b-456d-bfb4-e2683c494249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity3D\Camera">
+      <UniqueIdentifier>{32bf1080-9550-4072-aba9-6ca6f19a35f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Base.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp">
+      <Filter>Source\Entity\Entity2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp">
+      <Filter>Source\Entity\Entity2D\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Triangle.cpp">
+      <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Vertex.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Square.cpp">
+      <Filter>Source\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Program.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Vector2.cpp">
+      <Filter>Source\Data Organizers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Buffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp">
+      <Filter>Source\Entity\Entity2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\VertexBuffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Arrays\VertexArray.cpp">
+      <Filter>Source\Data Organizers\Buffer\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\IndexBuffer.cpp">
+      <Filter>Source\Data Organizers\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Layout\VertexBufferLayout.cpp">
+      <Filter>Source\Data Organizers\Buffer\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.cpp">
+      <Filter>Source\Data Organizers\Buffer\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation\Animation.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Time.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity3D\Entity3D.cpp">
+      <Filter>Source\Entity\Entity3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity3D\Camera\Camera.cpp">
+      <Filter>Source\Entity\Entity3D\Camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Base.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DLLManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity.h">
+      <Filter>Headers\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Entity2D.h">
+      <Filter>Headers\Entity\Entity2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h">
+      <Filter>Headers\Entity\Entity2D\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h">
+      <Filter>Headers\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vertex.h">
+      <Filter>Headers\Data Organizers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Square.h">
+      <Filter>Headers\Entity\Entity2D\Shape\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Program.h">
+      <Filter>Headers\Data Organizers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\KeyCodes.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\GlIncludes.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\stb_image.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Buffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Color.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h">
+      <Filter>Headers\Entity\Entity2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Arrays\VertexArray.h">
+      <Filter>Headers\Data Organizers\Buffer\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\VertexBuffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\IndexBuffer.h">
+      <Filter>Headers\Data Organizers\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Layout\VertexBufferLayout.h">
+      <Filter>Headers\Data Organizers\Buffer\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Buffer\Layout\VertexBufferElement.h">
+      <Filter>Headers\Data Organizers\Buffer\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vectors\Vector4.h">
+      <Filter>Headers\Data Organizers\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Animation.h">
+      <Filter>Headers\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Time.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\RendererSingleton.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\TimeSingleton.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity3D\Entity3D.h">
+      <Filter>Headers\Entity\Entity3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity3D\Camera\Camera.h">
+      <Filter>Headers\Entity\Entity3D\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vector2.h">
+      <Filter>Headers\Data Organizers\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data Organizers\Vectors\Vector3.h">
+      <Filter>Headers\Data Organizers\Vectors</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Estructura de Carpetas.jpg">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\..\Diagrama de Clases.jpg">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\vertexShader.shader">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="shaders\fragmentShader.shader">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+</Project>
