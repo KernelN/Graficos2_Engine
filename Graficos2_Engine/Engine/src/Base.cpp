@@ -31,9 +31,11 @@ BaseEngine::BaseEngine()
         return;
     }
 
-
-    RendererSingleton::SetRenderer(new Renderer(temWindow));
-    renderer = RendererSingleton::GetRenderer();
+    Renderer* tempRenderer = new Renderer(temWindow);
+    RendererSingleton::SetRenderer(tempRenderer);
+    renderer = tempRenderer;
+    
+    tempRenderer->SetCamera(new Camera());
 
     GLFWwindow* tempGLFWwindow = ((GLFWwindow*)temWindow->GetGLFWPointer());
 
@@ -63,7 +65,9 @@ void BaseEngine::Loop()
 {
     Window* temWindow = (Window*)window;
     Renderer* tempRenderer = (Renderer*)renderer;
- 
+
+    tempRenderer->SetView();
+    
     time->Update();
  
     OnLoop();
@@ -74,6 +78,7 @@ void BaseEngine::Loop()
     tempRenderer->ClearScreen();
       
     tempRenderer->BindProgram();
+
     Draw();
 
     tempRenderer->SwapWindowBuffers();
@@ -97,4 +102,3 @@ bool BaseEngine::IsKeyPressed(unsigned short KeyCode)
 {
     return ((InputManager*)inputManager)->IsKeyPressed(KeyCode);
 }
-

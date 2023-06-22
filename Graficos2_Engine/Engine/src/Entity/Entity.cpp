@@ -35,7 +35,7 @@ Entity::~Entity()
 	}
 }
 
-void Entity::Translate(float x, float y, float z = 0)
+void Entity::Translate(float x, float y, float z)
 {
 	translation.x += x;
 	translation.y += y;
@@ -43,7 +43,7 @@ void Entity::Translate(float x, float y, float z = 0)
 	UpdateModel(true);
 }
 
-void Entity::Rotate(float angleZ, float angleY = 0, float angleX = 0)
+void Entity::Rotate(float angleZ, float angleY, float angleX)
 {	
 	rotation.x += angleX;
 	rotation.y += angleY;
@@ -51,7 +51,7 @@ void Entity::Rotate(float angleZ, float angleY = 0, float angleX = 0)
 	UpdateModel(true);
 }
 
-void Entity::Scale(float x, float y, float z = 0)
+void Entity::Scale(float x, float y, float z)
 {
 	scale.x += x;
 	scale.y += y;
@@ -74,13 +74,24 @@ Vector3 Entity::GetScale()
 	return scale;
 }
 
+
+const glm::mat4 identity = glm::mat4(1.0f);
+const glm::vec3 xRotAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+const glm::vec3 yRotAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+const glm::vec3 zRotAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 void Entity::UpdateModel(bool isModelCreated)
 {
-	glm::mat4 trans = glm::translate(glm::mat4(1.0f), glm::vec3(translation.x, translation.y, 0.0f));
-	glm::mat4 rot = glm::rotate(glm::mat4(1.0f), (rotation.z * 3.14f) / 180, glm::vec3(0, 0, 1)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	rot = glm::rotate(rot, (rotation.y * 3.14f) / 180, glm::vec3(0, 1, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	rot = glm::rotate(rot, (rotation.x * 3.14f) / 180, glm::vec3(1, 0, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	glm::mat4 scal = glm::scale(glm::mat4(1.0f), glm::vec3(scale.x / 2, scale.y / 2, 0.0f));
+	glm::mat4 trans = glm::translate(identity, glm::vec3(translation.x, translation.y, translation.z));
+	
+	glm::mat4 rot = glm::rotate(identity, (rotation.x * 3.14f) / 180, xRotAxis); // where x, y, z is axis of rotation (e.g. 0 1 0)
+	rot = glm::rotate(rot, (rotation.y * 3.14f) / 180, yRotAxis);
+	rot = glm::rotate(rot, (rotation.z * 3.14f) / 180, zRotAxis);
+
+	//glm::mat4 rot = glm::rotate(glm::mat4(1.0f), (rotation.z * 3.14f) / 180, glm::vec3(0, 0, 1)); // where x, y, z is axis of rotation (e.g. 0 1 0)
+	//rot = glm::rotate(rot, (rotation.y * 3.14f) / 180, glm::vec3(0, 1, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
+	//rot = glm::rotate(rot, (rotation.x * 3.14f) / 180, glm::vec3(1, 0, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
+	
+	glm::mat4 scal = glm::scale(identity, glm::vec3(scale.x / 2, scale.y / 2, scale.z / 2));
 
 	glm::mat4 model = trans * rot * scal;
 

@@ -4,6 +4,7 @@
 #include "Data Organizers/Program.h"
 #include "Data Organizers/Buffer/Arrays/VertexArray.h"
 #include "Data Organizers/Buffer/IndexBuffer.h"
+#include "Entity/Entity3D/Camera/Camera.h"
 #include <string>
 #include <stack>
 #include <vector> 
@@ -42,9 +43,19 @@ public:
 	void UnbindSprite();
 #pragma endregion
 
+#pragma region Camera
+	void SetCamera(Camera* newCamera);
+	Camera* GetCamera();
+	void SetView();
+#pragma endregion
+
 private:
 	Window* window;
 	Program* program;
+	
+	Camera* camera;
+
+	glm::mat4 proj;
 	glm::mat4 viewProj;
 
 	std::vector<glm::mat4> models;

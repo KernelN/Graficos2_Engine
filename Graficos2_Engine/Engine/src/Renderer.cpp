@@ -25,15 +25,13 @@ Renderer::Renderer(Window* window)
 
 	program = new Program(shaders, 2);
 
+
 	//glm::mat4 proj = glm::ortho(0.0f, window->GetHeight(), 0.0f, window->GetWidth(), -1.0f, 1.0f);
-	glm::mat4 proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
-	
-	//"Camera" - vec sets position (if "Camera" should move to the right, mvp matrix will move everything to the left)
-	//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
 
-	viewProj = proj * view;
-
+	//Create trash temporal viewProj until camera is created
+	viewProj = proj;
+		
 	models = std::vector<glm::mat4>();
 
 	SetUniversalSpriteSettings();
@@ -286,6 +284,34 @@ void Renderer::SetUniversalSpriteSettings()
 	//Enable blending, so images with transparency can be draw
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+#pragma endregion
+
+#pragma region Camera
+
+void Renderer::SetCamera(Camera* newCamera)
+{
+	camera = newCamera;
+	SetView();
+}
+
+Camera* Renderer::GetCamera()
+{
+	return camera;
+}
+
+void Renderer::SetView()
+{
+	Vector3 cameraVecs[3];
+	camera->GetView(cameraVecs);
+
+	glm::vec3 cameraVec1 = glm::vec3(cameraVecs[0].x, cameraVecs[0].y, cameraVecs[0].z);
+	glm::vec3 cameraVec2 = glm::vec3(cameraVecs[1].x, cameraVecs[1].y, cameraVecs[1].z);
+	glm::vec3 cameraVec3 = glm::vec3(cameraVecs[2].x, cameraVecs[2].y, cameraVecs[2].z);
+	
+	glm::mat4 view = glm::lookAt(cameraVec1, cameraVec2, cameraVec3);
+	viewProj = proj * view;
 }
 
 #pragma endregion
