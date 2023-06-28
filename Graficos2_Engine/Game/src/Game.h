@@ -16,6 +16,7 @@ public:
 	void Draw() override;
 
 private:
+	Camera* camera;
 	Entity2D* player;
 	Entity2D* enemy;
 

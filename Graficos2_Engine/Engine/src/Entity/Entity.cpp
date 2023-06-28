@@ -17,7 +17,6 @@ Entity::Entity()
 	scale = { 1, 1, 1 };
 
 	UpdateModel(false);
-
 }
 
 Entity::~Entity() 

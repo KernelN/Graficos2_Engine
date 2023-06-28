@@ -41,6 +41,8 @@ Game::Game()
     enemy->Scale(25, 25);
     enemy->Translate(-150, 0);
 
+    camera = GetActiveCamera();
+    camera->SetFollow(player, {0, 0, 0});
 
     //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
       //THE ANIMATION STOPS WORKING
@@ -70,6 +72,8 @@ void Game::Loop()
 
 void Game::OnLoop()
 {
+    camera->FollowTarget();
+    
     static_cast<Sprite*>(enemy)->UpdateFrame();
 
     if (timer > 0) timer -= time->GetDelta();

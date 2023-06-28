@@ -11,8 +11,12 @@ public:
 	~Camera();
 	void Update();
 	void GetView(Vector3 cameraVecs[3]);
+	void SetFollow(Entity* target, Vector3 offset = zero);
+	void FollowTarget();
 private:
 	//CameraType type;
+	Vector3 originalVecs[3];
 	Vector3 vecs[3];
-	//void UpdateCameraPos();
+	Vector3 offset;
+	Entity* followTarget;
 };

@@ -66,6 +66,7 @@ void BaseEngine::Loop()
     Window* temWindow = (Window*)window;
     Renderer* tempRenderer = (Renderer*)renderer;
 
+    tempRenderer->GetCamera()->Update();
     tempRenderer->SetView();
     
     time->Update();
@@ -101,4 +102,9 @@ void BaseEngine::Draw()
 bool BaseEngine::IsKeyPressed(unsigned short KeyCode)
 {
     return ((InputManager*)inputManager)->IsKeyPressed(KeyCode);
+}
+
+Camera* BaseEngine::GetActiveCamera()
+{
+    return ((Renderer*)renderer)->GetCamera();
 }
