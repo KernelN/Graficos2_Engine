@@ -36,9 +36,11 @@ Camera::Camera()
         // vecs[1] = zero;
         // vecs[2] = {0.0f, 1.0f, 0.0f};
 
-        vecs[0] = { 0.0f, 0.0f, 1.0f };
-        vecs[1] = zero;
-        vecs[2] = { 0.0f, 1.0f, 0.0f };
+
+        translation = { 0.0f, 0.0f, 1.0f };
+        vecs[0] = translation;                   //eye (camera pos)
+        vecs[1] = zero;                          //center (camera target)
+        vecs[2] = { 0.0f, 1.0f, 0.0f }; //up
 
         for (int i = 0; i < 3; i++)
             originalVecs[i] = vecs[i];
@@ -72,7 +74,17 @@ void Camera::SetFollow(Entity* target, Vector3 offset)
 
 void Camera::FollowTarget()
 {
-    //vecs[0] = followTarget->GetTranslation() + offset;
-    vecs[0] = offset;
-    //vecs[1] = followTarget->GetTranslation();
+    vecs[0] = followTarget->GetTranslation() + offset;
+    vecs[1] = followTarget->GetTranslation();
+}
+
+void Camera::Translate(float x, float y, float z)
+{
+    //Translate Camera
+    static_cast<Entity*>(this)->Translate(x, y, z);
+
+    //Update offset
+    offset.x += x;
+    offset.y += y;
+    offset.z += z;
 }

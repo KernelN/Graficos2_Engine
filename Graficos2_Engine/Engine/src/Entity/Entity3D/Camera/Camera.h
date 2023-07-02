@@ -13,6 +13,7 @@ public:
 	void GetView(Vector3 cameraVecs[3]);
 	void SetFollow(Entity* target, Vector3 offset = zero);
 	void FollowTarget();
+	void Translate(float x, float y, float z = 0);
 private:
 	//CameraType type;
 	Vector3 originalVecs[3];

@@ -94,6 +94,12 @@
     <Filter Include="Headers\Entity\Entity3D\Camera">
       <UniqueIdentifier>{32bf1080-9550-4072-aba9-6ca6f19a35f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Entity\Entity3D\Cube">
+      <UniqueIdentifier>{773c6bac-42cb-4669-b7ff-e4e50ccb5967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Entity\Entity3D\Cube">
+      <UniqueIdentifier>{94fd9119-8228-485d-8694-7c72782d4f54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base.cpp">
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\Entity3D\Camera\Camera.cpp">
       <Filter>Source\Entity\Entity3D\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity3D\Cube\Cube.cpp">
+      <Filter>Source\Entity\Entity3D\Cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="src\Data Organizers\Vectors\Vector3.h">
       <Filter>Headers\Data Organizers\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity3D\Cube\Cube.h">
+      <Filter>Headers\Entity\Entity3D\Cube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

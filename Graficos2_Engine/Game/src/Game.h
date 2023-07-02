@@ -4,6 +4,7 @@
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Square.h"
 #include "..\..\Engine\src\Entity\Entity2D\Shape\Shapes\Triangle.h"
 #include "..\..\Engine\src\Entity\Entity2D\Sprite\Sprite.h"
+#include "..\..\Engine\src\Entity\Entity3D\Cube\Cube.h"
 
 class Game : protected BaseEngine
 {
@@ -17,8 +18,8 @@ public:
 
 private:
 	Camera* camera;
-	Entity2D* player;
-	Entity2D* enemy;
+	Entity3D* player;
+	Entity3D* enemy;
 
 	int scaleMod;
 	int verticalMoveMod;

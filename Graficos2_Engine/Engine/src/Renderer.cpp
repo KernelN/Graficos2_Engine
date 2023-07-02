@@ -17,24 +17,22 @@ Renderer::Renderer(Window* window)
 
 	ShaderData shaders[] =
 	{
-		{"shaders/vertexShader_sprite.shader", GL_VERTEX_SHADER},
-		{"shaders/fragmentShader_sprite.shader", GL_FRAGMENT_SHADER}
-		//{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
-		//{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
+		{"shaders/vertexShader.shader", GL_VERTEX_SHADER},
+		{"shaders/fragmentShader.shader", GL_FRAGMENT_SHADER}
 	};
 
 	program = new Program(shaders, 2);
 
-
 	//glm::mat4 proj = glm::ortho(0.0f, window->GetHeight(), 0.0f, window->GetWidth(), -1.0f, 1.0f);
-	proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
+	//proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
+	proj = glm::perspective(glm::radians(45.0f), window->GetHeight() / window->GetWidth(), 0.1f, 100.0f);
 
 	//Create trash temporal viewProj until camera is created
 	viewProj = proj;
 		
 	models = std::vector<glm::mat4>();
 
-	SetUniversalSpriteSettings();
+	glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer()
@@ -55,7 +53,7 @@ Renderer::~Renderer()
 
 void Renderer::ClearScreen()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::SwapWindowBuffers()
@@ -100,6 +98,7 @@ void Renderer::Draw(unsigned int vertexBuffer, unsigned int indexBuffer, unsigne
 }
 
 #pragma region Buffers & Program
+
 unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSize)
 {
 	//VertexBuffer vb(data, 4 * 2 * sizeof(float), true);
@@ -110,9 +109,9 @@ unsigned int Renderer::GetNewVertexBuffer(const void* data, unsigned int dataSiz
 	vertexBuffers.push_back(vb);
 
 	VertexBufferLayout layout;
-	layout.Push<float>(2); //Position
-	layout.Push<float>(2); //UV
-	//layout.Push<float>(4); //Color
+	layout.Push<float>(3); //Position
+	//layout.Push<float>(2); //UV
+	layout.Push<float>(4); //Color
 	
 	VertexArray* va = new VertexArray();
 	va->AddBuffer(vb, layout);

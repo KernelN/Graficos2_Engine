@@ -38,6 +38,7 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Shapes\Triangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Entity\Entity3D\Camera\Camera.cpp" />
+    <ClCompile Include="src\Entity\Entity3D\Cube\Cube.cpp" />
     <ClCompile Include="src\Entity\Entity3D\Entity3D.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Shapes\Triangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h" />
     <ClInclude Include="src\Entity\Entity3D\Camera\Camera.h" />
+    <ClInclude Include="src\Entity\Entity3D\Cube\Cube.h" />
     <ClInclude Include="src\Entity\Entity3D\Entity3D.h" />
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Renderer.h" />

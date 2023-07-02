@@ -11,45 +11,32 @@ Game::Game()
 {
     float s1Colors[4][4] =
     {
-        {WHITE},
         {RED},
         {RED},
-        {WHITE}
+        {RED},
+        {RED}
     };
 
     float s2Colors[4][4] =
     {
-        {YELLOW},
         {GREEN},
         {GREEN},
-        {YELLOW}
+        {GREEN},
+        {GREEN}
     };
 
     //player = new Square(s1Colors, true);
-    //player->Scale(25, 25);
+    player = new Cube(s1Colors);
+    //player->Scale(1, 1);
     //player->Translate(100, 0);
 
-    //enemy = new Square(s2Colors, true);
-    //enemy->Scale(25, 25);
-    //enemy->Translate(-100, 0);
-
-    player = new Sprite("res/WolfiesWalk.png", 5, 0);
-    player->Scale(25, 25);
-    player->Translate(150, 0);
-
-    enemy = new Sprite("res/WolfiesGrowl.png", 5, 0);
+    enemy = new Cube(s2Colors);
     enemy->Scale(25, 25);
-    enemy->Translate(-150, 0);
+    enemy->Translate(-100, 0);
 
     camera = GetActiveCamera();
-    camera->SetFollow(player, {0, 0, 0});
+    camera->SetFollow(player, {0, 0, 5});
 
-    //WITH A LENGTH OF LESS THAN 0.83 SECONDS 
-      //THE ANIMATION STOPS WORKING
-    Animation* wolfieWalkAnim = new Animation(1, 5);
-    Animation* wolfieGrowlAnim = new Animation(1, 5);
-    static_cast<Sprite*>(player)->SetAnim(wolfieWalkAnim);
-    static_cast<Sprite*>(enemy)->SetAnim(wolfieGrowlAnim);
 
     scaleMod = 1;
 }
@@ -74,7 +61,7 @@ void Game::OnLoop()
 {
     camera->FollowTarget();
     
-    static_cast<Sprite*>(enemy)->UpdateFrame();
+    //static_cast<Sprite*>(enemy)->UpdateFrame();
 
     if (timer > 0) timer -= time->GetDelta();
 
@@ -104,26 +91,44 @@ void Game::OnLoop()
         horizontalMoveMod = 0;
     }
 
+    if (IsKeyPressed(KEY_Z))
+        camera->Translate(0, 0, 50.0f * time->GetDelta());
+    else if(IsKeyPressed(KEY_X))
+        camera->Translate(0, 0, -50.0f * time->GetDelta());
+
+    if(IsKeyPressed(KEY_LEFT))
+        camera->Translate(-50.0f * time->GetDelta(), 0, 0);
+    else if (IsKeyPressed(KEY_RIGHT))
+        camera->Translate(50.0f * time->GetDelta(), 0, 0);
+
+
+    if (IsKeyPressed(KEY_UP))
+        camera->Translate(0, -50.0f * time->GetDelta(), 0);
+    else if (IsKeyPressed(KEY_DOWN))
+        camera->Translate(0, 50.0f * time->GetDelta(), 0);
+
+
+
     if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
 
     float verticalMove = 100.0f * verticalMoveMod * time->GetDelta();
     float horizontalMove = 100.0f * horizontalMoveMod * time->GetDelta();
 
-    static_cast<Sprite*>(player)->UpdateFrame();
+    //static_cast<Sprite*>(player)->UpdateFrame();
 
     player->Translate(0, verticalMove);
     player->Translate(horizontalMove, 0);
 
     // Colisionan player y enemy
-    while (collisionManager->CheckCollision(player, enemy))
-    {
-        player->Translate(0, -verticalMove);
-        player->Translate(-horizontalMove, 0);
-    }
+    //while (collisionManager->CheckCollision(player, enemy))
+    //{
+    //    player->Translate(0, -verticalMove);
+    //    player->Translate(-horizontalMove, 0);
+    //}
 }
 
 void Game::Draw()
 {
-    static_cast<Sprite*>(player)->Draw();
-    static_cast<Sprite*>(enemy)->Draw();
+    static_cast<Cube*>(player)->Draw();
+    static_cast<Cube*>(enemy)->Draw();
 }
