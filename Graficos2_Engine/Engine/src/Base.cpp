@@ -65,20 +65,21 @@ void BaseEngine::Loop()
 {
     Window* temWindow = (Window*)window;
     Renderer* tempRenderer = (Renderer*)renderer;
-
-    tempRenderer->GetCamera()->Update();
-    tempRenderer->SetView();
     
     time->Update();
  
     OnLoop();
 
+    tempRenderer->GetCamera()->Update();
+
     //tempRenderer->BindProgram();
     //tempRenderer->BindBuffers();
-
+    
     tempRenderer->ClearScreen();
       
     tempRenderer->BindProgram();
+    
+    tempRenderer->SetView();
 
     Draw();
 

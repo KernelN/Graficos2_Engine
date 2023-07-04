@@ -9,16 +9,24 @@ float timer = 0;
 
 Game::Game()
 {
-    float s1Colors[4][4] =
+    float s1Colors[8][4] =
     {
+        {RED},
+        {RED},
+        {RED},
+        {RED},
         {RED},
         {RED},
         {RED},
         {RED}
     };
 
-    float s2Colors[4][4] =
+    float s2Colors[8][4] =
     {
+        {GREEN},
+        {GREEN},
+        {GREEN},
+        {GREEN},
         {GREEN},
         {GREEN},
         {GREEN},
@@ -31,11 +39,11 @@ Game::Game()
     //player->Translate(100, 0);
 
     enemy = new Cube(s2Colors);
-    enemy->Scale(25, 25);
+    enemy->Scale(25, 25, 25);
     enemy->Translate(-100, 0);
 
     camera = GetActiveCamera();
-    camera->SetFollow(player, {0, 0, 5});
+    camera->SetFollow(player, {0, 0, 50});
 
 
     scaleMod = 1;
@@ -63,6 +71,54 @@ void Game::OnLoop()
     
     //static_cast<Sprite*>(enemy)->UpdateFrame();
 
+    MovePlayer();
+
+    MoveCamera();
+
+    // Colisionan player y enemy
+    //while (collisionManager->CheckCollision(player, enemy))
+    //{
+    //    player->Translate(0, -verticalMove);
+    //    player->Translate(-horizontalMove, 0);
+    //}
+}
+
+void Game::Draw()
+{
+    static_cast<Cube*>(player)->Draw();
+    static_cast<Cube*>(enemy)->Draw();
+}
+
+void Game::MoveCamera()
+{
+    Vector3 camForward = camera->GetForward() * 25.0f * time->GetDelta();
+    if (IsKeyPressed(KEY_Z))
+        camera->Translate(camForward.x, camForward.y, camForward.z);
+    else if (IsKeyPressed(KEY_X))
+        camera->Translate(-camForward.x, -camForward.y, -camForward.z);
+
+    if (IsKeyPressed(KEY_LEFT))
+        camera->Translate(-50.0f * time->GetDelta(), 0, 0);
+    else if (IsKeyPressed(KEY_RIGHT))
+        camera->Translate(50.0f * time->GetDelta(), 0, 0);
+
+    if (IsKeyPressed(KEY_UP))
+        camera->Translate(0, 50.0f * time->GetDelta(), 0);
+    else if (IsKeyPressed(KEY_DOWN))
+        camera->Translate(0, -50.0f * time->GetDelta(), 0);
+
+    if(IsKeyPressed(KEY_Q))
+        camera->Rotate(0, 50.0f * time->GetDelta(), 0);
+    else if(IsKeyPressed(KEY_E))
+        camera->Rotate(0, -50.0f * time->GetDelta(), 0);
+
+
+    if (IsKeyPressed(KEY_SPACE))
+        camera->LookAtTarget();
+}
+
+void Game::MovePlayer()
+{
     if (timer > 0) timer -= time->GetDelta();
 
     if (IsKeyPressed(KEY_W))
@@ -91,22 +147,11 @@ void Game::OnLoop()
         horizontalMoveMod = 0;
     }
 
-    if (IsKeyPressed(KEY_Z))
-        camera->Translate(0, 0, 50.0f * time->GetDelta());
-    else if(IsKeyPressed(KEY_X))
-        camera->Translate(0, 0, -50.0f * time->GetDelta());
 
-    if(IsKeyPressed(KEY_LEFT))
-        camera->Translate(-50.0f * time->GetDelta(), 0, 0);
-    else if (IsKeyPressed(KEY_RIGHT))
-        camera->Translate(50.0f * time->GetDelta(), 0, 0);
-
-
-    if (IsKeyPressed(KEY_UP))
-        camera->Translate(0, -50.0f * time->GetDelta(), 0);
-    else if (IsKeyPressed(KEY_DOWN))
-        camera->Translate(0, 50.0f * time->GetDelta(), 0);
-
+    //if (IsKeyPressed(KEY_Q))
+    //    player->Rotate(0, 50.0f * time->GetDelta(), 0);
+    //else if (IsKeyPressed(KEY_E))
+    //    player->Rotate(0, -50.0f * time->GetDelta(), 0);
 
 
     if (verticalMoveMod == 0 && horizontalMoveMod == 0) return;
@@ -118,17 +163,4 @@ void Game::OnLoop()
 
     player->Translate(0, verticalMove);
     player->Translate(horizontalMove, 0);
-
-    // Colisionan player y enemy
-    //while (collisionManager->CheckCollision(player, enemy))
-    //{
-    //    player->Translate(0, -verticalMove);
-    //    player->Translate(-horizontalMove, 0);
-    //}
-}
-
-void Game::Draw()
-{
-    static_cast<Cube*>(player)->Draw();
-    static_cast<Cube*>(enemy)->Draw();
 }

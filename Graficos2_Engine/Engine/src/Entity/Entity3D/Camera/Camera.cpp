@@ -32,18 +32,16 @@ Camera::Camera()
         //view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
         //view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     	
-        // vecs[0] = {0.0f, 0.0f, 1.0f};
-        // vecs[1] = zero;
-        // vecs[2] = {0.0f, 1.0f, 0.0f};
-
-
-        translation = { 0.0f, 0.0f, 1.0f };
+        translation = { 0.0f, 0.0f, -1.0f };
         vecs[0] = translation;                   //eye (camera pos)
         vecs[1] = zero;                          //center (camera target)
         vecs[2] = { 0.0f, 1.0f, 0.0f }; //up
 
         for (int i = 0; i < 3; i++)
+        {
             originalVecs[i] = vecs[i];
+            originalMags[i] = originalVecs[i].GetMagnitude();
+        }
 }
 Camera::~Camera() {}
 void Camera::Update()
@@ -74,7 +72,13 @@ void Camera::SetFollow(Entity* target, Vector3 offset)
 
 void Camera::FollowTarget()
 {
-    vecs[0] = followTarget->GetTranslation() + offset;
+    //vecs[0] = followTarget->GetTranslation() + offset;
+    Vector3 trans = followTarget->GetTranslation() + offset;
+    SetTranslation(trans.x, trans.y, trans.z);
+}
+
+void Camera::LookAtTarget()
+{
     vecs[1] = followTarget->GetTranslation();
 }
 
@@ -87,4 +91,29 @@ void Camera::Translate(float x, float y, float z)
     offset.x += x;
     offset.y += y;
     offset.z += z;
+
+    //Update Vectors
+    vecs[0] = translation - originalVecs[0];
+    vecs[1] = translation - GetForward() * originalMags[0];
+}
+
+void Camera::Rotate(float angle, float angleY, float angleZ)
+{
+    //Rotate Camera
+    static_cast<Entity*>(this)->Rotate(angle, angleY, angleZ);  
+    vecs[1] = translation - GetForward() * originalMags[0]; 
+}
+
+void Camera::SetTranslation(float x, float y, float z)
+{
+    static_cast<Entity*>(this)->SetTranslation(x, y, z);
+    
+    vecs[0] = translation - originalVecs[0];
+    vecs[1] = translation - GetForward() * originalMags[0];
+}
+
+void Camera::SetRotation(float angle, float angleY, float angleZ)
+{
+    static_cast<Entity*>(this)->SetRotation(angle, angleY, angleZ);
+    vecs[1] = translation - GetForward() * originalMags[0];
 }

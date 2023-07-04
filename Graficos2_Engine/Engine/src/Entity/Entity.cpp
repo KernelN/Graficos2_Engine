@@ -58,6 +58,30 @@ void Entity::Scale(float x, float y, float z)
 	UpdateModel(true);	
 }
 
+void Entity::SetTranslation(float x, float y, float z)
+{
+	translation.x = x;
+	translation.y = y;
+	translation.z = z;
+	UpdateModel(true);
+}
+
+void Entity::SetRotation(float angle, float angleY, float angleZ)
+{
+	rotation.x = angle;
+	rotation.y = angleY;
+	rotation.z = angleZ;
+	UpdateModel(true);
+}
+
+void Entity::SetScale(float x, float y, float z)
+{
+	scale.x = x;
+	scale.y = y;
+	scale.z = z;
+	UpdateModel(true);	
+}
+
 Vector3 Entity::GetTranslation()
 {
 	return translation;
@@ -71,6 +95,19 @@ Vector3 Entity::GetRotation()
 Vector3 Entity::GetScale()
 {
 	return scale;
+}
+
+Vector3 Entity::GetForward()
+{
+	Vector3 forward;
+
+	Vector3 rads = { glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z) };
+
+	forward.x = sin(rads.y) * cos(rads.x);
+	forward.y = -sin(rads.x);
+	forward.z = cos(rads.y) * cos(rads.x);
+
+	return forward;
 }
 
 

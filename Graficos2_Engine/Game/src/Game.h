@@ -15,7 +15,8 @@ public:
 	void Loop();
 	void OnLoop() override;
 	void Draw() override;
-
+	void MoveCamera();
+	void MovePlayer();
 private:
 	Camera* camera;
 	Entity3D* player;

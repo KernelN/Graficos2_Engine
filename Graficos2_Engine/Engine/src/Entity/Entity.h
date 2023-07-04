@@ -14,9 +14,15 @@ public:
 	void Rotate(float angle, float angleY = 0, float angleZ = 0);
 	void Scale(float x, float y, float z = 0);
 
+	void SetTranslation(float x, float y, float z = 0);
+	void SetRotation(float angle, float angleY = 0, float angleZ = 0);
+	void SetScale(float x, float y, float z = 0);
+	
 	Vector3 GetTranslation();
 	Vector3 GetRotation();
 	Vector3 GetScale();
+
+	Vector3 GetForward();
 
 protected:
 	void UpdateModel(bool isModelCreated);
