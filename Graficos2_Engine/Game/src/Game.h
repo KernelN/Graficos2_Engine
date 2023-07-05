@@ -15,16 +15,20 @@ public:
 	void Loop();
 	void OnLoop() override;
 	void Draw() override;
-	void MoveCamera();
-	void MovePlayer();
 private:
 	Camera* camera;
 	Entity3D* player;
 	Entity3D* enemy;
+	Entity3D* floor;
+
+	bool firstPerson;
 
 	int scaleMod;
 	int verticalMoveMod;
 	int horizontalMoveMod;
 
 
+	void MoveCamera();
+	void MovePlayer();
+	void RotatePlayer();
 };

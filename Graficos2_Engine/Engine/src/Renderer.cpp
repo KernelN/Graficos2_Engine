@@ -25,7 +25,7 @@ Renderer::Renderer(Window* window)
 
 	//glm::mat4 proj = glm::ortho(0.0f, window->GetHeight(), 0.0f, window->GetWidth(), -1.0f, 1.0f);
 	//proj = glm::ortho(-window->GetHeight()/2, window->GetHeight() / 2, -window->GetWidth() / 2, window->GetWidth()/2, -1.0f, 1.0f);
-	proj = glm::perspective(glm::radians(45.0f), window->GetHeight() / window->GetWidth(), 0.1f, 100.0f);
+	proj = glm::perspective(glm::radians(45.0f), window->GetHeight() / window->GetWidth(), 0.01f, 500.0f);
 
 	//Create trash temporal viewProj until camera is created
 	viewProj = proj;

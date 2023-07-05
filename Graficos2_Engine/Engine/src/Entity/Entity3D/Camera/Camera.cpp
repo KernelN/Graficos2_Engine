@@ -33,7 +33,7 @@ Camera::Camera()
         //view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     	
         translation = { 0.0f, 0.0f, -1.0f };
-        vecs[0] = translation;                   //eye (camera pos)
+        vecs[0] = translation;                    //eye (camera pos)
         vecs[1] = zero;                          //center (camera target)
         vecs[2] = { 0.0f, 1.0f, 0.0f }; //up
 
@@ -70,16 +70,23 @@ void Camera::SetFollow(Entity* target, Vector3 offset)
     this->offset = originalVecs[0] + offset;
 }
 
-void Camera::FollowTarget()
+void Camera::FollowTarget(bool rotateWithTarget)
 {
     //vecs[0] = followTarget->GetTranslation() + offset;
     Vector3 trans = followTarget->GetTranslation() + offset;
     SetTranslation(trans.x, trans.y, trans.z);
+
+    if(!rotateWithTarget) return;
+
+    SetRotation(followTarget->GetRotation());
 }
 
 void Camera::LookAtTarget()
 {
-    vecs[1] = followTarget->GetTranslation();
+    //vecs[1] = followTarget->GetTranslation();
+    LookAt(followTarget->GetTranslation());
+    UpdateEyePos();
+    UpdateEyeUp();
 }
 
 void Camera::Translate(float x, float y, float z)
@@ -93,27 +100,80 @@ void Camera::Translate(float x, float y, float z)
     offset.z += z;
 
     //Update Vectors
-    vecs[0] = translation - originalVecs[0];
-    vecs[1] = translation - GetForward() * originalMags[0];
+    UpdateEyePos();
+    UpdateEyeTarget();
+}
+
+void Camera::Translate(Vector3 trans)
+{
+    //Translate Camera
+    static_cast<Entity*>(this)->Translate(trans);
+
+    //Update offset
+    offset += trans;
+
+    //Update Vectors
+    UpdateEyePos();
+    UpdateEyeTarget();
 }
 
 void Camera::Rotate(float angle, float angleY, float angleZ)
 {
     //Rotate Camera
     static_cast<Entity*>(this)->Rotate(angle, angleY, angleZ);  
-    vecs[1] = translation - GetForward() * originalMags[0]; 
+    UpdateEyeTarget();
+    UpdateEyeUp();
+}
+
+void Camera::Rotate(Vector3 rot)
+{
+    //Rotate Camera
+    static_cast<Entity*>(this)->Rotate(rot);  
+    UpdateEyeTarget();
+    UpdateEyeUp();
 }
 
 void Camera::SetTranslation(float x, float y, float z)
 {
     static_cast<Entity*>(this)->SetTranslation(x, y, z);
+        
+    UpdateEyePos();
+    UpdateEyeTarget();
+}
+
+void Camera::SetTranslation(Vector3 trans)
+{
+    static_cast<Entity*>(this)->SetTranslation(trans);
     
-    vecs[0] = translation - originalVecs[0];
-    vecs[1] = translation - GetForward() * originalMags[0];
+    UpdateEyePos();
+    UpdateEyeTarget();
 }
 
 void Camera::SetRotation(float angle, float angleY, float angleZ)
 {
     static_cast<Entity*>(this)->SetRotation(angle, angleY, angleZ);
+    UpdateEyeTarget();
+    UpdateEyeUp();
+}
+
+void Camera::SetRotation(Vector3 rot)
+{
+    static_cast<Entity*>(this)->SetRotation(rot);
+    UpdateEyeTarget();
+    UpdateEyeUp();
+}
+
+void Camera::UpdateEyePos()
+{
+    vecs[0] = translation - originalVecs[0];
+}
+
+void Camera::UpdateEyeTarget()
+{
     vecs[1] = translation - GetForward() * originalMags[0];
+}
+
+void Camera::UpdateEyeUp()
+{
+    vecs[2] = GetUp();
 }
