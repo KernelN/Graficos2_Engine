@@ -44,18 +44,7 @@ Camera::Camera()
         }
 }
 Camera::~Camera() {}
-void Camera::Update()
-{    
-    //Rotation
-    // const float radius = 10.0f;
-    //  float camX = sin(glfwGetTime()) * radius;
-    //  float camZ = cos(glfwGetTime()) * radius;
-
-     //vecs[0].y = camX;
-     //vecs[0].z = camZ;
-	
-    //view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-}
+void Camera::Update(){}
 
 void Camera::GetView(Vector3 cameraVecs[3])
 {
@@ -70,14 +59,16 @@ void Camera::SetFollow(Entity* target, Vector3 offset)
     this->offset = originalVecs[0] + offset;
 }
 
-void Camera::FollowTarget(bool rotateWithTarget)
+void Camera::FollowTarget(bool firstPerson)
 {
-    //vecs[0] = followTarget->GetTranslation() + offset;
-    Vector3 trans = followTarget->GetTranslation() + offset;
-    SetTranslation(trans.x, trans.y, trans.z);
-
-    if(!rotateWithTarget) return;
-
+    if(!firstPerson)
+    {
+        SetTranslation(followTarget->GetTranslation() + offset);
+        return;
+    }
+    
+    Vector3 fpvOffset = followTarget->GetForward() * followTarget->GetScale().GetMagnitude() * 0.5f;
+    SetTranslation(followTarget->GetTranslation() + fpvOffset);
     SetRotation(followTarget->GetRotation());
 }
 
@@ -85,6 +76,7 @@ void Camera::LookAtTarget()
 {
     //vecs[1] = followTarget->GetTranslation();
     LookAt(followTarget->GetTranslation());
+    //LookAt(translation + GetForward());
     UpdateEyePos();
     UpdateEyeUp();
 }
@@ -165,12 +157,12 @@ void Camera::SetRotation(Vector3 rot)
 
 void Camera::UpdateEyePos()
 {
-    vecs[0] = translation - originalVecs[0];
+    vecs[0] = translation;
 }
 
 void Camera::UpdateEyeTarget()
 {
-    vecs[1] = translation - GetForward() * originalMags[0];
+    vecs[1] = translation + GetForward();
 }
 
 void Camera::UpdateEyeUp()

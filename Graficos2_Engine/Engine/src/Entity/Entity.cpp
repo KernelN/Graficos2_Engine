@@ -168,12 +168,16 @@ Vector3 Entity::GetScale()
 Vector3 Entity::GetForward()
 {
 	//Calculate quaternion rotation
-	glm::quat rot = glm::quat(glm::vec3(rotation.x, rotation.y, rotation.z));
+	Vector3 radians;
+	radians.x = glm::radians(rotation.x);
+	radians.y = glm::radians(rotation.y);
+	radians.z = glm::radians(rotation.z);
+	glm::quat rot = glm::quat(glm::vec3(radians.x, radians.y, radians.z));
 
 	//Calculate forward
 	glm::vec3 localForward = glm::vec3(0.0f, 0.0f, 1.0f);
 	glm::vec3 worldForward = rot * localForward;
-	glm::vec3 forward = glm::normalize(worldForward);
+	glm::vec3 forward = glm::normalize(-worldForward);
 
 	//Return forward
 	return {forward.x, forward.y, forward.z};
@@ -182,7 +186,11 @@ Vector3 Entity::GetForward()
 Vector3 Entity::GetRight()
 {
 	//Calculate quaternion rotation
-	glm::quat rot = glm::quat(glm::vec3(rotation.x, rotation.y, rotation.z));
+	Vector3 radians;
+	radians.x = glm::radians(rotation.x);
+	radians.y = glm::radians(rotation.y);
+	radians.z = glm::radians(rotation.z);
+	glm::quat rot = glm::quat(glm::vec3(radians.x, radians.y, radians.z));
 
 	//Calculate right
 	glm::vec3 localRight = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -196,7 +204,11 @@ Vector3 Entity::GetRight()
 Vector3 Entity::GetUp()
 {
 	//Calculate quaternion rotation
-	glm::quat rot = glm::quat(glm::vec3(rotation.x, rotation.y, rotation.z));
+	Vector3 radians;
+	radians.x = glm::radians(rotation.x);
+	radians.y = glm::radians(rotation.y);
+	radians.z = glm::radians(rotation.z);
+	glm::quat rot = glm::quat(glm::vec3(radians.x, radians.y, radians.z));
 
 	//Calculate up
 	glm::vec3 localUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -209,24 +221,26 @@ Vector3 Entity::GetUp()
 
 
 const glm::mat4 identity = glm::mat4(1.0f);
-const glm::vec3 xRotAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-const glm::vec3 yRotAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+const glm::vec3 xRotAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+const glm::vec3 yRotAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 const glm::vec3 zRotAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 void Entity::UpdateModel(bool isModelCreated)
 {
 	glm::mat4 trans = glm::translate(identity, glm::vec3(translation.x, translation.y, translation.z));
 	
-	glm::mat4 rot = glm::rotate(identity,  glm::radians(rotation.x), xRotAxis); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	rot = glm::rotate(rot, glm::radians(rotation.y), yRotAxis);
-	rot = glm::rotate(rot, glm::radians(rotation.z), zRotAxis);
+	// where x, y, z is axis of rotation (e.g. 0 1 0)
+	glm::mat4 rotX = glm::rotate(identity,  glm::radians(rotation.x), xRotAxis);
+	glm::mat4 rotY = glm::rotate(identity, glm::radians(rotation.y), yRotAxis);
+	glm::mat4 rotZ = glm::rotate(identity, glm::radians(rotation.z), zRotAxis);
 
-	//glm::mat4 rot = glm::rotate(glm::mat4(1.0f), (rotation.z * 3.14f) / 180, glm::vec3(0, 0, 1)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	//rot = glm::rotate(rot, (rotation.y * 3.14f) / 180, glm::vec3(0, 1, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	//rot = glm::rotate(rot, (rotation.x * 3.14f) / 180, glm::vec3(1, 0, 0)); // where x, y, z is axis of rotation (e.g. 0 1 0)
-	
+	// glm::mat4 rot = glm::rotate(identity,  glm::radians(rotation.x), xRotAxis);
+	// rot = glm::rotate(rot, glm::radians(rotation.y), yRotAxis);
+	// rot = glm::rotate(rot, glm::radians(rotation.z), zRotAxis);
+
 	glm::mat4 scal = glm::scale(identity, glm::vec3(scale.x / 2, scale.y / 2, scale.z / 2));
 
-	glm::mat4 model = trans * rot * scal;
+	//glm::mat4 model = trans * rot * scal;
+	glm::mat4 model = trans * rotX * rotY * rotZ * scal;
 
 	if (isModelCreated)
 	{

@@ -12,7 +12,7 @@ public:
 	void Update();
 	void GetView(Vector3 cameraVecs[3]);
 	void SetFollow(Entity* target, Vector3 offset = zero);
-	void FollowTarget(bool rotateWithTarget = false);
+	void FollowTarget(bool firstPerson = false);
 	void LookAtTarget();
 	
 	void Translate(float x, float y, float z = 0);

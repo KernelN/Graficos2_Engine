@@ -20,6 +20,7 @@ private:
 	Entity3D* player;
 	Entity3D* enemy;
 	Entity3D* floor;
+	Entity3D* pointer;
 
 	bool firstPerson;
 
@@ -27,7 +28,9 @@ private:
 	int verticalMoveMod;
 	int horizontalMoveMod;
 
+	Vector3 cameraOffset;
 
+	void SetCameraOffset();
 	void MoveCamera();
 	void MovePlayer();
 	void RotatePlayer();
